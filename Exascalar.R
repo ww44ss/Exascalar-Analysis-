@@ -2,8 +2,8 @@
 
 ## Get the data
 
-##check for Exascalar Directory. If none exists create it
-if(!file.exists("./Exascalar")){dir.create("./Exascalar")}
+##check for Exascalar Directory. If none exists send error
+if(!file.exists("./Exascalar")){stop("it appears the data is not present")}
 ##past in the link for the .csv file of interest
 fileUrl <- ""
 
