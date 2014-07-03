@@ -1,0 +1,501 @@
+Green500_Rank,Site,Manufacturer,Computer,Country,Mflops_per_Watt,Power_(kw),TOP500_Rank,How
+1,"Interdisciplinary Centre for Mathematical and Computational Modeling, University of Warsaw",IBM,"BladeCenter QS22 Cluster, PowerXCell 8i 4.0 Ghz, Infiniband",Poland,536.24,34.63,422,submission
+2,DOE/NNSA/LANL,IBM,"BladeCenter QS22/LS21 Cluster, PowerXCell 8i 3.2 Ghz / Opteron DC 1.8 GHz, Infiniband",United States,458.33,138.00,61,submission
+2,IBM Poughkeepsie Benchmarking Center,IBM,"BladeCenter QS22/LS21 Cluster, PowerXCell 8i 3.2 Ghz / Opteron DC 1.8 GHz, Infiniband",United States,458.33,138.00,62,submission
+4,DOE/NNSA/LANL,IBM,"BladeCenter QS22/LS21 Cluster, PowerXCell 8i 3.2 Ghz / Opteron DC 1.8 GHz, Voltaire Infiniband",United States,444.94,2483.47,1,submission
+5,National Astronomical Observatory of Japan,Self-made,"GRAPE-DR accelerator Cluster, Infiniband",Japan,428.91,51.20,277,top500
+6,ASTRON/University Groningen,IBM,Blue Gene/P Solution,Netherlands,371.67,94.50,124,submission
+7,IBM - Rochester,IBM,Blue Gene/P Solution,United States,371.67,126.00,84,submission
+7,IBM Thomas J. Watson Research Center,IBM,Blue Gene/P Solution,United States,371.67,126.00,85,submission
+7,Max-Planck-Gesellschaft MPI/IPP,IBM,Blue Gene/P Solution,Germany,371.67,126.00,86,submission
+7,Bulgarian State Agency for Information Technology and Communications (SAITC),IBM,Blue Gene/P Solution,Bulgaria,371.67,63.00,245,submission
+7,Moscow State University,IBM,Blue Gene/P Solution,Russia,371.67,63.00,246,submission
+7,Oak Ridge National Laboratory,IBM,Blue Gene/P Solution,United States,371.67,63.00,247,submission
+7,"Stony Brook/BNL, New York Center for Computational Sciences",IBM,Blue Gene/P Solution,United States,371.67,63.00,248,submission
+14,EDF R&D,IBM,Blue Gene/P Solution,France,368.89,252.00,36,submission
+15,IDRIS,IBM,Blue Gene/P Solution,France,368.30,315.00,24,submission
+16,King Abdullah University of Science and Technology,IBM,Blue Gene/P Solution,Saudia Arabia,367.40,504.00,14,submission
+17,DOE/NNSA/LLNL,IBM,Blue Gene/P Solution,United States,366.58,1134.00,9,submission
+18,Forschungszentrum Juelich (FZJ),IBM,Blue Gene/P Solution,Germany,363.98,2268.00,3,submission
+19,Argonne National Laboratory,IBM,Blue Gene/P Solution,United States,363.98,1260.00,7,submission
+20,HWW/Universitaet Stuttgart,NEC,"NEC HPC 140Rb-1 Cluster, Xeon X5560 2.8Ghz, Infiniband",Germany,273.06,186.00,77,top500
+21,NASA/Goddard Space Flight Center,IBM,"iDataPlex, Xeon X55xx QC 2.8 GHz, Infiniband",United States,271.52,143.60,101,submission
+22,DOE/Bettis Atomic Power Laboratory,Atipa Technology,"Atipa Candor Cluster, Intel E5530 2.4 GHz, Myrinet 10G-MX",United States,267.79,65.50,478,top500
+22,Knolls Atomic Power Laboratory,Atipa Technology,"Atipa Candor Cluster, Intel E5530 2.4 GHz, Myrinet 10G-MX",United States,267.79,65.50,479,top500
+24,Nanyang Technological University,IBM,"iDataPlex, Xeon X55xx QC 2.93 GHz, Infiniband",Singapore,266.68,85.50,267,submission
+25,Geoscience,IBM,"iDataPlex, Xeon X55xx QC 2.8 GHz, Infiniband",United States,266.68,109.44,167,submission
+25,Geoscience,IBM,"iDataPlex, Xeon X55xx QC 2.8 GHz, Infiniband",United States,266.68,109.44,168,submission
+27,HPC2N - Umea University,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.5 GHz, IB, Windows HPC 2008/CentOS",Sweden,265.80,173.21,88,submission
+28,NASA/Goddard Space Flight Center,IBM,"iDataPlex, Xeon QC 2.5 GHz, Infiniband",United States,265.04,132.35,125,submission
+29,Wright-Patterson Air Force Base/DoD ASC,SGI,"SGI Altix ICE 8200 Enhanced LX, Xeon X5560 quad core 2.8 GHz",United States,251.40,84.17,308,top500
+30,IFREMER,SGI,"SGI Altix ICE 8200EX, Xeon X5560 quad core 2.8 GHz",France,248.26,85.98,301,submission
+31,Total Exploration Production,SGI,"SGI Altix ICE 8200EX, Xeon quad core 3.0 GHz",France,240.05,442.00,29,top500
+32,"HPCCC, Hong Kong Baptist University",Dell,"PowerEdge M600 Cluster, Intel E5430 2.66 Ghz, Infiniband",Hong Kong,238.08,73.00,486,top500
+33,NASA/Ames Research Center/NAS,SGI,"SGI Altix ICE 8200EX, Xeon QC 3.0/2.66 GHz",United States,233.02,2090.00,4,submission
+34,NERSC/LBNL,Cray Inc.,Cray XT4 QuadCore 2.3 GHz,United States,231.57,1150.00,11,top500
+35,Automotive Company (),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, Infiniband",United Kingdom,226.19,85.05,359,submission
+36,Turboinstitute,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, Infiniband",Slovenia,226.18,162.49,117,submission
+37,Joint Supercomputer Center,Hewlett-Packard,"Cluster Platform 3000 BL460c/BL2x220, Xeon 54xx 3 Ghz, Infiniband",Russia,217.98,327.00,54,top500
+38,HWW/Universitaet Stuttgart,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.83 GHz, Infiniband",Germany,217.30,134.94,166,submission
+39,Universität Ulm/ Universität Konstanz,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.83 GHz, Infiniband",Germany,217.30,88.28,360,submission
+40,Texas Advanced Computing Center/Univ. of Texas,Sun Microsystems,"SunBlade x6420, Opteron QC 2.3 Ghz, Infiniband",United States,216.60,2000.00,8,top500
+41,Cray Inc.,Cray Inc.,Cray XT5 SixCore 2.4 GHz,United States,214.16,154.79,132,derived
+42,Cray Inc.,Cray Inc.,Cray XT5 SixCore 2.4 GHz,United States,214.15,158.35,128,derived
+43,IT Services (E),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.66 GHz, Infiniband",United States,213.11,115.09,232,submission
+44,University of Bristol,ClusterVision/IBM,"xSeries x3450 Cluster Xeon quad core, 2.8 GHz, Infiniband",United Kingdom,213.10,135.03,174,top500
+45,Grand Equipement National de Calcul Intensif - Centre Informatique National de l'Enseignement Supérieur (GENCI-CINES),SGI,"SGI Altix ICE 8200EX, Xeon quad core 3.0 GHz",France,211.12,608.18,20,submission
+46,Forschungszentrum Juelich (FZJ),IBM,eServer Blue Gene Solution,Germany,208.31,179.20,111,submission
+46,"Computational Biology Research Center, AIST",IBM,eServer Blue Gene Solution,Japan,208.31,89.60,393,submission
+46,EDF R&D,IBM,eServer Blue Gene Solution,France,208.31,89.60,394,submission
+46,Ecole Polytechnique Federale de Lausanne,IBM,eServer Blue Gene Solution,Switzerland,208.31,89.60,395,submission
+46,High Energy Accelerator Research Organization /KEK,IBM,eServer Blue Gene Solution,Japan,208.31,89.60,396,submission
+46,High Energy Accelerator Research Organization /KEK,IBM,eServer Blue Gene Solution,Japan,208.31,89.60,397,submission
+46,Indian Institute of Science,IBM,eServer Blue Gene Solution,India,208.31,89.60,398,submission
+53,HLRN at Universitaet Hannover / RRZN,SGI,"SGI Altix ICE 8200EX, Xeon quad core 3.0 GHz",Germany,206.58,129.20,199,top500
+53,HLRN at ZIB/Konrad Zuse-Zentrum fuer Informationstechnik,SGI,"SGI Altix ICE 8200EX, Xeon quad core 3.0 GHz",Germany,206.58,129.20,200,top500
+55,DOE/NNSA/LLNL,IBM,eServer Blue Gene Solution,United States,205.27,2329.60,5,submission
+56,Irish Centre for High-End Computing,SGI,"SGI Altix ICE 8200EX, Xeon quad core 2.80 GHz",Ireland,204.55,122.76,222,submission
+57,Geoscience,IBM,"iDataPlex, Xeon QC 3.0 GHz, Infiniband",United States,204.52,103.19,309,submission
+57,Geoscience,IBM,"iDataPlex, Xeon QC 3.0 GHz, Infiniband",United States,204.52,103.19,310,submission
+59,Postsdam Institute for Climate Impact Research,IBM,"iDataPlex, Xeon QC 3.0 GHz, Infiniband",Germany,204.50,115.13,244,submission
+60,Johns Hopkins University,IBM,"iDataPlex, Xeon QC 3.0 GHz, Infiniband",United States,204.50,89.86,442,submission
+61,ASTRON/University Groningen,IBM,eServer Blue Gene Solution,Netherlands,204.24,134.40,188,submission
+62,"Stony Brook/BNL, New York Center for Computational Sciences",IBM,eServer Blue Gene Solution,United States,203.77,403.20,45,submission
+62,"Rensselaer Polytechnic Institute, Computational Center for Nanotechnology Innovations",IBM,eServer Blue Gene Solution,United States,203.77,358.40,52,submission
+64,IBM Thomas J. Watson Research Center,IBM,eServer Blue Gene Solution,United States,203.77,448.00,37,submission
+65,Geoscience (P),IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.66 GHz, GigEthernet",United States,200.78,144.90,169,submission
+65,Geoscience (P),IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.66 GHz, GigEthernet",United States,200.78,144.90,170,submission
+65,Geoscience (P),IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.66 GHz, GigEthernet",United States,200.78,144.90,171,submission
+65,Geoscience (P),IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.66 GHz, GigEthernet",United States,200.78,144.90,172,submission
+69,ENEA,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.33 GHz, Infiniband",Italy,198.62,112.52,273,submission
+70,Universitaet Aachen/RWTH,UNICORNER/Fujitsu-Siemens,"PRIMERGY RX200 S4 Cluster, Quad Core 3Ghz, Infiniband, Windows HPC 2008",Germany,195.47,96.23,387,submission
+71,SciNet/University of Toronto,IBM,"iDataPlex, Xeon E55xx QC 2.53 GHz, GigE",Canada,193.93,869.40,16,submission
+72,Harvard University - FAS Research Computing,Dell,"PowerEdge M600 Cluster, Xeon E5410 2.3Ghz, Infiniband",United States,188.96,171.52,135,submission
+73,RQCHP/Compute Canada,SGI,"Altix XE320 Cluster, Xeon 2.8Ghz, Infiniband",Canada,187.34,115.30,292,top500
+74,Semiconductor Company (C),IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.93 GHz, GigEthernet",United States,181.07,103.80,388,submission
+75,"NanJing Institute of Geophysical Prospecting, PEPRIS, SINOPEC",IBM,"BladeCenter HS21 Cluster, Xeon quad core 2.66 GHz, Infiniband",China,179.33,95.54,496,submission
+76,Moscow State University - Research Computing Center,SKIF/T-Platforms,"T-Platforms T60, Intel Quadcore 3Mhz, Infiniband DDR",Russia,178.00,265.00,82,top500
+77,Forschungszentrum Juelich (FZJ),Bull SA,"Sun Constellation, NovaScale R422-E2, Intel Xeon X5570, 2.93 GHz, Sun M9/Mellanox  QDR Infiniband/Pa",Germany,177.40,1549.00,10,top500
+78,"Computational Research Laboratories, TATA SONS",Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 53xx 3GHz, Infiniband",India,168.96,786.00,18,top500
+79,University of Alaska - Arctic Region Supercomputing Center,Cray Inc.,Cray XT5 QC 2.3 GHz,United States,164.60,159.84,203,top500
+80,R-Systems,Dell,"Dell DCS CS23-SH, QC HT 2.8 GHz, Infiniband",United States,163.61,241.92,100,derived
+81,Cardiff University - ARCCA,Bull SA,"Novascale R422 Cluster, Xeon E5472, 3.00 GHz, Infiniband",United Kingdom,163.58,123.00,332,submission
+82,Max-Planck-Gesellschaft MPI/Albert-Einstein-Institut,Pyramid Computer,"Pyramid Cluster Xeon QC 32xx 2.4 GHz, GigEthernet",Germany,163.18,201.00,134,top500
+83,Clemson University,Dell/Sun,"PowerEdge 1950/SunFire X2200 Cluster Intel 53xx/54xx 2.33Ghz, Opteron 2.3 Ghz, Myrinet 10G",United States,160.04,285.00,89,top500
+84,US Army Research Laboratory (ARL),Cray Inc.,Cray XT5 QC 2.3 GHz,United States,159.67,481.00,48,top500
+85,SGI,SGI,"SGI Altix ICE 8200, 3.0 GHz",United States,157.27,123.10,356,submission
+86,Maui High-Performance Computing Center (MHPCC),Dell,"PowerEdge 1955, 3.0 GHz, Infiniband",United States,155.27,273.00,95,derived
+87,"Supercomputing and Visualization in Paralel Laboratory, Universidad Autonoma Metropolitana",LUFAC Computacion SA de CV,"Lufac Cluster, Intel Xeon E54xx 3.0 Ghz, Infiniband",Mexico,154.97,119.25,439,derived
+88,New Mexico Computing Applications Center (NMCAC),SGI,"SGI Altix ICE 8200, Xeon quad core 3.0 GHz",United States,154.59,861.63,17,top500
+89,Naval Oceanographic Office - NAVO MSRC,Cray Inc.,Cray XT5 QC 2.3 GHz,United States,154.25,588.90,39,top500
+90,Oak Ridge National Laboratory,Cray Inc.,Cray XT5 QC 2.3 GHz,United States,152.36,6950.60,2,top500
+91,Texas Advanced Computing Center/Univ. of Texas,Dell,"PowerEdge 1955, 2.66 GHz, Infiniband",United States,152.21,307.02,87,derived
+92,University of Utah,Sun Microsystems,"SunBlade x2250, Xeon E5420 2.8GHz, InfiniPath",United States,152.08,115.20,480,derived
+93,Kurchatov Institute Moscow,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 53xx 2.33GHz, Infiniband",Russia,150.18,167.00,223,top500
+94,"Computer Network Information Center, Chinese Academy of Science",Lenovo,"DeepComp 7000, HS21/x3950 Cluster, Xeon QC HT 3 GHz/2.93 GHz, Infiniband",China,149.60,687.15,31,derived
+95,University of Bergen,Cray Inc.,Cray XT4 QuadCore 2.3 GHz,Norway,147.75,274.73,98,top500
+96,Distribution,IBM,"xSeries x3550 Cluster, QC HT Xeon 2.66 GHz, Infiniband",United States,147.64,135.50,337,submission
+96,Distribution,IBM,"xSeries x3550 Cluster, QC HT Xeon 2.66 GHz, Infiniband",United States,147.64,135.50,338,submission
+98,CSC (Center for Scientific Computing),Cray Inc.,Cray XT5/XT4 QC 2.3 GHz,Finland,146.91,520.80,49,submission
+99,Network Company,IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.53 GHz, GigEthernet",China,146.34,212.06,151,submission
+99,Network Company,IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.53 GHz, GigEthernet",China,146.34,212.06,152,submission
+99,Network Company,IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.53 GHz, GigEthernet",China,146.34,212.06,153,submission
+99,Network Company,IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.53 GHz, GigEthernet",China,146.34,212.06,154,submission
+103,Network Company,IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.53 GHz, GigEthernet",China,146.33,194.39,177,submission
+104,Center for Development of Advanced Computing (C-DAC),Hewlett-Packard,"PARAMcluster, Xeon 73xx 2.93 Ghz, Infiniband",India,145.85,259.20,109,derived
+105,Idaho National Laboratory,SGI,"SGI Altix ICE 8200, 2.66 GHz",United States,144.44,123.10,470,submission
+106,Financial Institution,IBM,"xSeries x3550 Cluster Xeon quad core 3.0 GHz, Infiniband",United States,143.56,126.00,457,submission
+107,Swiss Scientific Computing Center (CSCS),Cray Inc.,Cray XT5 QC 2.4 GHz,Switzerland,143.50,819.53,23,derived
+108,National Astronomical Observatory of Japan,Cray Inc.,Cray XT4 QuadCore 2.2 GHz,Japan,142.62,160.78,259,top500
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,423,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,424,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,425,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,426,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,427,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,428,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,429,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,430,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,431,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,432,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,433,submission
+109,Financial Services (H),IBM,"iDataPlex, Xeon QC 2.5 GHz, GigEthernet",United States,142.46,130.20,434,submission
+121,Cray Inc.,Cray Inc.,Cray XT5 QC 2.4 GHz,United States,142.11,476.82,57,derived
+122,Clemson University Computational Center for Mobility Systems,Sun Microsystems,"SunBlade x6250, Xeon L5420 2.5GHz, Infiniband DDR",United States,141.45,193.50,194,derived
+123,National Institute for Computational Sciences/University of Tennessee,Cray Inc.,Cray XT4 QuadCore 2.3 GHz,United States,140.78,888.82,21,top500
+124,University of Minnesota,SGI,"SGI Altix XE 1300 Cluster Solutions, 2.66GHZ, Infiniband",United States,137.99,125.44,490,derived
+125,Network Company,IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.53 GHz, GigEthernet",China,137.19,282.75,102,submission
+125,Network Company,IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.53 GHz, GigEthernet",China,137.19,282.75,103,submission
+125,Network Company,IBM,"BladeCenter HS22 Cluster, Xeon QC GT 2.53 GHz, GigEthernet",China,137.19,282.75,104,submission
+128,NCSA,Dell,"PowerEdge 1955, 2.33 GHz, Infiniband, Windows Server 2008/Red Hat Enterprise Linux 4",United States,136.12,503.08,56,derived
+129,ERDC MSRC,Cray Inc.,Cray XT4 QuadCore 2.1 GHz,United States,134.26,418.97,67,top500
+130,Environment Canada,IBM,eServer pSeries p5 575 1.9 GHz,Canada,133.02,161.98,295,submission
+131,University of North Carolina,Dell,"PowerEdge 1955, 2.33 GHz, Cisco/Topspin Infiniband",United States,131.73,218.40,175,derived
+132,Lawrence Livermore National Laboratory,Appro International,"Appro Xtreme-X3 Server - Quad Opteron Quad Core 2.3 GHz, Infiniband",United States,131.63,776.42,32,derived
+133,IT Consulting,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.66 GHz, GigEthernet",United States,131.11,145.30,365,submission
+134,"Information Technology Center, The University of Tokyo",Hitachi,"Hitachi Cluster Opteron QC 2.3 GHz, Myrinet 10G",Japan,129.95,638.60,42,top500
+135,Oak Ridge National Laboratory,Cray Inc.,Cray XT4 QuadCore 2.1 GHz,United States,129.69,1580.71,12,top500
+136,Gaming,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",France,128.52,142.49,443,submission
+136,Gaming,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",France,128.52,142.49,444,submission
+138,Petroleum Company,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.66 GHz, GigEthernet",China,128.36,172.50,275,submission
+139,Arizona State University HPCI / Translational Genomics Research Institute HPBC,Dell,"PowerEdge M100e/M600, E54xx/X5355 2.83/2.66 GHz, Infiniband",United States,127.45,236.25,160,derived
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,366,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,367,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,368,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,369,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,370,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,371,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,372,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,373,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,374,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,375,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,376,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,377,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,378,submission
+140,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,127.32,149.47,379,submission
+154,Data Management,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.66 GHz, GigEthernet",United States,127.31,185.50,242,submission
+155,Digital Media,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,126.57,159.95,329,submission
+155,Digital Media,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,126.57,159.95,330,submission
+157,National Institute for Computational Sciences/University of Tennessee,Cray Inc.,Cray XT5 QC 2.3 GHz,United States,126.26,3669.53,6,derived
+158,NOAA/ESRL/GSD,Raytheon-Aspen Systems/Appro,"NOW Cluster - Intel Xeon 51xx/E54xx 2.8 Ghz, Infiniband",United States,124.91,214.00,197,top500
+159,Retail,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.66 GHz, GigEthernet",United States,124.30,198.47,229,submission
+160,Financial Institution (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.83 GHz, GigEthernet",France,124.21,172.77,297,submission
+160,Financial Institution (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.83 GHz, GigEthernet",France,124.21,172.77,298,submission
+160,Financial Institution (P),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.83 GHz, GigEthernet",France,124.21,172.77,299,submission
+163,Semiconductor Company (C),IBM,"xSeries x3450 Cluster Xeon quad core, 3.0 GHz, GigEthernet",United States,121.80,152.07,436,submission
+163,Semiconductor Company (C),IBM,"xSeries x3450 Cluster Xeon quad core, 3.0 GHz, GigEthernet",United States,121.80,152.07,437,submission
+163,Semiconductor Company (C),IBM,"xSeries x3450 Cluster Xeon quad core, 3.0 GHz, GigEthernet",United States,121.80,152.07,438,submission
+166,Kyoto University,Fujitsu,"Fujitsu Cluster HX600, Opteron Quad Core, 2.3 GHz, Infiniband",Japan,121.42,416.00,78,derived
+167,HLRN at Universitaet Hannover / RRZN,SGI,"SGI Altix ICE 8200EX, Xeon X5570 quad core 2.93 GHz",Germany,120.98,682.50,43,derived
+167,HLRN at ZIB/Konrad Zuse-Zentrum fuer Informationstechnik,SGI,"SGI Altix ICE 8200EX, Xeon X5570 quad core 2.93 GHz",Germany,120.98,682.50,44,derived
+169,Semiconductor Company (D),IBM,"xSeries x3450 Cluster Xeon quad core, 3.0 GHz, GigEthernet",Israel,120.46,204.80,228,submission
+170,"University of Tokyo/Human Genome Center, IMS",Sun Microsystems,"SunBlade x6250, Xeon E5450 3GHz, Infiniband",Japan,120.04,451.58,69,derived
+171,Data Warehouse,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.5 GHz, GigEthernet",United States,119.06,152.70,456,submission
+172,Retail,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.5 GHz, GigEthernet",United States,119.05,149.00,471,submission
+172,Retail,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.5 GHz, GigEthernet",United States,119.05,149.00,472,submission
+174,Classified,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.5 GHz, GigEthernet",United States,119.05,173.12,322,submission
+175,US Army Research Laboratory (ARL),SGI,"SGI Altix ICE 8200 Enhanced LX, Xeon X5560 quad core 2.8 GHz",United States,118.34,591.50,55,derived
+176,National Institute for Materials Science,SGI,"SGI Altix ICE 8200EX, Xeon X5560 quad core 2.8 GHz",Japan,117.28,364.00,93,derived
+177,Lawrence Livermore National Laboratory,Appro International,"Appro XtremeServer 1143H, Opteron QC 2.2Ghz, Infiniband",United States,115.54,1139.00,19,derived
+178,"Center for Computational Sciences, University of Tsukuba",Appro International,"Appro Xtreme-X3 Server - Quad Opteron Quad Core 2.3 GHz, Infiniband",Japan,115.03,671.80,47,top500
+179,Institute of Physical and Chemical Res. (RIKEN),Fujitsu,"PRIMERGY RX200S5 Cluster, Xeon X5570 2.93GHz, Infiniband DDR",Japan,110.60,794.64,40,derived
+180,Geoscience,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.66 GHz, GigEthernet",United States,107.25,192.95,318,submission
+180,Geoscience,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.66 GHz, GigEthernet",United States,107.25,192.95,319,submission
+180,Geoscience,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.66 GHz, GigEthernet",United States,107.25,192.95,320,submission
+183,Information Services,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.33 GHz, GigEthernet",United States,106.69,171.03,452,submission
+183,Information Services,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.33 GHz, GigEthernet",United States,106.69,171.03,453,submission
+183,Information Services,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.33 GHz, GigEthernet",United States,106.69,171.03,454,submission
+186,Petro China,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.33 GHz, GigEthernet",China,106.67,162.70,489,submission
+187,CNPC Sichuan Geophysical Company,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.66 GHz, GigEthernet",China,104.93,235.10,230,submission
+188,CERN,Self-made,"NOW Cluster - Intel Xeon 53xx, 2.33 GHz, GigEthernet",Switzerland,104.73,188.00,348,derived
+189,Shanghai Supercomputer Center,Dawning,"Dawning 5000A, QC Opteron 1.9 Ghz, Infiniband, Windows HPC 2008",China,104.51,1728.00,15,derived
+190,National Center for High Performance Computing,IBM,"xSeries x3550 Cluster Xeon, 3 GHz, Infiniband",Taiwan,102.93,193.44,342,submission
+191,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,99.85,174.66,484,top500
+192,Financial Services (H),IBM,"BladeCenter HS21 Cluster, Xeon QC HT 3 GHz, GigEthernet",United States,97.66,252.60,227,submission
+193,Government,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, Infiniband",Germany,97.54,175.62,497,derived
+194,IT Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3 GHz, Infiniband",India,97.45,198.35,357,derived
+195,Merlion Trade GmbH,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, Infiniband",Austria,97.31,235.20,264,derived
+195,Merlion Trade GmbH,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, Infiniband",Austria,97.31,235.20,265,derived
+197,Merlion Trade GmbH,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, Infiniband",Austria,97.20,266.56,212,derived
+197,Merlion Trade GmbH,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, Infiniband",Austria,97.20,266.56,213,derived
+199,University of British Columbia,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, Infiniband",Canada,97.06,302.62,163,derived
+200,Jeraisy Computer and Communication Services,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3 GHz, Infiniband",Saudia Arabia,96.65,410.82,99,derived
+201,Retail,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.33 GHz, GigEthernet",United States,96.02,225.05,291,submission
+202,IBM Poughkeepsie Benchmarking Center,IBM,"Power 575, p6 4.7 GHz, Infiniband",United States,95.61,184.10,476,submission
+203,National Center for Medium Range Weather Forecast,IBM,"Power 575, p6 4.7 GHz, Infiniband",India,95.59,204.60,351,submission
+203,United Kingdom Meteorological Office,IBM,"Power 575, p6 4.7 GHz, Infiniband",United Kingdom,95.59,204.60,352,submission
+205,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, Infiniband",Russia,94.40,1003.52,35,derived
+206,SHARCNET - University of Western Ontario,Hewlett-Packard,"Cluster Platform 3000 BL260c G5, Xeon QC 2.83Ghz, Infiniband",Canada,94.18,263.42,224,derived
+207,Barcelona Supercomputing Center,IBM,"BladeCenter JS21 Cluster, PPC 970, 2.3 GHz, Myrinet",Spain,93.38,683.59,60,submission
+208,Cambridge University,ClusterVision/Dell,"PowerEdge 1950, 3.0 GHz, Infinipath",United Kingdom,93.23,195.98,449,derived
+209,University of Reading,IBM,"BladeCenter JS21 Cluster, PPC 970, 2.5 GHz, Myrinet",United Kingdom,93.00,215.60,335,submission
+210,Financial Institution (),IBM,"BladeCenter HS21 Cluster, Xeon QC 2.33 GHz, GigEthernet",France,92.84,232.76,289,submission
+211,Defense,IBM,"BladeCenter HS21 Cluster, Xeon QC HT 2.83 GHz, GigEthernet",United States,92.71,266.10,226,submission
+212,IDRIS,IBM,"Power 575, p6 4.7 GHz, Infiniband",France,92.20,572.79,72,submission
+213,United Kingdom Meteorological Office,IBM,"Power 575, p6 4.7 GHz, Infiniband",United Kingdom,92.19,562.60,73,submission
+213,United Kingdom Meteorological Office,IBM,"Power 575, p6 4.7 GHz, Infiniband",United Kingdom,92.19,562.60,74,submission
+215,SARA (Stichting Academisch Rekencentrum),IBM,"Power 575, p6 4.7 GHz, Infiniband",Netherlands,92.00,531.88,79,submission
+215,SciNet/University of Toronto,IBM,"Power 575, p6 4.7 GHz, Infiniband",Canada,92.00,531.88,80,submission
+217,NCAR (National Center for Atmospheric Research),IBM,"Power 575, p6 4.7 GHz, Infiniband",United States,91.89,649.51,64,submission
+218,IT Services Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5440 2.83 GHz, Infiniband",Sweden,91.66,274.01,221,derived
+219,Naval Oceanographic Office - NAVO MSRC,IBM,"Power 575, p6 4.7 GHz, Infiniband",United States,91.58,782.48,53,submission
+220,National Centers for Environment Prediction,IBM,"Power 575, p6 4.7 GHz, Infiniband",United States,91.58,675.08,63,submission
+221,CINECA,IBM,"Power 575, p6 4.7 GHz, Infiniband",Italy,91.57,859.19,46,submission
+222,National Centers for Environment Prediction,IBM,"Power 575, p6 4.7 GHz, Infiniband",United States,91.57,797.82,51,submission
+223,Sardegna Ricerche,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5440 2.83 GHz, Infiniband",Italy,91.56,302.62,186,derived
+224,IT Services Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5440 2.83 GHz, Infiniband",Sweden,91.52,312.03,176,derived
+225,Geophysics Company,DALCO AG Switzerland,"Dalco r2164i Cluster, X54xx 3.0 Ghz, Quadrics",Switzerland,91.51,316.80,173,derived
+226,Max-Planck-Gesellschaft MPI/IPP,IBM,"Power 575, p6 4.7 GHz, Infiniband",Germany,91.47,1073.99,33,submission
+227,IT Service Provider (D),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5440 2.83 GHz, Infiniband",United States,91.15,416.30,108,derived
+228,Indiana University,IBM,"BladeCenter JS21 Cluster, PPC 970, 2.5 GHz, Myrinet",United States,90.01,242.07,282,submission
+229,DKRZ - Deutsches Klimarechenzentrum,IBM,"Power 575, p6 4.7 GHz, Infiniband",Germany,89.94,1288.69,27,submission
+230,Universitaet Mainz,Hewlett-Packard,"Cluster Platform 3000 DL160, Xeon 54xx 2.8 GHz, Infiniband",Germany,88.57,196.00,488,derived
+231,National Institute for Fusion Science (NIFS),Hitachi,"Hitachi SR16000 Model L2, Power6 4.7Ghz, Infiniband",Japan,87.83,645.00,65,top500
+232,ECMWF,IBM,"Power 575, p6 4.7 GHz, Infiniband",United Kingdom,87.16,1329.70,25,submission
+232,ECMWF,IBM,"Power 575, p6 4.7 GHz, Infiniband",United Kingdom,87.16,1329.70,26,submission
+234,Semiconductor Company (C),IBM,"xSeries x3450 Cluster Xeon quad core, 3.0 GHz, GigEthernet",United States,87.02,207.00,458,submission
+234,Semiconductor Company (C),IBM,"xSeries x3450 Cluster Xeon quad core, 3.0 GHz, GigEthernet",United States,87.02,207.00,459,submission
+236,Commissariat a l'Energie Atomique (CEA)/CCRT,Bull SA,BULL Novascale R422-E2,France,86.80,1050.56,38,derived
+237,University of Southern California,Dell/Sun,"PowerEdge 1950/SunFire X2200 Cluster Intel 53xx 2.33Ghz, Opteron 2.3 Ghz, Myrinet 10G",United States,86.42,594.89,76,derived
+238,Merlion Trade GmbH,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon 5430 2.66 GHz, Infiniband",Austria,86.29,234.02,331,derived
+239,Research Institution,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.66GHz, Infiniband",Spain,84.80,275.97,249,derived
+240,Intel,Intel,"Intel Cluster, Xeon X5560, 2.8 GHz, Infiniband",United States,84.51,426.00,119,derived
+241,Data Processing,IBM,"xSeries x3550 Cluster Xeon QC HT, 2.5 GHz, GigEthernet",United States,83.09,209.50,485,submission
+242,Software,IBM,"xSeries x3550 Cluster Xeon QC HT, 2.5 GHz, GigEthernet",United States,83.08,219.72,451,submission
+243,Software,IBM,"xSeries x3550 Cluster Xeon QC HT, 2.5 GHz, GigEthernet",United States,83.07,240.57,339,submission
+244,CINECA,IBM,"BladeCenter HS21 Cluster, Xeon dual core 3.0 GHz, Infiniband",Italy,81.56,244.12,340,submission
+244,CINECA,IBM,"BladeCenter HS21 Cluster, Xeon dual core 3.0 GHz, Infiniband",Italy,81.56,244.12,341,submission
+246,NNSA/Sandia National Laboratories,Cray Inc.,"Sandia/ Cray Red Storm, XT3/4, 2.4/2.2 GHz dual/quad core",United States,81.48,2506.00,13,top500
+247,University of Minnesota/Supercomputing Institute,Hewlett-Packard,"Cluster Platform 3000 BL280c G6, Xeon X55xx 2.8Ghz, Infiniband",United States,81.14,788.70,59,derived
+248,University of Oklahoma,Dell,"PowerEdge 1950, Xeon E54xx, 2 GHz, Infiniband",United States,80.87,346.61,183,derived
+249,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5420 2.5 GHz, Infiniband",United Kingdom,80.80,330.06,201,derived
+250,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, Infiniband",Spain,80.33,476.67,106,derived
+251,"GSIC Center, Tokyo Institute of Technology",NEC/Sun,"Sun Fire x4600/x6250, Opteron 2.4/2.6 GHz, Xeon E5440 2.833 GHz, ClearSpeed CSX600, nVidia GT200; Vo",Japan,78.89,1103.00,41,submission
+252,Data Processing,IBM,"xSeries x3550 Cluster Xeon QC, 2.333 GHz, GigEthernet",United States,77.94,257.00,336,submission
+253,Web Services,IBM,"BladeCenter HS21 Cluster, Xeon QC 2.33 GHz, GigEthernet",United States,77.62,278.40,287,submission
+254,Institute of Engineering Mechanics,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon 5430 2.66 GHz, Infiniband",China,77.30,301.06,251,derived
+255,Universitaet Dortmund,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, Infiniband",Germany,77.14,301.06,253,derived
+256,Energy Company (G),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,76.82,342.19,204,top500
+256,Energy Company (G),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,76.82,342.19,205,top500
+258,Louisiana Optical Network Initiative,Dell,"PowerEdge 1950, 2.33 GHz, Infiniband",United States,76.34,455.60,126,derived
+259,Government Agency,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 53xx 2.66GHz, Infiniband",Sweden,75.92,1354.03,30,derived
+260,"Gdansk University of Technology, CI Task",ACTION,ACTION Cluster Xeon E5345 Infiniband,Poland,75.73,504.00,107,derived
+261,National Supercomputer Centre (NSC),Hewlett-Packard,"Cluster Platform 3000 DL140 Cluster, Xeon 53xx 2.33GHz Infiniband",Sweden,74.52,631.12,83,derived
+262,Engineering Company,Hewlett-Packard,"Cluster Platform 4000 BL465c, Opteron QC 2.3GHz, Infniband DDR",Germany,74.05,501.76,112,derived
+263,Commissariat a l'Energie Atomique (CEA),Bull SA,"NovaScale 5160, Itanium2 1.6 GHz, Quadrics",France,70.68,747.60,71,derived
+264,Financial Institution,Hewlett-Packard,"Cluster Platform 4000 BL685c, Opteron QC 2.2GHz, Infiniband",United States,70.56,522.93,116,derived
+265,Data Processing,IBM,"xSeries x3550 Cluster Xeon QC, 2.333 GHz, GigEthernet",United States,69.30,311.80,290,submission
+266,JAXA,Fujitsu,"Fujitsu FX1, Quadcore  SPARC64 VII  2.52 GHz, Infiniband DDR",Japan,66.85,1654.40,28,derived
+267,Diasa Informatica,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",Spain,66.70,256.37,499,derived
+268,IT Services Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5450 3.0 GHz, GigE",Sweden,66.65,257.54,494,derived
+269,Financial Services (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,66.59,258.72,492,derived
+270,OCS Distribution Deutschalnd GmbH,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",Germany,66.46,261.46,487,derived
+271,IT Services Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",Sweden,66.29,264.99,477,top500
+272,Wright-Patterson Air Force Base/DoD ASC,SGI,Altix 4700 1.6 GHz,United States,66.18,777.29,75,submission
+273,Financial Institution,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5450 3.0 GHz, GigE",France,66.03,270.48,466,derived
+274,Financial Services (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,66.00,271.26,462,derived
+275,Caltech,Dell,"PowerEdge 1950, 2.33 GHz, Myrinet",United States,65.85,343.04,269,derived
+276,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,65.80,277.54,450,derived
+277,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,65.77,288.12,383,derived
+278,Financial Institution,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",France,65.77,288.12,384,derived
+279,IT Services Provider (B),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",India,65.76,290.86,363,derived
+280,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,65.76,293.22,358,derived
+281,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.75,295.18,354,derived
+282,IT Services Provider (B),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",Canada,65.70,315.56,317,derived
+283,Logistic Services (D),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",Germany,65.68,323.79,302,derived
+284,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,65.67,328.50,294,derived
+285,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,65.64,341.04,271,derived
+286,IT Service Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.61,350.45,258,derived
+287,Columbia University,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, GigE",United States,65.61,351.23,256,derived
+288,Semiconductor Company (O),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,65.61,352.02,255,derived
+289,IT Services Provider (B),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",Canada,65.61,352.80,254,derived
+290,Semiconductor Company (O),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,65.59,359.07,243,derived
+291,Logistic Services (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",Germany,65.59,360.64,241,derived
+292,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,65.58,362.99,239,derived
+293,Columbia University,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, GigE",United States,65.58,363.78,238,derived
+294,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,65.55,377.89,225,derived
+295,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.53,384.16,220,derived
+296,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.52,389.65,216,derived
+297,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.51,393.57,214,derived
+298,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.47,407.68,198,derived
+299,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.44,419.44,189,derived
+299,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.44,419.44,190,derived
+299,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.44,419.44,191,derived
+299,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.44,419.44,192,derived
+303,Semiconductor Company (O),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5450 3.0 GHz, GigE",United Kingdom,65.43,424.93,184,derived
+304,Logistic Services (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.41,431.59,182,derived
+305,Logistic Services (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.41,431.98,181,derived
+306,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.37,449.23,164,derived
+307,Network Equipment Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.35,454.72,161,derived
+308,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.31,473.54,157,derived
+309,IT Service Provider (D),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.30,476.67,150,derived
+310,IT Service Provider (B),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.26,492.35,137,derived
+311,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.26,493.92,136,derived
+312,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.21,511.17,130,derived
+313,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.21,511.17,131,derived 
+314,IT Service Provider (D),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.20,516.26,129,derived 
+315,Intel Corporation ORTO HPC,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,65.13,392.00,215,derived
+316,Entertainment Company,Hewlett-Packard,"Cluster Platform 3000 BL2x220, E54xx 3.0 Ghz, GigE",United States,65.11,551.94,120,derived
+317,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5450 3.0 GHz, GigE",United States,65.01,592.70,105,derived
+318,IT Service Provider (D),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,64.86,653.86,94,derived
+319,Consulting (C),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5450 3.0 GHz, GigE",United States,64.83,663.26,92,derived
+320,IT Service Provider (B),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,64.63,744.80,81,derived
+321,Financial Institution (U2),Hewlett-Packard,"Cluster Platform 3000 BL460c G6, Xeon X5570 2.93 GHz, GigE",United States,63.75,486.08,156,derived
+322,IT Services Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.83 GHz, GigEthernet",Sweden,62.04,290.08,460,derived
+323,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.83 GHz, GigEthernet",United Kingdom,62.00,305.76,380,derived
+323,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.83 GHz, GigEthernet",United States,62.00,305.76,381,derived
+323,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.83 GHz, GigEthernet",United States,62.00,305.76,382,derived
+326,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5440 2.83 GHz, GigE",United Kingdom,61.94,332.81,321,derived
+327,Semiconductor Company (P),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.83 GHz, GigEthernet",United States,61.90,349.66,286,derived
+328,Semiconductor Company (O),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5440 2.83 GHz, GigE",United Kingdom,61.89,354.37,278,derived
+329,Financial Institution (),IBM,"xSeries x3550 Cluster Xeon QC, 2.333 GHz, GigEthernet",United States,61.86,349.30,288,submission
+330,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon E5440 2.83 GHz, GigE",United Kingdom,61.85,370.05,266,derived
+331,Financial Institution (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.83 GHz, GigEthernet",United States,61.36,578.59,121,derived
+332,Life Science (C),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 2.33 GHz, GigEthernet",United States,60.27,284.50,495,submission
+333,Government,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,59.25,416.30,231,derived
+334,Semiconductor Company (Q),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,58.39,299.42,482,top500
+334,Semiconductor Company (Q),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,58.39,299.42,483,top500
+336,Semiconductor Company (O),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.66GHz, GigEthernet",United Kingdom,58.37,333.98,353,derived
+337,IT Service Provider (D),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.66GHz, GigEthernet",United States,58.30,362.99,304,derived
+338,Telecommunication Company,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.6 GHz, GigEthernet",China,58.28,303.41,473,derived
+338,Telecommunication Company,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.6 GHz, GigEthernet",Italy,58.28,303.41,474,derived
+340,Telecommunication Company,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon 5430 2.66 GHz, GigE",China,58.28,303.41,475,derived
+341,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.66GHz, GigEthernet",France,58.26,313.60,447,derived
+341,Logistic Services (D),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.66GHz, GigEthernet",Germany,58.26,313.60,448,derived
+343,IT Service Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.66GHz, GigEthernet",Belgium,58.22,390.43,268,derived
+344,Financial Institution,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.66GHz, GigEthernet",Sweden,58.21,336.34,350,derived
+345,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon 5430 2.66 GHz, GigE",United States,58.16,357.11,316,derived 
+346,gkv Informatik,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon 5430 2.66 GHz, GigE",Germany,58.08,396.70,257,derived
+347,IT Service Provider (B),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 53xx 2.66GHz, GigEthernet",United States,58.07,400.62,252,derived
+348,Medical Company,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon 5430 2.66 GHz, GigE",United States,58.05,407.68,240,derived
+349,Financial Institution,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon 5430 2.66 GHz, GigE",United States,57.98,438.26,219,derived
+350,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.66GHz, GigEthernet",France,57.91,470.40,195,derived
+351,Energy Company (G),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,57.84,342.19,343,top500
+351,Energy Company (G),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,57.84,342.19,344,top500
+351,Energy Company (G),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,57.84,342.19,345,top500
+351,Energy Company (G),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,57.84,342.19,346,top500
+355,Financial Institution,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",Sweden,57.77,373.82,293,derived
+356,Financial Institution,Hewlett-Packard,"Cluster Platform 3000 BL260c G5, Xeon QC 2.66Ghz, GigE",France,57.73,551.94,138,derived
+357,Purdue University,Dell,"PowerEdge 1950, Xeon E54xx, 2.33 GHz, GigE",United States,57.66,464.80,196,derived
+358,IT Service Provider (D),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,57.64,420.62,237,top500
+359,IT Service Provider,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,57.62,454.47,211,derived
+360,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,57.55,491.89,180,derived
+361,Atomic Weapons Establishment,Cray Inc.,"Cray XT3, 2.6 GHz dual Core",United Kingdom,57.51,589.97,127,derived
+362,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,57.51,510.61,165,top500
+363,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United Kingdom,57.50,514.18,162,derived
+364,US Army Research Laboratory (ARL),Linux Networx,Evolocity II (LS Supersystem) Xeon 51xx 3.0 GHz IB,United States,57.48,706.56,97,derived
+365,University College London (UCL),ClusterVision/Dell,"PowerEdge 1950, Xeon 51xx 3.06 GHz, Infinipath",United Kingdom,57.36,330.00,385,top500
+366,University of Tromso,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 53xx 2.66GHz, GigEthernet",Norway,57.36,555.50,139,derived
+367,WETA Digital,Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.5 Ghz, GigE",New Zealand,57.12,551.94,144,derived
+368,Leibniz Rechenzentrum,SGI,Altix 4700 1.6 GHz,Germany,57.08,990.24,66,top500
+369,ERDC MSRC,Cray Inc.,"Cray XT3, 2.6 GHz dual Core",United States,56.91,618.57,123,derived
+370,"Sinopec ShengLI Oilfield Branch Company, Geophysical Research Institute",IBM,"BladeCenter HS21 Cluster, Xeon dual core, 2.33 GHz, GigEthernet",China,56.49,329.24,421,submission
+371,Government,IBM,"xSeries x3650 Cluster Xeon dual core 2.66 GHz, GigEthernet",United States,55.72,320.79,463,submission
+371,Government,IBM,"xSeries x3650 Cluster Xeon dual core 2.66 GHz, GigEthernet",United States,55.72,320.79,464,submission
+373,Semiconductor Company (C),IBM,"BladeCenter HS21 Cluster, Xeon dual core 2.66 GHz, GigEthernet",United States,55.00,338.20,417,submission
+374,Data Processing,IBM,"BladeCenter HS21 Cluster, Xeon dual core, 2.33 GHz, GigEthernet",United States,54.84,339.18,420,submission
+375,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5420 2.5 GHz SP6872UK, GigE",United Kingdom,54.76,313.60,493,derived
+376,IT Service Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.5 GHz, GigEthernet",United States,54.72,328.50,461,derived
+377,IT Service Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.5 GHz, GigEthernet",United States,54.71,333.98,445,derived
+377,IT Service Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.5 GHz, GigEthernet",United States,54.71,333.98,446,derived
+379,Financial Services (H),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.5 GHz, GigEthernet",United States,54.64,370.83,328,derived
+380,Financial Services (H),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.5 GHz, GigEthernet",United States,54.61,382.59,314,derived
+381,Financial Services (H),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.5 GHz, GigEthernet",United States,54.58,399.06,283,derived
+381,Financial Services (H),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.5 GHz, GigEthernet",United States,54.58,399.06,284,derived
+383,Animal Logic,Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.5 Ghz, GigE",Australia,54.57,401.41,279,derived
+383,Financial Services (O),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 2.5 GHz, GigEthernet",United Kingdom,54.57,401.41,280,derived
+385,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5420 2.5 GHz, GigE",United Kingdom,54.57,402.58,276,derived
+386,Intel Corporation SCTO HPC,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 54xx 3.0GHz, GigEthernet",United States,54.56,508.03,185,derived
+387,IT Service Provider (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.5 GHz, GigEthernet",United States,54.55,410.03,272,derived
+388,Digital Media Company (D),Hewlett-Packard,"Cluster Platform 3000 BL260c G5, Xeon QC 2.5Ghz, GigE",United States,54.55,413.95,270,derived
+389,Pacific Northwest National Laboratory,Hewlett-Packard,"Cluster Platform 4000 DL185G5, Opteron QC 2.2 GHz, Infiniband DDR",United States,54.50,1781.25,34,derived
+390,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5420 2.5 GHz SP6852UK, GigE",United Kingdom,54.48,446.10,235,derived
+391,Kaiser,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5420 2.5 GHz, GigE",United States,54.43,468.83,217,derived
+392,Logistic Services,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5420 2.5 GHz, GigE",China,54.22,572.32,155,derived
+393,Financial Services (O),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5420 2.5 GHz, GigE",United Kingdom,54.20,578.59,149,derived
+394,WETA Digital,Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.5 Ghz, GigE",New Zealand,54.20,581.73,140,derived
+394,WETA Digital,Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.5 Ghz, GigE",New Zealand,54.20,581.73,141,derived
+394,WETA Digital,Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.5 Ghz, GigE",New Zealand,54.20,581.73,142,derived
+394,WETA Digital,Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.5 Ghz, GigE",New Zealand,54.20,581.73,143,derived
+398,NASA/Ames Research Center/NAS,SGI,"SGI Altix 1.5/1.6/1.66 GHz, Voltaire Infiniband",United States,54.19,1228.50,58,derived
+399,Logistic Services (C),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5420 2.5 GHz, GigE",United States,54.14,609.56,133,derived
+400,Max-Planck-Gesellschaft MPI/Eisenforschung,Megware,"MEGWARE MiriQuid X5400 Cluster, Xeon 3GHz, Infiniband",Germany,54.01,359.00,355,top500
+401,Financial Services (H),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5420 2.5 GHz, GigE",United States,53.71,814.58,90,derived
+402,Financial Institution (U1),IBM,"BladeCenter HS21 Cluster, Xeon QC 2.66 GHz, GigEthernet",United States,52.84,373.80,347,submission
+403,Network Equipment Provider,Hewlett-Packard,"Cluster Platform 3000 BL680c, Xeon 73xx 2.4 Ghz, GigabitEth",United States,52.51,340.26,465,derived
+404,Financial Institution (M),Hewlett-Packard,"Cluster Platform 3000 BL680c, Xeon 73xx 2.4 Ghz, GigabitEth",United States,52.49,351.23,440,derived
+405,Financial Services (O),IBM,"BladeCenter HS21 Cluster, Xeon dual core 2.66 GHz, GigEthernet",United Kingdom,51.92,329.16,500,submission
+406,Semiconductor Company (C),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.92,342.60,468,submission
+406,Semiconductor Company (C),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.92,342.60,469,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,402,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,403,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,404,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,405,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,406,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,407,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,408,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,409,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,410,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,411,submission
+408,Geoscience (P),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United States,51.12,363.88,412,submission
+419,The Earth Simulator Center,NEC,Earth Simulator,Japan,51.00,2400.00,22,derived
+420,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.33 GHz, GigEthernet",United States,50.98,338.69,491,derived
+421,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.33 Ghz, GigE",United States,50.93,367.70,389,derived
+421,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.33 Ghz, GigE",United States,50.93,367.70,390,derived
+421,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.33 Ghz, GigE",United States,50.93,367.70,391,derived
+424,Energy Company (G),Hewlett-Packard,"Cluster Platform 3000 DL140, Xeon 53xx 2.33GHz, GigEthernet",Malaysia,50.93,401.41,326,derived
+425,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.33 GHz, GigEthernet",United Kingdom,50.91,374.75,364,derived
+426,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.33 GHz, GigEthernet",United States,50.91,376.32,362,derived
+427,Financial Institution (D),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 53xx 2.33GHz, GigEthernet",United States,50.86,401.41,327,derived
+428,Information Agency,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.33 GHz, GigEthernet",France,50.84,412.38,312,derived
+429,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5410 2.33 GHz, GigE",United States,50.83,416.30,305,derived
+429,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5410 2.33 GHz, GigE",United States,50.83,416.30,306,derived
+429,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5410 2.33 GHz, GigE",United States,50.83,416.30,307,derived
+432,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.33 GHz, GigEthernet",United Kingdom,50.83,417.09,303,derived
+433,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2.33 GHz, GigEthernet",United States,50.81,426.50,285,derived
+434,Financial DCCoD (B),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 3.0 GHz, GigEthernet",United Kingdom,50.79,366.18,413,submission
+435,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.33 GHz, GigEthernet",United States,50.76,451.58,260,derived
+435,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.33 GHz, GigEthernet",United States,50.76,451.58,261,derived
+435,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.33 GHz, GigEthernet",United States,50.76,451.58,262,derived
+435,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.33 GHz, GigEthernet",United States,50.76,451.58,263,derived
+439,Information Agency,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 53xx 2.33GHz, GigEthernet",France,50.70,483.73,233,derived
+440,Government,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 53xx 2.33GHz, GigEthernet",United States,50.67,501.76,218,derived
+441,Government Classified,Hewlett-Packard,"Cluster Platform 6000 rx1620, Itanium2 1.6 GHz, Quadrics",United States,50.62,404.00,325,derived
+442,Telecommunication Company,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2.33 GHz, GigEthernet",China,50.58,547.23,187,derived
+443,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.33 Ghz, GigE",United States,50.47,602.11,158,derived
+443,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.33 Ghz, GigE",United States,50.47,602.11,159,derived
+445,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5410 2.33 GHz, GigE",United States,50.43,624.46,145,derived
+445,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5410 2.33 GHz, GigE",United States,50.43,624.46,146,derived
+445,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5410 2.33 GHz, GigE",United States,50.43,624.46,147,derived
+445,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5410 2.33 GHz, GigE",United States,50.43,624.46,148,derived
+449,Financial Institution (D),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 53xx 2.33GHz, GigEthernet",Germany,50.31,520.78,210,derived
+450,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 4000 BL465c, Opteron QC 2.3GHz, GigE",United Kingdom,50.31,347.70,481,derived
+451,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.33 Ghz, GigE",United States,50.28,702.46,122,derived
+452,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.33 Ghz, GigE",United States,50.21,735.39,113,derived
+452,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.33 Ghz, GigE",United States,50.21,735.39,114,derived
+452,Web Content Provider (W),Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.33 Ghz, GigE",United States,50.21,735.39,115,derived
+455,Financial Services (N),IBM,"BladeCenter HS21 Cluster, Xeon dual core 2.66 GHz, GigEthernet",United States,48.72,381.78,418,submission
+456,IT Service Provider (B),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 3.0GHz, Infiniband",United States,48.36,461.60,274,derived
+457,Banking (M),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 2.33 GHz, GigEthernet",United States,48.21,385.80,414,submission
+457,Banking (M),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 2.33 GHz, GigEthernet",United States,48.21,385.80,415,submission
+457,Banking (M),IBM,"BladeCenter HS21 Cluster, Xeon dual core, 2.33 GHz, GigEthernet",United States,48.21,385.80,416,submission
+460,Government,IBM,"xSeries x3650 Cluster Xeon dual core 2.66 GHz, GigEthernet",United States,47.02,395.61,419,submission
+461,Computacenter (UK) LTD,Hewlett-Packard,"Cluster Platform 3000 BL460c G5, Opteron 2352 2.1GHz, GigE",United Kingdom,45.52,583.30,202,derived
+462,Fermi National Accelerator Laboratory,Koi Computers,"Koi 1021TM-INF+B Twin, AMD QC 2.1GHz, Infiniband",United States,45.46,823.20,110,derived
+463,Audi AG,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 3.0GHz, Infiniband DDR",Germany,43.74,479.10,313,derived
+464,Semiconductor Company (C),IBM,"BladeCenter HS21 Cluster, Xeon dual core 2.66 GHz, GigEthernet",United States,43.63,426.30,400,submission
+464,Semiconductor Company (C),IBM,"BladeCenter HS21 Cluster, Xeon dual core 2.66 GHz, GigEthernet",United States,43.63,426.30,401,submission
+466,Telecommunication Company,Hewlett-Packard,"Cluster Platform 3000 BL460c G1, Xeon L5405 2 GHz, GigE",China,43.62,424.93,435,derived
+467,Cerner Corp.,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon E54xx 2 GHz, GigEthernet",United States,43.39,559.78,236,derived
+468,Software Company (M),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon L54xx 2 GHz, GigEthernet",United States,43.39,564.48,234,derived
+469,Semiconductor Company (Q),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 2.66GHz, Infiniband DDR",United States,41.64,631.25,206,top500
+469,Semiconductor Company (Q),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 2.66GHz, Infiniband DDR",United States,41.64,631.25,207,top500
+469,Semiconductor Company (Q),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 2.66GHz, Infiniband DDR",United States,41.64,631.25,208,top500
+469,Semiconductor Company (Q),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 2.66GHz, Infiniband DDR",United States,41.64,631.25,209,top500
+473,Semiconductor Company (P),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 2.66GHz, Infiniband DDR",United States,41.64,454.50,386,top500
+474,Semiconductor Company (P),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 2.66GHz, Infiniband DDR",United States,41.64,681.75,178,top500
+474,Semiconductor Company (P),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 2.66GHz, Infiniband DDR",United States,41.64,681.75,179,top500
+476,Financial Institution (S1),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 53xx 1.86GHz, GigEthernet",Spain,40.43,514.30,315,derived
+477,Naval Oceanographic Office - NAVO MSRC,IBM,eServer pSeries p5 575 1.9 GHz,United States,40.02,501.50,333,submission
+477,IBM Advanced Client Technology Center,IBM,eServer pSeries p5 575 1.9 GHz,United States,40.02,501.50,334,submission
+479,Retail,IBM,"xSeries x3550 Cluster Xeon, 3 GHz, GigEthernet",United States,39.83,467.00,399,submission
+480,Telecommunication Company,Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.5 Ghz, GigE",Poland,39.54,551.94,281,derived
+481,Telecommunication Company,Hewlett-Packard,"Cluster Platform 3000 BL2x220, L54xx 2.5 Ghz, GigE",Poland,38.77,551.94,300,derived
+482,DOE/NNSA/LLNL,IBM,eServer pSeries p5 575 1.9 GHz,United States,38.01,1992.96,50,submission
+483,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 52xx 3 GHz, GigEthernet",United States,32.72,570.51,392,derived
+484,Logistic Services (C),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 3.0GHz, GigEthernet",United States,32.71,586.27,361,derived
+485,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 3.0GHz, GigEthernet",United Kingdom,32.69,630.40,323,derived
+485,Food Industry,Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 51xx 3.0GHz, GigEthernet",United Kingdom,32.69,630.40,324,derived
+487,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 52xx 3 GHz, GigEthernet",United States,32.63,713.93,250,derived
+488,Lawrence Livermore National Laboratory,Appro International,Appro Xtreme Server - Quad Opteron Dual Core 2.4GHz Infiniband,United States,31.79,1152.00,118,derived
+489,Ohio Supercomputer Center,IBM,"xSeries x3455 Cluster Opteron, DC 2.6 GHz/QC 2.5 GHz, Infiniband",United States,31.78,1367.60,91,derived
+490,Lawrence Livermore National Laboratory,Appro International,Appro Xtreme Server - Quad Opteron Dual Core 2.4GHz Infiniband,United States,31.69,864.00,193,derived
+491,Lawrence Livermore National Laboratory,Appro International,Appro Xtreme Server - Quad Opteron Dual Core 2.4GHz Infiniband,United States,31.67,576.00,455,derived
+492,Holland Computing Center at PKI,Dell,"PowerEdge SC1435 Dual core Opteron 2.8 GHz, Infiniband",United States,31.13,690.60,296,derived
+493,University of Southern California,Sun Microsystems,"Opteron, Xeon Cluster, Myrinet",United States,29.90,572.28,498,derived
+494,Logistic Services (E),Hewlett-Packard,"Cluster Platform 3000 BL460c, Xeon 52xx 2.6 GHz, GigEthernet",United States,29.07,613.06,467,derived
+495,Commissariat a l'Energie Atomique (CEA),Bull SA,"Novascale 3045, Itanium2 1.6 GHz, Infiniband",France,24.93,1689.60,96,derived
+496,NNSA/Sandia National Laboratories,Dell,"PowerEdge 1850, 3.6 GHz, Infiniband",United States,21.36,2481.60,70,derived
+497,University of Edinburgh,Cray Inc.,"Cray XT4, 2.8 GHz",United Kingdom,21.01,2600.82,68,derived
+498,Semiconductor Company (M),Hewlett-Packard,"Cluster Platform 4000 BL465c, Opteron DC 2.6GHz, Infiniband",United States,20.32,964.51,349,derived
+499,Financial Institution (M),Hewlett-Packard,"Cluster Platform 4000 BL465c, Opteron DC 2.6GHz, GigEthernet",United States,14.16,1301.78,441,derived
+500,IT Service Provider (C),Hewlett-Packard,"Cluster Platform 4000 BL465c, Opteron DC 2.4GHz, GigEthernet",United States,13.03,1613.82,311,derived
