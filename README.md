@@ -36,9 +36,9 @@ Exascalar provides a simple numerical ranking based on combined leadership.
 Enables observations of technology trends
 
 
-####DWhat data do you use and where did you get it?
-Data come from the Green500.org and the Top500.org website.
-The program assumes the top500 lists are locally stored in a directory called "Exascalar" as .csv files in the sub-directories Top500 and Green500. 
+####What data do you use and where did you get it?
+Data come from the Green500.org and the Top500.org websites.  
+The program assumes the top500 lists are locally stored in a directory called "Exascalar" as .csv files in the sub-directories Top500 and Green500. These directories are clones in this repository.
   Green500.org lists are downloadable directly as .csv files from the Green500 website.
   Top500.org lists are stored on the Top500 site as .xls. Since this anlaysis assumes .csv I have converted them using numbers or Excel. 
 
