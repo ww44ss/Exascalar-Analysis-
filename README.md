@@ -51,29 +51,31 @@ Currently I have download files back to 2009.
 Current available analyses
 ==========================
 
-#####Exascalar.R
-  This reads in the Top500 and Green500 lists, does rudimentary cleaning, and creates data.frames with these descriptive names (for example)
+#####Exascalar_Cleaner.R
+  This reads in the Top500 and Green500 lists, cleans the data, and creates data.frames with these descriptive names (for example)
   
-   _GreenNov13_ - the Green 500 list from November 2013  
+   _Nov13_ - the combined Top500 and Green 500 list from November 2013  
     
-   _GreenJun09_ - the Green 500 list from June 2009  
+   _Jun09_ - the combined Top500 and Green 500 list from June 2009  
     
-   _TopJun14_ - the Top500 list from June 2014   
-    
-The program plots the Exascalar graph for whatever two lists are selected. 
-This is the only program that reads all the files into memory, so it needs to be run before any of the subsequent analyses.
+  
+The program saves the files in a foled called "results"
 
-#####Exascalar_Trend.R  (*coming in 2014!*)
-  This program assumes the Green500 and Top500 lists have been already read into memory (using Exascalar.R)  
-  
-  It computes the top 10 exascalar systems for the most recent list and stores the results, alsong with System Name, Green500 rank and Top500 rank, in a data.frame called TopTenExascalar
-  
-  It computes the top and median exascalar values in a couple of different ways 
-  
-   1.  finds the median exascalar system for an performance adn efficiency number
-   2.  computes an "effective" mean from the means of the Top500 (for performance) and Green500 (for efficiency)
+currently the data saved are:
+ "exascalar"    "green500rank" "top500rank"   "rmax"         "power"        "mflopswatt"   "computer"
 
-  my current feeling is the #2 will be more useful as it may be more stable as a trend. But #1, which is less synthetic, may prove stable enough to use as a trend.
+#####Exascalar_Trend.R 
+  This program assumes the Green500 and Top500 lists have been already cleaned with Exascalar_Cleaner.R  
+  
+  It computes the top and mean exascalar values in a couple of different ways 
+  
+   1.  Plots the trend of the "top" exascalar.
+   2.  finds the median exascalar system for a performance and efficiency number
+   3.  computes an "effective" mean from the means of the Top500 (for performance) and Green500 (for efficiency)
+
+  only 1 and 3 are plotted. 
+  
+ 
   
 #####Exascalar_PHI (*coming in 2014!*)
 This program assumes the Green500 adn Top500 lists hae been already read nto memory (using Exascalar.R)
