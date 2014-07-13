@@ -99,9 +99,9 @@ matplot(MeanEx$mflopswatt,
      type="l",
      lty=1,
      lwd=6,log="xy", 
-     asp = 4/3.2,
-     xlab = "efficiency (mflops/watt)",
-     ylab = "rmax (mflops)", 
+     asp = 4/3.2, 
+     xlab = "Efficiency (mflops/watt)",
+     ylab = "Performance (mflops)", 
      main = "Exascalar", 
      pch=19, 
      cex = 0.6,
@@ -117,10 +117,10 @@ matplot(TopEx$mflopswatt,
      lty=1,
      lwd=6,
      log="xy", 
-     asp = 4/3.2,
-     xlab = "effciency (mflops/watt)",
-     ylab = "rmax (mflops)", 
-     main = "Exascalar", 
+     asp = 4/3.2, 
+     xlab = "",
+     ylab = "", 
+     main = "", 
      pch=19, 
      cex = 0.6,
      col = "dark green",
@@ -165,6 +165,10 @@ for (i in -2:4) {
         lines(isopowerline(2*10^-i)[,1],isopowerline(2*10^-i)[,2], lwd=.5, lty=2)}
 
 ## add graphical lines for iso "exscalar"
+
+
+ExaPerf <- 10^12           ##in Megaflops
+ExaEff <- 10^12/(20*10^6)  ##in Megaflops/Watt
 
 Exascale = ExaPerf*ExaEff
 
