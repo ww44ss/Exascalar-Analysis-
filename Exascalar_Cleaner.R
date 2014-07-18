@@ -1,25 +1,23 @@
 ## Exascalar Data Clean Up
 
-## This program reads in the Top500 adn Green500 files and labels them with clear easy to remember filenames.
+## This program reads files in the Top500 and Green500 folders,  
 ## it "cleans" the column names (for later use)
+## combines them with clear easy to remember filenames.
 ## and stores the files as .csv's
 
-## The current values in the final data frame are
-## exascalarrank, exascalar, green500rank, top500rank, rmanx, power, megaflopswatt, name, 
+## The values in the final data frame are
+## exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, name (long descriptive name of computer), 
 
-## All programs in this Exascalar GitHub assume this program has been run first to create the files they need to compute.
+## All programs in this Exascalar GitHub Repository assume this program has been run first to create the files they need to compute.
 
 
 ## GET THE RAW DATA
-
+## Assumes the wd is the Documents directory 
 ##check for Exascalar Directory. If none exists stop program with error
-setwd("/Users/winstonsaunders/Documents")
-
-if(!file.exists("./Exascalar")) stop("Data not found")
 
 ## set working directory
 
-setwd("~/Documents/Exascalar")
+
 
 # define Data Directories to use
 
@@ -34,6 +32,8 @@ results <- "./results"
 
 ## there are probably ways to simplify this code but this brute force method is easy to read.
 
+GreenJun14 <- read.csv(paste0(green500data, "/GreenJun14.csv"), header=TRUE)
+##Note GreenJUn13.csv is an artifically constructed data set from web data (.csv was not avail on website)
 GreenNov13 <- read.csv(paste0(green500data, "/green500_top_201311.csv"), header=TRUE)
 GreenJun13 <- read.csv(paste0(green500data, "/green500_top_201306.csv"), header=TRUE)
 GreenNov12 <- read.csv(paste0(green500data, "/green500_top_201211.csv"), header=TRUE)
@@ -131,12 +131,53 @@ compute_exascalar <- function(xlist){
 
 ## JUN 14 CLEANING
 ## ---- 
-## JUN14 Cleaning
 
-##names(TopJun14)<-cleanupnames(names(TopJun14))
+        ## labels reduce confusion on merge
+        names(GreenJun14)<-cleanupnames(names(GreenJun14), label=".g")
+        names(TopJun14)<-cleanupnames(names(TopJun14), label=".t")
+        
+        ##there are some pesky commas in some of the power numbers that need to be cleaned out
+        GreenJun14$power.g <-gsub("[,]","", GreenJun14$power.g)
+        GreenJun14$mflopswatt.g <-gsub("[,]","", GreenJun14$mflopswatt.g)
+        
+        ##for GreenJun14 need to create a top500rank column
+        ##first turn columns into numeric values
+        GreenJun14$mflopswatt.g<-as.numeric(GreenJun14$mflopswatt.g)
+        GreenJun14$power.g<-as.numeric(GreenJun14$power.g)
+        GreenJun14 <- within(GreenJun14, rmax.g <- mflopswatt.g*power.g)
+        
+        GreenJun14<-GreenJun14[order(GreenJun14$rmax.g),]
+        top500rank <- nrow(GreenJun14):1
+        GreenJun14t <- cbind(top500rank,GreenJun14)
+        GreenJun14<-GreenJun14t
+        ##exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, computer, 
 
+
+        ## merge megaset
+        tt <- merge(GreenJun14, TopJun14, by="top500rank", all.x=TRUE)
+        ## select relevant columns  (these are hand crafted per list)
+        Jun14 <- cbind(tt[,c(2, 1, 7, 6, 3, 5)])
+
+        ##names cleanup
+        names(Jun14) <- names_clean_2(names(Jun14))
+        Jun14$rmax<-as.numeric(as.character(Jun14$rmax))
+        Jun14$mflopswatt<-as.numeric(as.character(Jun14$mflopswatt))
+        ##compute exascalar
+        exascalar <- compute_exascalar(Jun14)
+        ##add exascalar result to data frame
+        Jun14 <- cbind(exascalar, Jun14)
+        ##sort by exascalar
+        Jun14 <- Jun14[order(exascalar),]
+        ##renumber rows
+        row.names(Jun14) <- 1:nrow(Jun14)
+        ##final cleaned data
+        ##write file to results folder
+        write.csv(Jun14, "./results/Jun14.csv")
+
+
+## ---------
 ## NOV 13 cleaning
-## ----
+
 
 
         ## labels reduce confusion on merge
@@ -165,10 +206,18 @@ compute_exascalar <- function(xlist){
 
         row.names(Nov13) <- 1:nrow(Nov13)
 
+        #convert exascalar rank to integer
+        Nov13$exascalar <- as.integer(Nov13$exascalar)
+
+        ##final cleaned data
+        ##write file to results folder
+
         write.csv(Nov13, "./results/Nov13.csv")
 
-## JUN13 CLEANING
+
 ## ----
+## JUN13 CLEANING
+
 
         ## label tagging to reduce confusion on merge
         names(GreenJun13)<-cleanupnames(names(GreenJun13), label=".g")
@@ -193,6 +242,10 @@ compute_exascalar <- function(xlist){
         Jun13 <- Jun13[order(exascalar),]
         ##renumber rows
         row.names(Jun13) <- 1:nrow(Jun13)
+                
+        #convert exascalar rank to integer
+        Jun13$exascalar <- as.integer(Jun13$exascalar)
+       
         ##final cleaned data
         ##write file to results folder
         write.csv(Jun13, "./results/Jun13.csv")
@@ -228,6 +281,8 @@ compute_exascalar <- function(xlist){
         Nov12 <- Nov12[order(exascalar),]
         ##renumber rows
         row.names(Nov12) <- 1:nrow(Nov12)
+        #convert exascalar rank to integer
+        Nov12$exascalar <- as.integer(Nov12$exascalar)
         ##final cleaned data
         ##write file to results folder
         write.csv(Nov12, "./results/Nov12.csv")
@@ -259,7 +314,8 @@ compute_exascalar <- function(xlist){
         Jun12 <- Jun12[order(exascalar),]
         ##renumber rows
         row.names(Jun12) <- 1:nrow(Jun12)
-
+        #convert exascalar rank to integer
+        Jun12$exascalar <- as.integer(Jun12$exascalar)
         ##final cleaned data
         ##write file to results folder
         write.csv(Jun12, "./results/Jun12.csv")
@@ -291,6 +347,9 @@ compute_exascalar <- function(xlist){
         ##renumber rows
         row.names(Nov11) <- 1:nrow(Nov11)
 
+        #convert exascalar rank to integer
+        Nov11$exascalar <- as.integer(Nov11$exascalar)
+
         ##final cleaned data
         ##write file to results folder
         write.csv(Nov11, "./results/Nov11.csv")
@@ -321,6 +380,9 @@ compute_exascalar <- function(xlist){
         Jun11 <- Jun11[order(exascalar),]
         ##renumber rows
         row.names(Jun11) <- 1:nrow(Jun11)
+
+        #convert exascalar rank to integer
+        Jun11$exascalar <- as.integer(Jun11$exascalar)
 
         ##final cleaned data
         ##write file to results folder
@@ -354,6 +416,10 @@ compute_exascalar <- function(xlist){
         Nov10<-Nov10[complete.cases(Nov10),]
         ##renumber rows
         row.names(Nov10) <- 1:nrow(Nov10)
+
+        #convert exascalar rank to integer
+        Nov10$exascalar <- as.integer(Nov10$exascalar)
+
         ##final cleaned data
         ##write file to results folder
         write.csv(Nov10, "./results/Nov10.csv")
@@ -386,6 +452,10 @@ compute_exascalar <- function(xlist){
         Jun10<-Jun10[complete.cases(Jun10),]
         ##renumber rows
         row.names(Jun10) <- 1:nrow(Jun10)
+
+        #convert exascalar rank to integer
+        Jun10$exascalar <- as.integer(Jun10$exascalar)
+
         ##final cleaned data
         ##write file to results folder
         write.csv(Jun10, "./results/Jun10.csv")
@@ -394,65 +464,75 @@ compute_exascalar <- function(xlist){
 # NOV09 CLEANING
 ## ----
 
-## label tagging to reduce confusion on merge
-names(GreenNov09)<-cleanupnames(names(GreenNov09), label=".g")
-names(TopNov09)<-cleanupnames(names(TopNov09), label=".t")
+        ## label tagging to reduce confusion on merge
+        names(GreenNov09)<-cleanupnames(names(GreenNov09), label=".g")
+        names(TopNov09)<-cleanupnames(names(TopNov09), label=".t")
 
-##exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, computer, 
+        ##exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, computer, 
 
-## merge megaset
-tt <- merge(GreenNov09, TopNov09, by="top500rank", all.x=TRUE)
+        ## merge megaset
+        tt <- merge(GreenNov09, TopNov09, by="top500rank", all.x=TRUE)
 
-## select relevant columns  (these are hand crafted per list)
-Nov09 <- cbind(tt[,c(2, 1, 16, 8, 7, 5)])
+        ## select relevant columns  (these are hand crafted per list)
+        Nov09 <- cbind(tt[,c(2, 1, 16, 8, 7, 5)])
 
-##names cleanup
-names(Nov09) <- names_clean_2(names(Nov09))
-##compute exascalar
-exascalar <- compute_exascalar(Nov09)
-##add exascalar result to data frame
-Nov09 <- cbind(exascalar, Nov09)
-##sort by exascalar
-Nov09 <- Nov09[order(exascalar),]
-##this data set requires a complete cases check
-Nov09<-Nov09[complete.cases(Nov09),]
-##renumber rows
-row.names(Nov09) <- 1:nrow(Nov09)
-##final cleaned data
-##write file to results folder
-write.csv(Nov09, "./results/Nov09.csv")
+        ##names cleanup
+        names(Nov09) <- names_clean_2(names(Nov09))
+        ##compute exascalar
+        exascalar <- compute_exascalar(Nov09)
+        ##add exascalar result to data frame
+        Nov09 <- cbind(exascalar, Nov09)
+        ##sort by exascalar
+        Nov09 <- Nov09[order(exascalar),]
+        ##this data set requires a complete cases check
+        Nov09<-Nov09[complete.cases(Nov09),]
+        ##renumber rows
+        row.names(Nov09) <- 1:nrow(Nov09)
+
+        #convert exascalar rank to integer
+        Nov09$exascalar <- as.integer(Nov09$exascalar)
+
+        ##final cleaned data
+        ##write file to results folder
+        write.csv(Nov09, "./results/Nov09.csv")
 
 
 # JUN09 CLEANING
 ## ----
 
-## label tagging to reduce confusion on merge
-names(GreenJun09)<-cleanupnames(names(GreenJun09), label=".g")
-names(TopJun09)<-cleanupnames(names(TopJun09), label=".t")
+        ## label tagging to reduce confusion on merge
+        names(GreenJun09)<-cleanupnames(names(GreenJun09), label=".g")
+        names(TopJun09)<-cleanupnames(names(TopJun09), label=".t")
 
-##exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, computer, 
+        ##exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, computer, 
 
-## merge megaset
-tt <- merge(GreenJun09, TopJun09, by="top500rank", all.x=TRUE)
+        ## merge megaset
+        tt <- merge(GreenJun09, TopJun09, by="top500rank", all.x=TRUE)
 
-## select relevant columns  (these are hand crafted per list)
-Jun09 <- cbind(tt[,c(2, 1, 16, 8, 7, 5)])
+        ## select relevant columns  (these are hand crafted per list)
+        Jun09 <- cbind(tt[,c(2, 1, 16, 8, 7, 5)])
 
-##names cleanup
-names(Jun09) <- names_clean_2(names(Jun09))
-##compute exascalar
-exascalar <- compute_exascalar(Jun09)
-##add exascalar result to data frame
-Jun09 <- cbind(exascalar, Jun09)
-##sort by exascalar
-Jun09 <- Jun09[order(exascalar),]
-##this data set requires a complete cases check
-Jun09<-Jun09[complete.cases(Jun09),]
-##renumber rows
-row.names(Jun09) <- 1:nrow(Jun09)
-##final cleaned data
-##write file to results folder
-write.csv(Jun09, "./results/Jun09.csv")
+        ##names cleanup
+        names(Jun09) <- names_clean_2(names(Jun09))
+        ##compute exascalar
+        exascalar <- compute_exascalar(Jun09)
+        ##add exascalar result to data frame
+        Jun09 <- cbind(exascalar, Jun09)
+        ##sort by exascalar
+        Jun09 <- Jun09[order(exascalar),]
+        ##this data set requires a complete cases check
+        Jun09<-Jun09[complete.cases(Jun09),]
+        ##renumber rows
+        row.names(Jun09) <- 1:nrow(Jun09)
+
+
+        #convert exascalar rank to integer
+        Jun09$exascalar <- as.integer(Jun09$exascalar)
+
+
+        ##final cleaned data
+        ##write file to results folder
+        write.csv(Jun09, "./results/Jun09.csv")
 
 
 

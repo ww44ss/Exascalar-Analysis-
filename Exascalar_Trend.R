@@ -26,6 +26,7 @@ results <- "./results"
 
 ## there are probably ways to simplify this code but this brute force method is easy to read.
 
+Jun14 <- read.csv(paste0(results, "/Jun14.csv"), header=TRUE)
 Nov13 <- read.csv(paste0(results, "/Nov13.csv"), header=TRUE)
 Jun13 <- read.csv(paste0(results, "/Jun13.csv"), header=TRUE)
 Nov12 <- read.csv(paste0(results, "/Nov12.csv"), header=TRUE)
@@ -44,20 +45,23 @@ print("data read")
 ##PLOT MODE, MEDIAN AND TOP EXASCALAR TREND
 
 ##Compute Mode Trend
-ModeEx <- rbind(Jun09[250,], Nov09[250,], Jun10[250,], Nov10[250,], Jun11[250,], Nov11[250,], Jun12[250,], Nov12[250,], Jun13[250,], Nov13[250,])
+ModeEx <- rbind(Jun09[250,], Nov09[250,], Jun10[250,], Nov10[250,], Jun11[250,], Nov11[250,], Jun12[250,], Nov12[250,], Jun13[250,], Nov13[250,], Jun14[250,])
 
-TopEx <- rbind(Jun09[1,], Nov09[1,], Jun10[1,], Nov10[1,], Jun11[1,], Nov11[1,], Jun12[1,], Nov12[1,], Jun13[1,], Nov13[1,])
+TopEx <- rbind(Jun09[1,], Nov09[1,], Jun10[1,], Nov10[1,], Jun11[1,], Nov11[1,], Jun12[1,], Nov12[1,], Jun13[1,], Nov13[1,], Jun14[1,])
 
 MeanEx <- matrix(c(mean(Jun09$mflopswatt), mean(Nov09$mflopswatt),
                           mean(Jun10$mflopswatt), mean(Nov10$mflopswatt),
                           mean(Jun11$mflopswatt), mean(Nov11$mflopswatt),
                           mean(Jun12$mflopswatt), mean(Nov12$mflopswatt),
                           mean(Jun13$mflopswatt), mean(Nov13$mflopswatt),
+                          mean(Jun14$mflopswatt),
                           mean(Jun09$rmax), mean(Nov09$rmax),
                           mean(Jun10$rmax), mean(Nov10$rmax),
                           mean(Jun11$rmax), mean(Nov11$rmax),
                           mean(Jun12$rmax), mean(Nov12$rmax),
-                          mean(Jun13$rmax), mean(Nov13$rmax)), ncol=2, nrow = 10)
+                          mean(Jun13$rmax), mean(Nov13$rmax), 
+                          mean(Jun14$rmax)),
+                 ncol=2, nrow = 11)
 MeanEx <- as.data.frame(MeanEx)
 names(MeanEx) <- c("mflopswatt", "rmax")
 
@@ -68,11 +72,14 @@ MedianEx <- matrix(c(median(Jun09$mflopswatt), median(Nov09$mflopswatt),
                        median(Jun11$mflopswatt), median(Nov11$mflopswatt),
                        median(Jun12$mflopswatt), median(Nov12$mflopswatt),
                        median(Jun13$mflopswatt), median(Nov13$mflopswatt),
+                       median(Jun14$mflopswatt),
                        median(Jun09$rmax), median(Nov09$rmax),
                        median(Jun10$rmax), median(Nov10$rmax),
                        median(Jun11$rmax), median(Nov11$rmax),
                        median(Jun12$rmax), median(Nov12$rmax),
-                       median(Jun13$rmax), median(Nov13$rmax)), ncol=2, nrow = 10)
+                       median(Jun13$rmax), median(Nov13$rmax), 
+                       median(Jun14$rmax)),
+                   ncol=2, nrow = 11)
 MedianEx <- as.data.frame(MedianEx)
 names(MedianEx) <- c("mflopswatt", "rmax")
 
@@ -81,8 +88,8 @@ names(MedianEx) <- c("mflopswatt", "rmax")
 
 ## plots "reference" list first, then "list of current interest" is overlayed
 
-plot(Nov13$mflopswatt ,
-     Nov13$rmax*10^3, 
+plot(Jun14$mflopswatt ,
+     Jun14$rmax*10^3, 
      log="xy", 
      asp = 4/3.2, 
      xlab = "",
