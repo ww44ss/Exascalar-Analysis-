@@ -1,10 +1,8 @@
-# Exascalar Data Trend Plot
-
 ## This program imports cleaned data from the Green500 and Top500 lists
 
 ## there are several subtleties of the implenetation here which need to be paid attention to when adapting it.
-        ##each "500" list is called out explicitly
-        ##in a couple of places the number of lists (currently 10) is assumed.
+##each "500" list is called out explicitly
+##in a couple of places the number of lists (currently 10) is assumed.
 
 ## GET THE CLEANED DATA
 
@@ -50,17 +48,17 @@ ModeEx <- rbind(Jun09[250,], Nov09[250,], Jun10[250,], Nov10[250,], Jun11[250,],
 TopEx <- rbind(Jun09[1,], Nov09[1,], Jun10[1,], Nov10[1,], Jun11[1,], Nov11[1,], Jun12[1,], Nov12[1,], Jun13[1,], Nov13[1,], Jun14[1,])
 
 MeanEx <- matrix(c(mean(Jun09$mflopswatt), mean(Nov09$mflopswatt),
-                          mean(Jun10$mflopswatt), mean(Nov10$mflopswatt),
-                          mean(Jun11$mflopswatt), mean(Nov11$mflopswatt),
-                          mean(Jun12$mflopswatt), mean(Nov12$mflopswatt),
-                          mean(Jun13$mflopswatt), mean(Nov13$mflopswatt),
-                          mean(Jun14$mflopswatt),
-                          mean(Jun09$rmax), mean(Nov09$rmax),
-                          mean(Jun10$rmax), mean(Nov10$rmax),
-                          mean(Jun11$rmax), mean(Nov11$rmax),
-                          mean(Jun12$rmax), mean(Nov12$rmax),
-                          mean(Jun13$rmax), mean(Nov13$rmax), 
-                          mean(Jun14$rmax)),
+                   mean(Jun10$mflopswatt), mean(Nov10$mflopswatt),
+                   mean(Jun11$mflopswatt), mean(Nov11$mflopswatt),
+                   mean(Jun12$mflopswatt), mean(Nov12$mflopswatt),
+                   mean(Jun13$mflopswatt), mean(Nov13$mflopswatt),
+                   mean(Jun14$mflopswatt),
+                   mean(Jun09$rmax), mean(Nov09$rmax),
+                   mean(Jun10$rmax), mean(Nov10$rmax),
+                   mean(Jun11$rmax), mean(Nov11$rmax),
+                   mean(Jun12$rmax), mean(Nov12$rmax),
+                   mean(Jun13$rmax), mean(Nov13$rmax), 
+                   mean(Jun14$rmax)),
                  ncol=2, nrow = 11)
 MeanEx <- as.data.frame(MeanEx)
 names(MeanEx) <- c("mflopswatt", "rmax")
@@ -68,17 +66,17 @@ names(MeanEx) <- c("mflopswatt", "rmax")
 
 ##
 MedianEx <- matrix(c(median(Jun09$mflopswatt), median(Nov09$mflopswatt),
-                       median(Jun10$mflopswatt), median(Nov10$mflopswatt),
-                       median(Jun11$mflopswatt), median(Nov11$mflopswatt),
-                       median(Jun12$mflopswatt), median(Nov12$mflopswatt),
-                       median(Jun13$mflopswatt), median(Nov13$mflopswatt),
-                       median(Jun14$mflopswatt),
-                       median(Jun09$rmax), median(Nov09$rmax),
-                       median(Jun10$rmax), median(Nov10$rmax),
-                       median(Jun11$rmax), median(Nov11$rmax),
-                       median(Jun12$rmax), median(Nov12$rmax),
-                       median(Jun13$rmax), median(Nov13$rmax), 
-                       median(Jun14$rmax)),
+                     median(Jun10$mflopswatt), median(Nov10$mflopswatt),
+                     median(Jun11$mflopswatt), median(Nov11$mflopswatt),
+                     median(Jun12$mflopswatt), median(Nov12$mflopswatt),
+                     median(Jun13$mflopswatt), median(Nov13$mflopswatt),
+                     median(Jun14$mflopswatt),
+                     median(Jun09$rmax), median(Nov09$rmax),
+                     median(Jun10$rmax), median(Nov10$rmax),
+                     median(Jun11$rmax), median(Nov11$rmax),
+                     median(Jun12$rmax), median(Nov12$rmax),
+                     median(Jun13$rmax), median(Nov13$rmax), 
+                     median(Jun14$rmax)),
                    ncol=2, nrow = 11)
 MedianEx <- as.data.frame(MedianEx)
 names(MedianEx) <- c("mflopswatt", "rmax")
@@ -88,10 +86,11 @@ names(MedianEx) <- c("mflopswatt", "rmax")
 
 ## plots "reference" list first, then "list of current interest" is overlayed
 
+
 plot(Jun14$mflopswatt ,
      Jun14$rmax*10^3, 
      log="xy", 
-     asp = 4/3.2, 
+     asp = TRUE, 
      xlab = "",
      ylab = "", 
      main = "", 
@@ -101,48 +100,18 @@ plot(Jun14$mflopswatt ,
      xlim=c(10,100000), 
      ylim=c(5*10^7,2*10^12))
 par(new=TRUE)
-##This plots the "Mean" trend line of efficiency and performance
-matplot(MeanEx$mflopswatt,
-     MeanEx$rmax*10^3,
-     type="l",
-     lty=1,
-     lwd=6,log="xy", 
+plot(Jun13$mflopswatt ,
+     Jun13$rmax*10^3, 
+     log="xy", 
      asp = 4/3.2, 
      xlab = "Efficiency (mflops/watt)",
      ylab = "Performance (mflops)", 
      main = "Exascalar", 
-     pch=19, 
-     cex = 0.6,
-     col = "darkred",
-     xlim=c(10,100000), 
-     ylim=c(5*10^7,2*10^12)
-     )
-par(new=TRUE)
-##plot the trend line of the "Top" exascalar system
-matplot(TopEx$mflopswatt,
-     TopEx$rmax*10^3, 
-     type = "l",
-     lty=1,
-     lwd=6,
-     log="xy", 
-     asp = 4/3.2, 
-     xlab = "",
-     ylab = "", 
-     main = "", 
-     pch=19, 
-     cex = 0.6,
-     col = "dark green",
+     col = "blue",
+     pch=1, 
      xlim=c(10,100000), 
      ylim=c(5*10^7,2*10^12))
-
-##label Plot Lines
-
-text(TopEx$mflopswatt[10],
-     TopEx$rmax[10]*10^3, "Top Exascalar", cex=.7, col="dark green", pos=3)
-text(MeanEx$mflopswatt[1],
-     MeanEx$rmax[1]*10^3, "Mean Exascalar", cex=.7, col="dark red", pos=4)
-
-##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
+par(new=TRUE)
 
 ##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
 
