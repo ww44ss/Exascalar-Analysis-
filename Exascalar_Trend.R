@@ -1,10 +1,7 @@
 # Exascalar Data Trend Plot
 
 ## This program imports cleaned data from the Green500 and Top500 lists
-
-## there are several subtleties of the implenetation here which need to be paid attention to when adapting it.
-        ##each "500" list is called out explicitly
-        ##in a couple of places the number of lists (currently 10) is assumed.
+## It plots one set of data and the trend of the top and mean exascalar overlayed
 
 ## GET THE CLEANED DATA
 
