@@ -3,7 +3,7 @@ Exascalar-Analysis-
 
 Visualize the Top500 and Green500 Supercomputer Lists
 
-![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/Exascalar%20Example.png "Exascalar Graph")
+![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/RPlot.png "Exascalar Graph")
 
 
 Exascalar
