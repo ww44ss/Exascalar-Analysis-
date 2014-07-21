@@ -3,7 +3,7 @@ Exascalar-Analysis-
 
 Visualize the Top500 and Green500 Supercomputer Lists
 
-![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/RPlot.png "Exascalar Graph")
+![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/Rplot.png "Exascalar Graph")
 
 
 Exascalar
@@ -15,7 +15,7 @@ You can read about Exascalar [here](https://communities.intel.com/community/itpe
 [here](http://www.datacenterknowledge.com/archives/2013/01/28/the-taxonomy-of-exascalar/), 
 and [here](http://www.datacenterknowledge.com/archives/2012/07/10/june-2012-exascalar-efficiency-dominates-hpc/).
 
-####What is Exascalar?
+####Exascalar?
 Exascalar is an approach to look at leadership trends in both the Top500 super computer list (based on performance) and the Green500 super computer list (based on efficiency) in a new way.
 
 The analysis came about from the realization that we live in a power and money constrained world. Installing power infrastructure for a large scale supercomputer can cost upward of $10/Watt. A 10 Megawatt supercomputer would require about $100M in capital infrastructure - a sum that is prohibitive to all but a few users. 
@@ -24,7 +24,7 @@ It's worth noting the current version of Exascalar is simpler than the original 
 
 ######_Exascalar est mort, vive Exascalar_  
 
-####Why do I care? What can it do for me?
+####Why?
 Exascalar allows visualization of the Top500 and Green500 lists on a single graph.
 
   *Highlights leading indicators of performance leadership   
