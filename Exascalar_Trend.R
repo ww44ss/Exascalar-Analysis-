@@ -46,12 +46,14 @@ ModeEx <- rbind(Jun09[250,], Nov09[250,], Jun10[250,], Nov10[250,], Jun11[250,],
 
 TopEx <- rbind(Jun09[1,], Nov09[1,], Jun10[1,], Nov10[1,], Jun11[1,], Nov11[1,], Jun12[1,], Nov12[1,], Jun13[1,], Nov13[1,], Jun14[1,])
 
-MeanEx <- matrix(c(mean(Jun09$mflopswatt), mean(Nov09$mflopswatt),
-                          mean(Jun10$mflopswatt), mean(Nov10$mflopswatt),
-                          mean(Jun11$mflopswatt), mean(Nov11$mflopswatt),
-                          mean(Jun12$mflopswatt), mean(Nov12$mflopswatt),
-                          mean(Jun13$mflopswatt), mean(Nov13$mflopswatt),
-                          mean(Jun14$mflopswatt),
+mean_eff <- function(list){mean(list$rmax)/mean(list$power)}
+
+MeanEx <- matrix(c(mean_eff(Jun09), mean_eff(Nov09),
+                          mean_eff(Jun10), mean_eff(Nov10),
+                          mean_eff(Jun11), mean_eff(Nov11),
+                          mean_eff(Jun12), mean_eff(Nov12),
+                          mean_eff(Jun13), mean_eff(Nov13),
+                          mean_eff(Jun14),
                           mean(Jun09$rmax), mean(Nov09$rmax),
                           mean(Jun10$rmax), mean(Nov10$rmax),
                           mean(Jun11$rmax), mean(Nov11$rmax),
@@ -64,12 +66,14 @@ names(MeanEx) <- c("mflopswatt", "rmax")
 
 
 ##
-MedianEx <- matrix(c(median(Jun09$mflopswatt), median(Nov09$mflopswatt),
-                       median(Jun10$mflopswatt), median(Nov10$mflopswatt),
-                       median(Jun11$mflopswatt), median(Nov11$mflopswatt),
-                       median(Jun12$mflopswatt), median(Nov12$mflopswatt),
-                       median(Jun13$mflopswatt), median(Nov13$mflopswatt),
-                       median(Jun14$mflopswatt),
+median_eff <- function(list){median(list$rmax)/median(list$power)}
+
+MedianEx <- matrix(c(median_eff(Jun09), median_eff(Nov09),
+                       median_eff(Jun10), median_eff(Nov10),
+                       median_eff(Jun11), median_eff(Nov11),
+                       median_eff(Jun12), median_eff(Nov12),
+                       median_eff(Jun13), median_eff(Nov13),
+                       median_eff(Jun14),
                        median(Jun09$rmax), median(Nov09$rmax),
                        median(Jun10$rmax), median(Nov10$rmax),
                        median(Jun11$rmax), median(Nov11$rmax),
@@ -96,7 +100,7 @@ plot(Jun14$mflopswatt ,
      bg = "steelblue2",
      pch=21, 
      xlim=c(10,100000), 
-     ylim=c(5*10^7,2*10^12))
+     ylim=c(1*10^7,2*10^12))
 par(new=TRUE)
 ##This plots the "Mean" trend line of efficiency and performance
 matplot(MeanEx$mflopswatt,
@@ -112,7 +116,7 @@ matplot(MeanEx$mflopswatt,
      cex = 0.6,
      col = "darkred",
      xlim=c(10,100000), 
-     ylim=c(5*10^7,2*10^12)
+     ylim=c(1*10^7,2*10^12)
      )
 par(new=TRUE)
 ##plot the trend line of the "Top" exascalar system
@@ -130,14 +134,21 @@ matplot(TopEx$mflopswatt,
      cex = 0.6,
      col = "dark green",
      xlim=c(10,100000), 
-     ylim=c(5*10^7,2*10^12))
+     ylim=c(1*10^7,2*10^12))
 
 ##label Plot Lines
 
 text(TopEx$mflopswatt[10],
-     TopEx$rmax[10]*10^3, "Top Exascalar", cex=.7, col="dark green", pos=3)
-text(MeanEx$mflopswatt[1],
-     MeanEx$rmax[1]*10^3, "Mean Exascalar", cex=.7, col="dark red", pos=4)
+     TopEx$rmax[10]*10^3, "Top", cex=.7, col="dark green", pos=3)
+
+text(MeanEx$mflopswatt[2],
+     MeanEx$rmax[2]*10^3, "Mean", cex=.7, col="dark red", pos=4)
+
+
+text(1.0E4,
+     1.0E7, "based on June 2014 ", cex=.45, col="black", pos=3)
+text(1.0E4,
+     0.7E7, "Green500 and Top500 Lists", cex=.45, col="black", pos=3)
 
 ##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
 
@@ -185,3 +196,5 @@ isoexaline <- function(exascalar, efficiencyrangelow=0.5*20, efficiencyrangehigh
 ## the argument passed is - log10 of exascalar
 
 for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
+
+
