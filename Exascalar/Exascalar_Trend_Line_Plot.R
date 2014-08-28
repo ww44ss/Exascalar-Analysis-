@@ -1,7 +1,7 @@
-# Exascalar Data Trend Plot
+# Exascalar Data Trend Plot One
 
 ## This program imports cleaned data from the Green500 and Top500 lists
-## It plots one set of data and the trend of the top and mean exascalar overlayed
+## It plots one set of data and the trend of the top and median exascalar overlayed
 
 ## GET THE CLEANED DATA
 
@@ -50,17 +50,17 @@ TopEx <- rbind(Jun09[1,c(1:7)], Nov09[1,c(1:7)], Jun10[1,c(1:7)], Nov10[1,c(1:7)
 mean_eff <- function(list){mean(list$rmax)/mean(list$power)}
 
 MeanEx <- matrix(c(mean_eff(Jun09), mean_eff(Nov09),
-                          mean_eff(Jun10), mean_eff(Nov10),
-                          mean_eff(Jun11), mean_eff(Nov11),
-                          mean_eff(Jun12), mean_eff(Nov12),
-                          mean_eff(Jun13), mean_eff(Nov13),
-                          mean_eff(Jun14),
-                          mean(Jun09$rmax), mean(Nov09$rmax),
-                          mean(Jun10$rmax), mean(Nov10$rmax),
-                          mean(Jun11$rmax), mean(Nov11$rmax),
-                          mean(Jun12$rmax), mean(Nov12$rmax),
-                          mean(Jun13$rmax), mean(Nov13$rmax), 
-                          mean(Jun14$rmax)),
+                   mean_eff(Jun10), mean_eff(Nov10),
+                   mean_eff(Jun11), mean_eff(Nov11),
+                   mean_eff(Jun12), mean_eff(Nov12),
+                   mean_eff(Jun13), mean_eff(Nov13),
+                   mean_eff(Jun14),
+                   mean(Jun09$rmax), mean(Nov09$rmax),
+                   mean(Jun10$rmax), mean(Nov10$rmax),
+                   mean(Jun11$rmax), mean(Nov11$rmax),
+                   mean(Jun12$rmax), mean(Nov12$rmax),
+                   mean(Jun13$rmax), mean(Nov13$rmax), 
+                   mean(Jun14$rmax)),
                  ncol=2, nrow = 11)
 MeanEx <- as.data.frame(MeanEx)
 names(MeanEx) <- c("mflopswatt", "rmax")
@@ -70,17 +70,17 @@ names(MeanEx) <- c("mflopswatt", "rmax")
 median_eff <- function(list){median(list$rmax)/median(list$power)}
 
 MedianEx <- matrix(c(median_eff(Jun09), median_eff(Nov09),
-                       median_eff(Jun10), median_eff(Nov10),
-                       median_eff(Jun11), median_eff(Nov11),
-                       median_eff(Jun12), median_eff(Nov12),
-                       median_eff(Jun13), median_eff(Nov13),
-                       median_eff(Jun14),
-                       median(Jun09$rmax), median(Nov09$rmax),
-                       median(Jun10$rmax), median(Nov10$rmax),
-                       median(Jun11$rmax), median(Nov11$rmax),
-                       median(Jun12$rmax), median(Nov12$rmax),
-                       median(Jun13$rmax), median(Nov13$rmax), 
-                       median(Jun14$rmax)),
+                     median_eff(Jun10), median_eff(Nov10),
+                     median_eff(Jun11), median_eff(Nov11),
+                     median_eff(Jun12), median_eff(Nov12),
+                     median_eff(Jun13), median_eff(Nov13),
+                     median_eff(Jun14),
+                     median(Jun09$rmax), median(Nov09$rmax),
+                     median(Jun10$rmax), median(Nov10$rmax),
+                     median(Jun11$rmax), median(Nov11$rmax),
+                     median(Jun12$rmax), median(Nov12$rmax),
+                     median(Jun13$rmax), median(Nov13$rmax), 
+                     median(Jun14$rmax)),
                    ncol=2, nrow = 11)
 MedianEx <- as.data.frame(MedianEx)
 names(MedianEx) <- c("mflopswatt", "rmax")
@@ -105,37 +105,37 @@ plot(Jun14$mflopswatt ,
 par(new=TRUE)
 ##This plots the "Mean" trend line of efficiency and performance
 matplot(MedianEx$mflopswatt,
-     MedianEx$rmax*10^3,
-     type="l",
-     lty=1,
-     lwd=6,log="xy", 
-     asp = 4/3.2, 
-     xlab = "Efficiency (mflops/watt)",
-     ylab = "Performance (mflops)", 
-     main = "Exascalar", 
-     pch=19, 
-     cex = 0.6,
-     col = "darkred",
-     xlim=c(10,100000), 
-     ylim=c(1*10^7,2*10^12)
-     )
+        MedianEx$rmax*10^3,
+        type="l",
+        lty=1,
+        lwd=6,log="xy", 
+        asp = 4/3.2, 
+        xlab = "Efficiency (mflops/watt)",
+        ylab = "Performance (mflops)", 
+        main = "Exascalar", 
+        pch=19, 
+        cex = 0.6,
+        col = "darkred",
+        xlim=c(10,100000), 
+        ylim=c(1*10^7,2*10^12)
+)
 par(new=TRUE)
 ##plot the trend line of the "Top" exascalar system
 matplot(TopEx$mflopswatt,
-     TopEx$rmax*10^3, 
-     type = "l",
-     lty=1,
-     lwd=6,
-     log="xy", 
-     asp = 4/3.2, 
-     xlab = "",
-     ylab = "", 
-     main = "", 
-     pch=19, 
-     cex = 0.6,
-     col = "dark green",
-     xlim=c(10,100000), 
-     ylim=c(1*10^7,2*10^12))
+        TopEx$rmax*10^3, 
+        type = "l",
+        lty=1,
+        lwd=6,
+        log="xy", 
+        asp = 4/3.2, 
+        xlab = "",
+        ylab = "", 
+        main = "", 
+        pch=19, 
+        cex = 0.6,
+        col = "dark green",
+        xlim=c(10,100000), 
+        ylim=c(1*10^7,2*10^12))
 
 ##label Plot Lines
 

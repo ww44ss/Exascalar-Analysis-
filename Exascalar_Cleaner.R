@@ -17,7 +17,8 @@
 
 ## set working directory
 
-
+##check for Exascalar Directory. If none exists create it
+if(!getwd()=="/Users/winstonsaunders/Documents/Exascalar") setwd("~/Documents/Exascalar")
 
 # define Data Directories to use
 
@@ -33,7 +34,6 @@ results <- "./results"
 ## there are probably ways to simplify this code but this brute force method is easy to read.
 
 GreenJun14 <- read.csv(paste0(green500data, "/green500_top_201406.csv"), header=TRUE)
-##Note GreenJUn13.csv is an artifically constructed data set from web data (.csv was not avail on website)
 GreenNov13 <- read.csv(paste0(green500data, "/green500_top_201311.csv"), header=TRUE)
 GreenJun13 <- read.csv(paste0(green500data, "/green500_top_201306.csv"), header=TRUE)
 GreenNov12 <- read.csv(paste0(green500data, "/green500_top_201211.csv"), header=TRUE)
@@ -135,7 +135,6 @@ compute_exascalar <- function(xlist){
 
 ## JUN 14 CLEANING
 ## ---- 
-
         ## labels reduce confusion on merge
         names(GreenJun14)<-cleanupnames(names(GreenJun14), label=".g")
         names(TopJun14)<-cleanupnames(names(TopJun14), label=".t")
@@ -144,9 +143,9 @@ compute_exascalar <- function(xlist){
         tt <- merge(GreenJun14, TopJun14, by="top500rank", all.x=TRUE)
         ## select relevant columns  (these are hand crafted per list)
         
-        Jun14 <- cbind(tt[,c(2, 1, 3, 4, 5, 8)])
+        Jun14<-tt[, c("green500rank.g", "top500rank", "rmax.g", "power.g", "mflopswatt.g", "computer.g", "totalcores.g", 
+               "processorfamily.g", "acceleratorcoprocessor.g","interconnectfamily.g","acceleratorcoprocessorcores.t", "processorgeneration.t")]
 
-        ##names cleanup
         names(Jun14) <- names_clean_2(names(Jun14))
 
         ##compute exascalar
@@ -177,10 +176,14 @@ compute_exascalar <- function(xlist){
         tt <- merge(GreenNov13, TopNov13, by="top500rank", all.x=TRUE)
 
         ## select relevant columns
-        Nov13 <- cbind(tt[,c(2, 1, 3, 4, 5, 8)])
+
+        Nov13<-tt[, c("green500rank.g", "top500rank", "rmax.g", "power.g", "mflopswatt.g", "name.g", "totalcores.g", 
+              "processorfamily.g", "acceleratorcoprocessor.g","interconnectfamily.g","acceleratorcoprocessorcores.t", "processorgeneration.t")]
 
         ##names cleanup
+        
         names(Nov13) <- names_clean_2(names(Nov13))
+
         ##specific column names substitution for Nov13
         names(Nov13) <- sub("name", "computer", names(Nov13))
         ##compute exascalar
@@ -212,6 +215,8 @@ compute_exascalar <- function(xlist){
 
         ## select relevant columns  (these are hand crafted per list)
         Jun13 <- cbind(tt[,c(2, 1, 3, 4, 6, 11)])
+        Jun13t<-tt[, c("green500rank.g", "top500rank", "rmax.g", "power.g", "mflopswatt.g", "computer.g", "totalcores.t", 
+              "processortechnology.g", "acceleratorcoprocessor.g","interconnectfamily.g","acceleratorcoprocessorcores.t", "processorgeneration.g")]
 
         ##names cleanup
         names(Jun13) <- names_clean_2(names(Jun13))
