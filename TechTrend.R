@@ -1,14 +1,13 @@
-## POWERGAP2
+## TECHTREND.R
+## Technology Trend Plot
 
-## Power and Performance Gaps for the most efficient and least advanced (lowest exascalar) Top/Green500 computers
+## Tech Trend search string is defined below (TechTrendSearchString)
+## the output is TechTrend_"TechTrendSearchString".png
+## the search is not case sensitive
 
-## This program imports the BigExascalar cleaned data set
-## it creates two data plots which compare the power and performance of the most efficient adn least advanced computers
-## as a function of year 
-## and stores the results as the files PerformanceCompare.png adn PowerCompare.png
-
-## this currently uses the base plot routine
-
+# This program reads the BigExascalar data set
+## it computes the trend of the Top Exascalar
+## and then parses the "computer name" to create another data set 
 
 ## GET THE CLEANED DATA
 
@@ -65,12 +64,28 @@ for (ii in 1:length(datematrix[,1])) {
         highexatable<-rbind(highexatable, xrow)
 }
 
+
+
+## Create Technology Trend\
+## this section just searches for code names inside the computer name and creates a table of values based on that
+## note that the search is not case sensitive
+
+        TechTrendSearchString = "Opteron"
+        ## use grepl to search for substring
+        bbb <- grepl(TechTrendSearchString, BigExascalar$computer, ignore.case=TRUE)
+        ## get the locations
+        ccc <- which(bbb ==TRUE)
+        ## subset Big Exascalar
+        TechTrend <- BigExascalar[ccc,]
+print("number of points =")
+print(length(ccc))
+
 ## CREATE PLOTS
 ## ----------
-png(filename="PowerCompare.png")
+png(filename=paste0("TechTrend_Power_",TechTrendSearchString,".png"))
 
 par(new=FALSE)
-plot(as.Date(lowexatable$date, origin="1970-01-01"), lowexatable$power,
+plot(as.Date(highexatable$date, origin="1970-01-01"), highexatable$power,
      ylim=c(20,20000),
      xlim = c(14000, 16500),
      main = "Power (kW)",
@@ -81,25 +96,25 @@ plot(as.Date(lowexatable$date, origin="1970-01-01"), lowexatable$power,
      bg = "steelblue2",
      pch=21)
 par(new=TRUE)
-plot(as.Date(lowpowertable$date, origin="1970-01-01"), lowpowertable$power,
+plot(as.Date(TechTrend$date, origin="1970-01-01"), TechTrend$power,
      ylim=c(20,20000),
      xlim = c(14000, 16500),
      main = "",
      log="y",
      ylab = "", 
-     xlab = "",
+     xlab ="",
      col = "blue",
      bg = "red",
      pch=22)
-  legend("topleft", c("Lowest Exascalar","Lowest Power"), col=c("red", "blue"), pt.bg=c("steelblue2", "red"), pch=21:22, cex=0.8)
+legend("topleft", c("TopExascalar",TechTrendSearchString), col=c("red", "blue"), pt.bg=c("steelblue2", "red"), pch=21:22, cex=0.8)
 
 dev.off()
 ## rmax plot
 
-png(filename="PerformanceCompare.png")
+png(filename=paste0("TechTrend_Perf_",TechTrendSearchString,".png"))
 
 par(new=FALSE)
-plot(as.Date(lowexatable$date, origin="1970-01-01"), lowexatable$rmax,
+plot(as.Date(highexatable$date, origin="1970-01-01"), highexatable$rmax,
      ylim=c(10^3,10^8),
      xlim = c(14000, 16500),
      main = "Performance Comparison (Mflops)",
@@ -110,7 +125,7 @@ plot(as.Date(lowexatable$date, origin="1970-01-01"), lowexatable$rmax,
      bg = "steelblue2",
      pch=21)
 par(new=TRUE)
-plot(as.Date(lowpowertable$date, origin="1970-01-01"), lowpowertable$rmax,
+plot(as.Date(TechTrend$date, origin="1970-01-01"), TechTrend$rmax,
      ylim=c(10^3,10^8),
      xlim = c(14000, 16500),
      main = "",
@@ -122,11 +137,11 @@ plot(as.Date(lowpowertable$date, origin="1970-01-01"), lowpowertable$rmax,
      pch=22)
 #plot(ylim=c(10^3,10^8),
 #     xlim = c(14000, 16500),
- #    main = "",
-  #   log="y",
-   #  ylab = "", 
-    # xlab = "",
-     legend("topleft", c("Lowest Exascalar","Lowest Power"), col=c("red", "blue"), pt.bg=c("steelblue2", "red"), pch=21:22, cex=0.8)
+#    main = "",
+#   log="y",
+#  ylab = "", 
+# xlab = "",
+legend("topleft", c("Highest Exascalar",TechTrendSearchString), col=c("red", "blue"), pt.bg=c("steelblue2", "red"), pch=21:22, cex=0.8)
 
 
 

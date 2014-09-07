@@ -1,16 +1,21 @@
 ## Exascalar Data Clean Up
 
-##  This program reads files in the Top500 and Green500 folders,  
+##  This program reads files in the Top500 and Green500 raw-data folders,  
 ## "cleans" the column names (for later use)
 ## combines them 
 ## and stores the output data in two forms:
-##      MmmYy.csv is the data from that month
-##      BigExascalar is a combined list of all data
+##      MmmYy.csv is the cleaned data from that month/year
+##      BigExascalar is a combined list of all cleaned data
 
 ## The values in the final data frame are
 ## exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, name (long descriptive name of computer), 
 
 ## All programs in this Exascalar GitHub Repository assume this program has been run first to create the files they need to compute.
+
+## each data set below is handled separately. 
+## some general cleaning functions are defined and used for all
+## some data sets require individual handling as well.
+## this is because naming and columns have not been consistent thru the years
 
 
 ## STEP 1 GET THE RAW DATA
@@ -65,10 +70,13 @@ TopJun09 <- read.csv(paste0(top500data, "/TOP500_200906.csv"), header=TRUE)
 #TopNov08 <- read.csv(paste0(top500data, "/TOP500_200811.csv"), header=TRUE)
 #TopJun08 <- read.csv(paste0(top500data, "/TOP500_200806.csv"), header=TRUE)
 
+## BigExascalar is the combined list of all the cleaned data
+## create the variable 
+
 BigExascalar<-NULL
 
 ## ---------------------
-## STEP 2 CLEAN RESULTS AND STORE ANALYZE DATA 
+## STEP 2 CREATE GENERAL CLEANING FUNCTIONS 
 ##create clean up names function
 
 ## this is a general "cleanup"
@@ -111,7 +119,7 @@ names_clean_2 <- function(xlist){
 
 ## ---------------------------------
 ## EXASCALAR FUNCTION
-## create compute_exascalar function
+## create compute_exascalar function needed for the analysis
 
 ExaPerf <- 10^12           ##in Megaflops
 ExaEff <- 10^12/(20*10^6)  ##in Megaflops/Watt
@@ -128,7 +136,7 @@ compute_exascalar <- function(xlist){
         format(t2, nsmall=3)
 }
 
-## CLEAN FILES
+## STEEP 3 CLEAN FILES
 ## --------------------------
 
 ## each set of data is treated separately since data sets are not consistent year to year.
@@ -443,6 +451,16 @@ print("Nov11")
         ##renumber rows
         row.names(Jun11) <- 1:nrow(Jun11)
 
+        ##SPECIAL Jun11 CLEANING
+                ##some of the power data are missing (list as zero)
+                ##so correct that by finding the zero elements and computing the proper power
+
+                zeropowerindex=which(Jun11$power==0)
+                for (k in 1:length(zeropowerindex)){
+                Jun11$power[zeropowerindex[k]]<-Jun11$rmax[zeropowerindex[k]]/Jun11$mflopswatt[zeropowerindex[k]]        
+                
+                }
+     
         ## add ExaRank column
         ExaRank <- c(1:nrow(Jun11))
         Jun11<-cbind(ExaRank, Jun11)
