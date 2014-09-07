@@ -1,7 +1,8 @@
-# Exascalar Data Trend Plot One
+# Exascalar Data Trend Plot Line Plots
 
 ## This program imports cleaned data from the Green500 and Top500 lists
-## It plots one set of data and the trend of the top and median exascalar overlayed
+## It plots The long term trend of the Top and Median Exascalar
+
 
 ## GET THE CLEANED DATA
 
@@ -46,6 +47,9 @@ print("data read")
 TopEx <- rbind(Jun09[1,c(1:7)], Nov09[1,c(1:7)], Jun10[1,c(1:7)], Nov10[1,c(1:7)], Jun11[1,c(1:7)], Nov11[1,c(1:7)], Jun12[1,c(1:7)], Nov12[1,c(1:7)], 
                Jun13[1,c(1:7)], Nov13[1,c(1:7)], Jun14[1,c(1:7)])
 
+BottomEx <- rbind(Jun09[500,c(1:7)], Nov09[497,c(1:7)], Jun10[500,c(1:7)], Nov10[500,c(1:7)], Jun11[500,c(1:7)], Nov11[500,c(1:7)], Jun12[500,c(1:7)], Nov12[500,c(1:7)], 
+               Jun13[500,c(1:7)], Nov13[500,c(1:7)], Jun14[500,c(1:7)])
+
 
 mean_eff <- function(list){mean(list$rmax)/mean(list$power)}
 
@@ -84,6 +88,7 @@ MedianEx <- matrix(c(median_eff(Jun09), median_eff(Nov09),
                    ncol=2, nrow = 11)
 MedianEx <- as.data.frame(MedianEx)
 names(MedianEx) <- c("mflopswatt", "rmax")
+
 
 ##PlotMean over Exascalar Data
 ## EXASCALAR PLOT OVERLAYING TWO LISTS

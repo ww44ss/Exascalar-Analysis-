@@ -61,7 +61,7 @@ print("data read")
 ##PLOT MID, MEDIAN AND TOP EXASCALAR TREND
 
 
-TopEx <- rbind(Jun09[1,], Nov09[1,], Jun10[1,], Nov10[1,], Jun11[1,], Nov11[1,], Jun12[1,], Nov12[1,], Jun13[1,], Nov13[1,], Jun14[1,])
+TopEx <- rbind(Jun09[,1:7], Nov09[,1:7], Jun10[,1:7], Nov10[,1:7], Jun11[,1:7], Nov11[,1:7], Jun12[,1:7], Nov12[,1:7], Jun13[1,1:7], Nov13[1,1:7], Jun14[1,1:7])
 
 ##mean efficiency function calculated the mean perforance adn power and then the mean efficiency from that ratio
 ##thus defined it reflects the popultion of the Top500 computers. 
@@ -102,57 +102,88 @@ MedianEx <- matrix(c(median_eff(Jun09), median_eff(Nov09),
 MedianEx <- as.data.frame(MedianEx)
 names(MedianEx) <- c("mflopswatt", "rmax")
 
+bottom_eff <- function(list){list$rmax[which(list$X == max(list$X))]/list$power[which(list$X == max(list$X))]}
+bottom_perf <- function(list){list$rmax[which(list$X == max(list$X))]}
+
+BottomGreen <- matrix(c(bottom_eff(Jun09), bottom_eff(Nov09),
+                        bottom_eff(Jun10), bottom_eff(Nov10),
+                        bottom_eff(Jun11), bottom_eff(Nov11),
+                        bottom_eff(Jun12), bottom_eff(Nov12),
+                        bottom_eff(Jun13), bottom_eff(Nov13),
+                        bottom_eff(Jun14),
+                        bottom_perf(Jun09), bottom_perf(Nov09),
+                        bottom_perf(Jun10), bottom_perf(Nov10),
+                        bottom_perf(Jun11), bottom_perf(Nov11),
+                        bottom_perf(Jun12), bottom_perf(Nov12),
+                        bottom_perf(Jun13), bottom_perf(Nov13), 
+                        bottom_perf(Jun14)),
+                      ncol=2, nrow = 11)
+
+BottomGreen <- as.data.frame(MedianEx)
+names(BottomGreen) <- c("mflopswatt", "rmax")
+
+top_eff <- function(list){list$rmax[which(list$green500rank == 1)[1]]/list$power[which(list$green500rank == 1)[1]]}
+top_perf <- function(list){list$rmax[which(list$green500rank == 1)[1]]}
+
+TopGreen <- matrix(c(top_eff(Jun09), top_eff(Nov09),
+                     top_eff(Jun10), top_eff(Nov10),
+                     top_eff(Jun11), top_eff(Nov11),
+                     top_eff(Jun12), top_eff(Nov12),
+                     top_eff(Jun13), top_eff(Nov13),
+                     top_eff(Jun14),
+                     top_perf(Jun09), top_perf(Nov09),
+                     top_perf(Jun10), top_perf(Nov10),
+                     top_perf(Jun11), top_perf(Nov11),
+                     top_perf(Jun12), top_perf(Nov12),
+                     top_perf(Jun13), top_perf(Nov13), 
+                     top_perf(Jun14)),
+                   ncol=2, nrow = 11)
+
+TopGreen <- as.data.frame(TopGreen)
+names(TopGreen) <- c("mflopswatt", "rmax")
+
 DatesString<-c("06/01/2009", "11/01/2009","06/01/2010","11/01/2010","06/01/2011","11/01/2011",
                "06/01/2012",
                "11/01/2012","06/01/2013",
                "11/01/2013","06/01/2014")
 Date <- as.Date(DatesString, "%m/%d/%Y")
-topexascalar<-TopEx$exascalar
-#TopExTrend<-as.data.frame(cbind(Date, exascalar))
-#TopExTrend$Date <- format(TopExTrend$Date, format = "%B %d %Y")
-##PlotMean over Exascalar Data
-## EXASCALAR PLOT OVERLAYING TWO LISTS
 
-## plots "reference" list first, then "list of current interest" is overlayed
+
+## EXASCALAR TREND
+
+## Plot of the Top and Median Exascalar for current cleaned data set
+
 
 require(ggplot2)
+## create TopEx vector
+topexascalar<-TopEx$exascalar
+## create TopEX data frame for fitting
 TopExData <- as.data.frame(cbind(Date, topexascalar))
+## fitted model of Top Exascalar data
 TopExFit <- lm(topexascalar ~ Date , data = TopExData)
-
+## plot the data
 plot(Date, topexascalar,
-      ylim=c(-7.0,0),
-      xlim = c(14000, 19000),
-      main = "",
-        ylab = "Exascalar", 
-      col = "red",
-      bg = "steelblue2",
-      pch=21)
-##This is a median analysis which is not plotted currently
-#par(new=TRUE)
+     ylim=c(-7.0,0),
+     xlim = c(14000, 19000),
+     main = "",
+     ylab = "Exascalar", 
+     col = "red",
+     bg = "steelblue2",
+     pch=21)
 
-#MedianEx$exascalar <- compute_exascalar(MedianEx)
-#medexascalar <- as.numeric(MedianEx$exascalar)
-
-#
-#plot(Date, medexascalar,
-#     ylim=c(-7.0,0),
-#     xlim = c(14000, 19000),
-#     xlab = "",
-#     ylab = "", 
-#     main = "Exascalar Trend",
-#     col = "dark blue",
-#     bg = "pink",
-#     pch=20)
 
 par(new=TRUE)
-MeanEx$exascalar <- compute_exascalar(MeanEx)
-meanexascalar <- as.numeric(MeanEx$exascalar)
+print('median')
+## create median vector for plotting
+MedianEx$exascalar <- compute_exascalar(MedianEx)
+medianexascalar <- as.numeric(MedianEx$exascalar)
+## createe median data fram for fitting
+MedianExData <- as.data.frame(cbind(Date, medianexascalar))
+##fitted model of median data 
+MedianExFit <- lm(medianexascalar ~ Date , data = MedianExData)
 
-MeanExData <- as.data.frame(cbind(Date, meanexascalar))
-MeanExFit <- lm(meanexascalar ~ Date , data = MeanExData)
 
-print("here here")
-plot(Date, meanexascalar,
+plot(Date, medianexascalar,
      ylim=c(-7.0,0),
      xlim = c(14000, 19000),
      xlab = "",
@@ -162,30 +193,47 @@ plot(Date, meanexascalar,
      bg = "green",
      pch=19)
 
+## get parameters for fitted lines
+
 topslope<-TopExFit$coefficient[2]
 topintercept<-TopExFit$coefficient[1]
 
-## calculate date zero - when the top trend will intercet zero
-datezero = -topintercept/topslope
+## calculate date zero - when the top trend will intercet zero exascalar
+## the zero date is an important figure of merit of the population (zero exascalar) 
+##  representing the most advanced supercomputing capability
 
+datezero = -topintercept/topslope
+##draw lines
 lines(c(14000, datezero), c(topintercept+topslope*14000, topintercept+topslope*datezero))
 
 
-
-meanslope<-MeanExFit$coefficient[2]
-meanintercept<-MeanExFit$coefficient[1]
-lines(c(14000, datezero), c(meanintercept+meanslope*14000, meanintercept+meanslope*datezero))
-
+medianslope<-MedianExFit$coefficient[2]
+medianintercept<-MedianExFit$coefficient[1]
+## draw fitted line for median
+lines(c(14000, datezero), c(medianintercept+medianslope*14000, medianintercept+medianslope*datezero))
+## add text to graph
 text(datezero, 0, as.Date(datezero, origin="1970-01-01"), cex=.5, srt=0, pos = 2)
-text(datezero, -1, "Top", cex=.7, srt=0, pos = 2)
-text(datezero, meanintercept+meanslope*datezero-1, "Mean", cex=.7, srt=0, pos = 2)
+text(datezero, -1.2, "Top", cex=.7, srt=0, pos = 2)
+text(datezero, medianintercept+medianslope*datezero-1.2, "Median", cex=.7, srt=0, pos = 2)
 
-text(datezero,
-     -7, "data from June14 Green500 and Top500                  ", cex=.4, col="black", pos=3)
+text(datezero-100,
+     -7, "data from June14 Green500 and Top500                     ", cex=.4, col="black", pos=3)
+
+TopEx<-cbind(TopEx, Date)
+
+## POWER TREND PLOT
+
+powerplot <- ggplot(TopEx, aes(x = Date, y = power)) + geom_point() + coord_trans(y="log10")
+## get rid of grid lines
+powerplot <- powerplot + theme(panel.grid.minor=element_blank(), panel.grid.major=element_blank())
+## add performance ski
+powerplot<-powerplot+ geom_point(aes(alpha = rmax))
+png(filename=paste0(d, "/ExaPowerTrend.png"))
+##print(aaaaaa)
+dev.off()
 
 
-## POWER AND PERFORMANCE TREND
-
+par(new=FALSE)
 toppower<-TopEx$power
 plot(Date, toppower,
      ylim=c(200,20000),
@@ -197,17 +245,26 @@ plot(Date, toppower,
      bg = "steelblue2",
      pch=21)
 par(new=TRUE)
-meanpower<-MeanEx$rmax/MeanEx$mflopswatt
-plot(Date, meanpower,
+medianpower<-MedianEx$rmax/MeanEx$mflopswatt
+plot(Date, medianpower,
      ylim=c(200,20000),
      xlim = c(14000, 16500),
      log="y",
      xlab = "",
      ylab = "", 
-     main = "Exascalar Trend",
+     main = "Power Trend",
      col = "dark blue",
      bg = "green",
      pch=19)
+
+
+text(Date[5], toppower[5], "Top Power", cex=.7, srt=0, pos = 2)
+text(Date[5], medianpower[5], "Median Power", cex=.7, srt=0, pos = 2)
+
+text(16222,
+     300, "data from June14 Green500 and Top500                     ", cex=.4, col="black", pos=3)
+
+
 
 topeff<-TopEx$mflopswatt
 plot(Date, topeff,
@@ -220,14 +277,14 @@ plot(Date, topeff,
      bg = "steelblue2",
      pch=21)
 par(new=TRUE)
-meaneff<-MeanEx$mflopswatt
-plot(Date, meaneff,
+medianeff<-MedianEx$mflopswatt
+plot(Date, medianeff,
      ylim=c(50,3000),
      xlim = c(14000, 16500),
      log="y",
      xlab = "",
      ylab = "", 
-     main = "Exascalar Trend",
+     main = "Efficiency Trend",
      col = "dark blue",
      bg = "green",
      pch=19)

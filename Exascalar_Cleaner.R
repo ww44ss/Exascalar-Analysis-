@@ -1,9 +1,11 @@
 ## Exascalar Data Clean Up
 
-## This program reads files in the Top500 and Green500 folders,  
+##  This program reads files in the Top500 and Green500 folders,  
 ## "cleans" the column names (for later use)
 ## combines them 
-## and stores the files as .csv's
+## and stores the output data in two forms:
+##      MmmYy.csv is the data from that month
+##      BigExascalar is a combined list of all data
 
 ## The values in the final data frame are
 ## exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, name (long descriptive name of computer), 
@@ -13,7 +15,7 @@
 
 ## STEP 1 GET THE RAW DATA
 ## Assumes the wd is the Documents directory 
-##check for Exascalar Directory. If none exists stop program with error
+## check for Exascalar Directory. If none exists stop program with error
 
 ## set working directory
 
@@ -62,6 +64,8 @@ TopNov09 <- read.csv(paste0(top500data, "/TOP500_200911.csv"), header=TRUE)
 TopJun09 <- read.csv(paste0(top500data, "/TOP500_200906.csv"), header=TRUE)
 #TopNov08 <- read.csv(paste0(top500data, "/TOP500_200811.csv"), header=TRUE)
 #TopJun08 <- read.csv(paste0(top500data, "/TOP500_200806.csv"), header=TRUE)
+
+BigExascalar<-NULL
 
 ## ---------------------
 ## STEP 2 CLEAN RESULTS AND STORE ANALYZE DATA 
@@ -133,6 +137,7 @@ compute_exascalar <- function(xlist){
 ##exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, computer, 
 
 
+
 ## JUN 14 CLEANING
 ## ---- 
         ## labels reduce confusion on merge
@@ -143,8 +148,7 @@ compute_exascalar <- function(xlist){
         tt <- merge(GreenJun14, TopJun14, by="top500rank", all.x=TRUE)
         ## select relevant columns  (these are hand crafted per list)
         
-        Jun14<-tt[, c("green500rank.g", "top500rank", "rmax.g", "power.g", "mflopswatt.g", "computer.g", "totalcores.g", 
-               "processorfamily.g", "acceleratorcoprocessor.g","interconnectfamily.g","acceleratorcoprocessorcores.t", "processorgeneration.t")]
+        Jun14<-tt[, c("green500rank.g", "top500rank", "rmax.g", "power.g", "mflopswatt.g", "computer.g")]
 
         names(Jun14) <- names_clean_2(names(Jun14))
 
@@ -155,10 +159,24 @@ compute_exascalar <- function(xlist){
         ##sort by exascalar
         Jun14 <- Jun14[order(exascalar),]
         ##renumber rows
-        row.names(Jun14) <- 1:nrow(Jun14)
-        ##final cleaned data
-        ##write file to results folder
+        
+        ExaRank <- c(1:nrow(Jun14))
+        Jun14<-cbind(ExaRank, Jun14)
+
+        ##define date vector
+        date = rep(as.Date("06/01/2014", "%m/%d/%Y"), nrow(Jun14))
+        ##bind it to the data
+        Jun14 <- cbind(date,Jun14)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Jun14)
+
+        ## final cleaned data
+        ## write file to results folder
         write.csv(Jun14, "./results/Jun14.csv")
+
+ 
+print("Jun14")
+
 
 ## ---------
 ## NOV 13 cleaning
@@ -177,8 +195,7 @@ compute_exascalar <- function(xlist){
 
         ## select relevant columns
 
-        Nov13<-tt[, c("green500rank.g", "top500rank", "rmax.g", "power.g", "mflopswatt.g", "name.g", "totalcores.g", 
-              "processorfamily.g", "acceleratorcoprocessor.g","interconnectfamily.g","acceleratorcoprocessorcores.t", "processorgeneration.t")]
+        Nov13<-tt[, c("green500rank.g", "top500rank", "rmax.g", "power.g", "mflopswatt.g", "name.g")]
 
         ##names cleanup
         
@@ -195,11 +212,23 @@ compute_exascalar <- function(xlist){
 
         row.names(Nov13) <- 1:nrow(Nov13)
 
+        ExaRank <- c(1:nrow(Nov13))
+        Nov13<-cbind(ExaRank, Nov13)
+
+        ##define date vector
+        date = rep(as.Date("11/01/2013", "%m/%d/%Y"), nrow(Nov13))
+        ##bind it to the data
+        Nov13 <- cbind(date,Nov13)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Nov13)
+
+
         ##final cleaned data
         ##write file to results folder
 
         write.csv(Nov13, "./results/Nov13.csv")
 
+print("Nov13")
 
 ## ----
 ## JUN13 CLEANING
@@ -215,8 +244,7 @@ compute_exascalar <- function(xlist){
 
         ## select relevant columns  (these are hand crafted per list)
         Jun13 <- cbind(tt[,c(2, 1, 3, 4, 6, 11)])
-        Jun13t<-tt[, c("green500rank.g", "top500rank", "rmax.g", "power.g", "mflopswatt.g", "computer.g", "totalcores.t", 
-              "processortechnology.g", "acceleratorcoprocessor.g","interconnectfamily.g","acceleratorcoprocessorcores.t", "processorgeneration.g")]
+        Jun13t<-tt[, c("green500rank.g", "top500rank", "rmax.g", "power.g", "mflopswatt.g", "computer.g")]
 
         ##names cleanup
         names(Jun13) <- names_clean_2(names(Jun13))
@@ -228,12 +256,22 @@ compute_exascalar <- function(xlist){
         Jun13 <- Jun13[order(exascalar),]
         ##renumber rows
         row.names(Jun13) <- 1:nrow(Jun13)
+        ## add ExaRank column
+        ExaRank <- c(1:nrow(Jun13))
+        Jun13<-cbind(ExaRank, Jun13)
+
                 
-      
+        ##define date vector
+        date = rep(as.Date("06/01/2013", "%m/%d/%Y"), nrow(Jun13))
+        ##bind it to the data
+        Jun13 <- cbind(date,Jun13)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Jun13)
+
         ##final cleaned data
         ##write file to results folder
         write.csv(Jun13, "./results/Jun13.csv")
-
+print("Jun13")
 
 ## NOV12 CLEANING
 ## ----
@@ -266,10 +304,25 @@ compute_exascalar <- function(xlist){
         ##renumber rows
         row.names(Nov12) <- 1:nrow(Nov12)
 
+        ## add ExaRank column
+        ExaRank <- c(1:nrow(Nov12))
+        Nov12<-cbind(ExaRank, Nov12)
+
+
+        ##define date vector
+        date = rep(as.Date("11/01/2012", "%m/%d/%Y"), nrow(Nov12))
+        ##bind it to the data
+        Nov12 <- cbind(date,Nov12)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Nov12)
+
+
+
         ##final cleaned data
         ##write file to results folder
         write.csv(Nov12, "./results/Nov12.csv")
 
+print("Nov12")
 
 ## JUN12 CLEANING
 ## ----
@@ -297,9 +350,25 @@ compute_exascalar <- function(xlist){
         Jun12 <- Jun12[order(exascalar),]
         ##renumber rows
         row.names(Jun12) <- 1:nrow(Jun12)
+
+        ## add ExaRank column
+        ExaRank <- c(1:nrow(Jun12))
+        Jun12<-cbind(ExaRank, Jun12)
+
+        ##define date vector
+        date = rep(as.Date("06/01/2012", "%m/%d/%Y"), nrow(Jun12))
+        ##bind it to the data
+        Jun12 <- cbind(date,Jun12)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Jun12)
+
+
+
         ##final cleaned data
         ##write file to results folder
         write.csv(Jun12, "./results/Jun12.csv")
+
+print("Jun12")
 
 # NOV11 CLEANING
 ## ----
@@ -328,9 +397,24 @@ compute_exascalar <- function(xlist){
         ##renumber rows
         row.names(Nov11) <- 1:nrow(Nov11)
 
+        ## add ExaRank column
+        ExaRank <- c(1:nrow(Nov11))
+        Nov11<-cbind(ExaRank, Nov11)
+
+        ##define date vector
+        date = rep(as.Date("11/01/2011", "%m/%d/%Y"), nrow(Nov11))
+        ##bind it to the data
+        Nov11 <- cbind(date,Nov11)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Nov11)
+
+
+
         ##final cleaned data
         ##write file to results folder
         write.csv(Nov11, "./results/Nov11.csv")
+
+print("Nov11")
 
 # JUN11 CLEANING
 ## ----
@@ -359,10 +443,22 @@ compute_exascalar <- function(xlist){
         ##renumber rows
         row.names(Jun11) <- 1:nrow(Jun11)
 
+        ## add ExaRank column
+        ExaRank <- c(1:nrow(Jun11))
+        Jun11<-cbind(ExaRank, Jun11)
+
+        ##define date vector
+        date = rep(as.Date("06/01/2011", "%m/%d/%Y"), nrow(Jun11))
+        ##bind it to the data
+        Jun11 <- cbind(date,Jun11)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Jun11)
+
         ##final cleaned data
         ##write file to results folder
         write.csv(Jun11, "./results/Jun11.csv")
         
+print("Jun11")
 
 # NOV10 CLEANING
 ## ----
@@ -392,11 +488,23 @@ compute_exascalar <- function(xlist){
         ##renumber rows
         row.names(Nov10) <- 1:nrow(Nov10)
 
+        ## add ExaRank column
+        ExaRank <- c(1:nrow(Nov10))
+        Nov10<-cbind(ExaRank, Nov10)
+
+        ##define date vector
+        date = rep(as.Date("11/01/2010", "%m/%d/%Y"), nrow(Nov10))
+        ##bind it to the data
+        Nov10 <- cbind(date,Nov10)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Nov10)
+
 
         ##final cleaned data
         ##write file to results folder
         write.csv(Nov10, "./results/Nov10.csv")
 
+print("Nov10")
 
 # JUN10 CLEANING
 ## ----
@@ -433,11 +541,24 @@ compute_exascalar <- function(xlist){
         ##renumber rows
         row.names(Jun10) <- 1:nrow(Jun10)
 
+        ## add ExaRank column
+        ExaRank <- c(1:nrow(Jun10))
+        Jun10<-cbind(ExaRank, Jun10)
+
+        ##define date vector
+        date = rep(as.Date("06/01/2010", "%m/%d/%Y"), nrow(Jun10))
+        ##bind it to the data
+        Jun10 <- cbind(date,Jun10)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Jun10)
+
+
 
         ##final cleaned data
         ##write file to results folder
         write.csv(Jun10, "./results/Jun10.csv")
 
+print("Jun10")
 
 # NOV09 CLEANING
 ## ----
@@ -467,10 +588,22 @@ compute_exascalar <- function(xlist){
         ##renumber rows
         row.names(Nov09) <- 1:nrow(Nov09)
 
+        ## add ExaRank column
+        ExaRank <- c(1:nrow(Nov09))
+        Nov09<-cbind(ExaRank, Nov09)
+
+        ##define date vector
+        date = rep(as.Date("11/01/2009", "%m/%d/%Y"), nrow(Nov09))
+        ##bind it to the data
+        Nov09 <- cbind(date,Nov09)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Nov09)
+
         ##final cleaned data
         ##write file to results folder
         write.csv(Nov09, "./results/Nov09.csv")
 
+print("Nov09")
 
 # JUN09 CLEANING
 ## ----
@@ -500,12 +633,27 @@ compute_exascalar <- function(xlist){
         ##renumber rows
         row.names(Jun09) <- 1:nrow(Jun09)
 
+        ## add ExaRank column
+        ExaRank <- c(1:nrow(Jun09))
+        Jun09<-cbind(ExaRank, Jun09)
+
+        ##define date vector
+        date = rep(as.Date("06/01/2009", "%m/%d/%Y"), nrow(Jun09))
+        ##bind it to the data
+        Jun09 <- cbind(date,Jun09)
+        ## Put values in BigExascalar
+        BigExascalar <- rbind(BigExascalar,Jun09)
 
 
         ##final cleaned data
         ##write file to results folder
         write.csv(Jun09, "./results/Jun09.csv")
 
+print("Jun09")
+
+##OUTPUT BIGEXASCALAR
+
+        write.csv(BigExascalar, "./results/BigExascalar.csv")
 
 
 ## PROGRAM IS COMPLETE
