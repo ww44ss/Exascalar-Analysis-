@@ -72,18 +72,22 @@ currently the data saved are:
 #####Exascalar_Trend.R 
   This program creates a plot of the most recent Green500 data and plots the trend lines of the Top and Median exascalar.
   
+![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/ExascalarTrend.png "Exascalar")
+  
 #####PlotWholeBigExascalar.R 
   This is a exploratory program which plots all teh supercoputing data on one plot. 
   
 #####PowerGap2.R
-  This program extracts the power and performance data of the most efficient and the least advanced (lowest Exascalar)
+
+This program extracts the power and performance data of the most efficient and the least advanced (lowest Exascalar)
   
 ![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/PowerCompare.png "Power Comparison")
 
-Note that the performance of the systems are the same. 
+Note that the while the power consumption of the worst (lowest exascalar) is 100 times greater than the lowest power system, the performance of the systems are the same. 
   
 #####TechTrend.R
-   This program helps visualize how different technologies contribute to supercomputing leadership by plotting the data for systems against the data of leading supercoputer. For example the grpah below shows all teh Xeon Phi systems.
+
+This program helps visualize how different technologies contribute to supercomputing leadership by plotting the data for systems against the data of leading supercoputer. For example the grpah below shows all teh Xeon Phi systems.
    
    ![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/TechTrend_Perf_Phi.png "Xeon Phi ")
    
