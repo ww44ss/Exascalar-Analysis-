@@ -70,15 +70,23 @@ for (ii in 1:length(datematrix[,1])) {
 ## this section just searches for code names inside the computer name and creates a table of values based on that
 ## note that the search is not case sensitive
 
-        TechTrendSearchString = "Power"
+        TechTrendSearchString = "Phi"
         ## use grepl to search for substring
         bbb <- grepl(TechTrendSearchString, BigExascalar$computer, ignore.case=TRUE)
         ## get the locations
         ccc <- which(bbb ==TRUE)
         ## subset Big Exascalar
         TechTrend <- BigExascalar[ccc,]
-print("number of points =")
-print(length(ccc))
+
+        hightechtable=NULL
+        for (ii in 1:length(datematrix[,1])) {
+                xx <- TechTrend[TechTrend$date == datematrix[ii,1],]
+                xrow <- subset(xx, xx$exascalar == max(xx$exascalar))
+        hightechtable<-rbind(hightechtable, xrow)
+        }
+
+## message to user 
+print(as.character(c("number of points = ", length(ccc),"  for ", TechTrendSearchString)))
 
 ## CREATE PLOTS
 ## ----------
@@ -90,6 +98,7 @@ plot(as.Date(highexatable$date, origin="1970-01-01"), highexatable$power,
      xlim = c(14000, 16500),
      main = "Power (kW)",
      type="o",
+     lwd=2.0,
      log="y",
      ylab = "Power Comparison (kW)", 
      xlab = "Date",
@@ -121,6 +130,7 @@ plot(as.Date(highexatable$date, origin="1970-01-01"), highexatable$rmax,
      main = "Performance Comparison (Mflops)",
      log="y",
      type="o",
+     lwd=2.0,
      ylab = "rmax (Mflops)", 
      xlab = "Date",
      col = "red",
