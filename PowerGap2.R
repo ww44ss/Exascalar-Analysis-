@@ -67,6 +67,9 @@ for (ii in 1:length(datematrix[,1])) {
 
 ## CREATE PLOTS
 ## ----------
+
+## power plot
+
 png(filename="PowerCompare.png")
 
 par(new=FALSE)
@@ -91,9 +94,13 @@ plot(as.Date(lowpowertable$date, origin="1970-01-01"), lowpowertable$power,
      col = "blue",
      bg = "red",
      pch=22)
-  legend("topleft", c("Lowest Exascalar","Lowest Power"), col=c("red", "blue"), pt.bg=c("steelblue2", "red"), pch=21:22, cex=0.8)
+
+## add a legend to the plot
+legend("topleft", c("Lowest Exascalar","Lowest Power"), col=c("red", "blue"), pt.bg=c("steelblue2", "red"), pch=21:22, cex=0.8)
 
 dev.off()
+
+
 ## rmax plot
 
 png(filename="PerformanceCompare.png")
@@ -120,13 +127,9 @@ plot(as.Date(lowpowertable$date, origin="1970-01-01"), lowpowertable$rmax,
      col = "blue",
      bg = "red",
      pch=22)
-#plot(ylim=c(10^3,10^8),
-#     xlim = c(14000, 16500),
- #    main = "",
-  #   log="y",
-   #  ylab = "", 
-    # xlab = "",
-     legend("topleft", c("Lowest Exascalar","Lowest Power"), col=c("red", "blue"), pt.bg=c("steelblue2", "red"), pch=21:22, cex=0.8)
+
+## add a legend to the plot
+legend("topleft", c("Lowest Exascalar","Lowest Power"), col=c("red", "blue"), pt.bg=c("steelblue2", "red"), pch=21:22, cex=0.8)
 
 
 
