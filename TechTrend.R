@@ -70,7 +70,7 @@ for (ii in 1:length(datematrix[,1])) {
 ## this section just searches for code names inside the computer name and creates a table of values based on that
 ## note that the search is not case sensitive
 
-        TechTrendSearchString = "Opteron"
+        TechTrendSearchString = "Infiniband"
         ## use grepl to search for substring
         bbb <- grepl(TechTrendSearchString, BigExascalar$computer, ignore.case=TRUE)
         ## get the locations
@@ -89,6 +89,7 @@ plot(as.Date(highexatable$date, origin="1970-01-01"), highexatable$power,
      ylim=c(20,20000),
      xlim = c(14000, 16500),
      main = "Power (kW)",
+     type="o",
      log="y",
      ylab = "Power Comparison (kW)", 
      xlab = "Date",
@@ -119,6 +120,7 @@ plot(as.Date(highexatable$date, origin="1970-01-01"), highexatable$rmax,
      xlim = c(14000, 16500),
      main = "Performance Comparison (Mflops)",
      log="y",
+     type="o",
      ylab = "rmax (Mflops)", 
      xlab = "Date",
      col = "red",
