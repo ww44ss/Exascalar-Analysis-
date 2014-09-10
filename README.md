@@ -8,13 +8,15 @@ Visualize the Top500 and Green500 Supercomputer Lists
 This describes some Exploratory Data Analysis I did on the evolution of supercomputing trends from 2009 hence. 
 Since the Green500 and Top500 describe different aspects of essentially the same population of supercomputers, there's inherent value in combining the two lists into one analysis. 
 
-Since the world of supercomputing is "competitive" I created a separate metric "Exascalar" which combimes the two rankings
+Since the world of supercomputing is "competitive" I created a separate metric "Exascalar" which combimes the two rankings. 
 
 ####About Exascalar
 
 Exascalar is an approach to look at supercomputing leadership trends in both the [Top500](http://www.top500.org) super computer list (based on performance) and the [Green500](http://www.green500.org) super computer list (based on efficiency) in a single visually digestable graph. Rather than a list emphasizing the top one or two items, this analysis focuses on the whole the population of the Top supercomputers. 
 
-The general question Exascalar addresses is "how does the population of "top" super computers evolve?"
+Historically I had done this analysis in Mathematica but decided to shift it to R to increase accessibility.
+
+Exascalar reveals answers to the question "how does the population of "top" super computers evolve?"
 
 Exascalar combines the efficiency analysis and performance analysis into one easily digested graph. It overlays a transverse rectilinear coordinate system of power and "Exascalar." Exascalar measures supercomputing leadership as both performance (scale) and efficiency (capability). 
 
