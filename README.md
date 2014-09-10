@@ -45,17 +45,17 @@ It also creates a file
 
    _BigExascalar.csv_ - which is the combined cleaned files with a date column added
 
-The program saves the files in a foled called "results"
+The program saves the files in a folder _results_  
 
-currently the data saved are:
- "exascalar" The computed Exacalar Value
- "green500rank" The rank of the system in the Green 500 (Efficiency)
- "top500rank"   The rank of the system in the Top500 (Performance)
+currently the data in the cleaned files are:
+ "exascalar" The computed Exacalar Value  
+ "green500rank" The rank of the system in the Green 500 (Efficiency)  
+ "top500rank"   The rank of the system in the Top500 (Performance)  
  "rmax"  System Performance       
  "power"  System Power      
- "mflopswatt"   Efficiency
- "computer" A descriptive name of the computer
-
+ "mflopswatt"   Efficiency  
+ "computer" A descriptive name of the computer  
+  
 #####Exascalar_Trend.R 
   This program creates a plot of the most recent Green500 data and plots the trend lines of the Top and Median exascalar.
   
