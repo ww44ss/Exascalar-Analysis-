@@ -64,6 +64,7 @@ currently the data in the cleaned files are:
 #####PlotWholeBigExascalar.R 
 
 This is a exploratory program which plots all the supercomputing data on one plot. 
+It only prints to the screen.
   
 #####PowerGap2.R
 
@@ -72,10 +73,14 @@ This program extracts the power and performance data of the most efficient and t
 ![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/PowerCompare.png "Power Comparison")
 
 Note that the while the power consumption of the worst (lowest exascalar) is 100 times greater than the lowest power system, the performance of the systems are the same. 
+
+The output is stored as _PowerCompare.png_  
   
 #####TechTrend.R
 
-This program helps visualize how different technologies contribute to supercomputing leadership by plotting the data for systems against the data of leading supercoputer. For example the grpah below shows all teh Xeon Phi systems.
+This program helps visualize how different technologies contribute to supercomputing leadership by plotting the data for systems against the data of leading supercoputer. For example the grpah below shows how Intel's Xeon Phi systems have evolved.
+
+The are stored as files named _TechTrend_xxx_.png_
    
    ![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/TechTrend_Perf_Phi.png "Xeon Phi ")
    
