@@ -5,42 +5,27 @@ Visualize the Top500 and Green500 Supercomputer Lists
 
 ![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/Exascalar.png "Exascalar Graph")
 
+This describes some Exploratory Data Analysis I did on the evolution of supercomputing trends from 2009 hence. 
+Since the Green500 and Top500 describe different aspects of essentially the same population of supercomputers, there's inherent value in combining the two lists into one analysis. 
 
-Exascalar
-=========
+Since the world of supercomputing is "competitive" I created a separate metric "Exascalar" which combimes the two rankings
 
-This is a repository for code analyzing the Green500 and Top500 computer lists using Exascalar
+####About Exascalar
 
-You can read about Exascalar [here](https://communities.intel.com/community/itpeernetwork/datastack/blog/2011/10/20/rethinking-supercomputer-performance-and-efficiency-for-exascale), 
-[here](http://www.datacenterknowledge.com/archives/2013/01/28/the-taxonomy-of-exascalar/), 
-and [here](http://www.datacenterknowledge.com/archives/2012/07/10/june-2012-exascalar-efficiency-dominates-hpc/).
-
-####What is Exascalar?
-Exascalar is an approach to look at supercomputing leadership trends in both the Top500 super computer list (based on performance) and the Green500 super computer list (based on efficiency) in a single visually digestable graph. It's about the population of the Top supercomputers. 
+Exascalar is an approach to look at supercomputing leadership trends in both the [Top500](http://www.top500.org) super computer list (based on performance) and the [Green500](http://www.green500.org) super computer list (based on efficiency) in a single visually digestable graph. Rather than a list emphasizing the top one or two items, this analysis focuses on the whole the population of the Top supercomputers. 
 
 The general question Exascalar addresses is "how does the population of "top" super computers evolve?"
 
-The Top500 and Green500 lists are really just that. Lists. Lists are hard to visualize and frankly, apart from the top one or two, nobody really pays attention to much else to what is going on under the covers. But that's where the technology story is most interesting. 
-
-Exascalar combines the efficiency analysis and performance analysis into one easily digested graph. It overlays a transverse rectilinear coordinate system of power and "Exascalar." Exascalar measures supercomputing leadership as both performance (scale) and efficiency (capability).
+Exascalar combines the efficiency analysis and performance analysis into one easily digested graph. It overlays a transverse rectilinear coordinate system of power and "Exascalar." Exascalar measures supercomputing leadership as both performance (scale) and efficiency (capability). 
 
 It's worth noting the current  Exascalar is simpler than the original version, which used a kind of circular distance in logarithmic space. A conversation with a colleague convinced me that a better approach would be to base Exascalar on the product of Efficiency*Performance. 
 
-####Why Invent Exascalar?
-Exascalar allows visualization of the Top500 and Green500 lists on a single graph.
-
-  *Highlights leading indicators of performance leadership   
-  *Reveals highly inefficient systems in production (which should be [refreshed](http://www.datacenterknowledge.com/archives/2013/01/28/the-taxonomy-of-exascalar/) )   
-  *Shows how the "power wall" limits the trend of performance of the overall population
-  
-Exascalar provides a simple numerical ranking based on combined leadership. 
-  *The Top value is usally dominated by performance    
-  *The Median value shows a trend of the "general population"    
-   
-Exascalar enables observations of technology trends more easily than other methods. At root it is a data visualization tool.
+You can more read about the history of Exascalar [here](https://communities.intel.com/community/itpeernetwork/datastack/blog/2011/10/20/rethinking-supercomputer-performance-and-efficiency-for-exascale), 
+[here](http://www.datacenterknowledge.com/archives/2013/01/28/the-taxonomy-of-exascalar/), 
+and [here](http://www.datacenterknowledge.com/archives/2012/07/10/june-2012-exascalar-efficiency-dominates-hpc/).
 
 
-####What data do you use and where did you get it?
+####Data Sources
 Data come from the Green500.org and the Top500.org websites.  
 
 The data cleaning program assumes the top500 lists are locally stored in a directory called "Exascalar" as .csv files in the sub-directories Top500 and Green500. These directories are clones in this repository.
@@ -53,8 +38,11 @@ Currently I have download files back to 2009.
 Current available analyses
 ==========================
 
-#####Exascalar_Cleaner.R
-  This reads in the Top500 and Green500 lists, cleans the data, and creates data.frames with these descriptive names (for example). The cleaning function gets updated frequently since the cleaning of individual lists is a a bit customized (naming and data enrty has not been consistent across the years)
+#####Exascalar_Cleaner.R  
+
+This reads in the Top500 and Green500 lists, cleans the data, and creates data.frames with these descriptive names of columns. The cleaning function gets updated frequently since the cleaning of individual lists is a bit customized (naming and data entry has not been consistent across the years)
+
+Naming conventions are:  
   
    _Nov13.csv_ - the combined Top500 and Green 500 list from November 2013  
     
@@ -67,7 +55,13 @@ It also creates a file
 The program saves the files in a foled called "results"
 
 currently the data saved are:
- "exascalar"    "green500rank" "top500rank"   "rmax"         "power"        "mflopswatt"   "computer"
+ "exascalar" The computed Exacalar Value
+ "green500rank" The rank of the system in the Green 500 (Efficiency)
+ "top500rank"   The rank of the system in the Top500 (Performance)
+ "rmax"  System Performance       
+ "power"  System Power      
+ "mflopswatt"   Efficiency
+ "computer" A descriptive name of the computer
 
 #####Exascalar_Trend.R 
   This program creates a plot of the most recent Green500 data and plots the trend lines of the Top and Median exascalar.
@@ -75,7 +69,8 @@ currently the data saved are:
 ![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/ExascalarTrend.png "Exascalar")
   
 #####PlotWholeBigExascalar.R 
-  This is a exploratory program which plots all teh supercoputing data on one plot. 
+
+This is a exploratory program which plots all the supercomputing data on one plot. 
   
 #####PowerGap2.R
 
@@ -91,4 +86,4 @@ This program helps visualize how different technologies contribute to supercompu
    
    ![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/TechTrend_Perf_Phi.png "Xeon Phi ")
    
- 
+####Fin  

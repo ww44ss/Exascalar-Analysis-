@@ -72,7 +72,7 @@ for (ii in 1:length(datematrix[,1])) {
 ## this section just searches for code names inside the computer name and creates a table of values based on that
 ## note that the search is not case sensitive
 
-TechTrendSearchString = "Opteron"
+TechTrendSearchString = "E5-26"
 ## use grepl to search for substring
 bbb <- grepl(TechTrendSearchString, BigExascalar$computer, ignore.case=TRUE)
 ## get the locations
