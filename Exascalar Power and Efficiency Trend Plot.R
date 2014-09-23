@@ -1,6 +1,7 @@
 # Exascalar Data Trend Plot
 
 # This program pulls in all the data and then plots a trend of the top, mean, and median exascalar.
+# plan to update to pull big exascalar file
 
 ## This program imports cleaned data from the Green500 and Top500 lists
 
