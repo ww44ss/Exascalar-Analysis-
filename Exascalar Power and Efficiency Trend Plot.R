@@ -41,28 +41,51 @@ compute_exascalar <- function(xlist){
 
 # import data set
 
-## there are probably ways to simplify this code but this brute force method is easy to read.
-
-Jun14 <- read.csv(paste0(results, "/Jun14.csv"), header=TRUE)
-Nov13 <- read.csv(paste0(results, "/Nov13.csv"), header=TRUE)
-Jun13 <- read.csv(paste0(results, "/Jun13.csv"), header=TRUE)
-Nov12 <- read.csv(paste0(results, "/Nov12.csv"), header=TRUE)
-Jun12 <- read.csv(paste0(results, "/Jun12.csv"), header=TRUE)
-Nov11 <- read.csv(paste0(results, "/Nov11.csv"), header=TRUE)
-Jun11 <- read.csv(paste0(results, "/Jun11.csv"), header=TRUE)
-Nov10 <- read.csv(paste0(results, "/Nov10.csv"), header=TRUE)
-Jun10 <- read.csv(paste0(results, "/Jun10.csv"), header=TRUE)
-Nov09 <- read.csv(paste0(results, "/Nov09.csv"), header=TRUE)
-Jun09 <- read.csv(paste0(results, "/Jun09.csv"), header=TRUE)
-#Nov08 <- read.csv(paste0(results, "/green500_top_200811.csv"), header=TRUE)
-#Jun08 <- read.csv(paste0(results, "/green500_top_200806.csv"), header=TRUE)
-
+BigExascalar <- read.csv(paste0(results, "/BigExascalar.csv"), header=TRUE)
 print("data read")
+
+
+
+## create datamatrix table to select as function of date various stats.
+datematrix<-as.data.frame(table(BigExascalar$date))
 
 ##PLOT MID, MEDIAN AND TOP EXASCALAR TREND
 
+##the way this works is for each date first take the subest of BigExascalar and then find the max value.
+TopEx <- NULL
 
-TopEx <- rbind(Jun09[,1:7], Nov09[,1:7], Jun10[,1:7], Nov10[,1:7], Jun11[,1:7], Nov11[,1:7], Jun12[,1:7], Nov12[,1:7], Jun13[1,1:7], Nov13[1,1:7], Jun14[1,1:7])
+for (ii in 1:length(datematrix[,1])) {
+        xx <- BigExascalar[BigExascalar$date == datematrix[ii,1],]
+        xrow <- subset(xx, xx$exascalar == max(xx$exascalar))
+        TopEx<-rbind(TopEx, xrow)
+}
+    
+
+MeanEx <- NULL
+
+for (ii in 1:length(datematrix[,1])) {
+        xx <- BigExascalar[BigExascalar$date == datematrix[ii,1],]
+        xrow <- subset(xx, xx$exascalar == mean(xx$exascalar))
+        MeanEx<-rbind(MeanEx, xrow)
+}
+    
+
+
+MedianPerf <- NULL
+
+for (ii in 1:length(datematrix[,1])) {
+        xx <- BigExascalar[BigExascalar$date == datematrix[ii,1],]
+        xrow <- subset(xx, xx$rmax == median(xx$rmax))
+        MedianPerf<-rbind(MedianPerf, xrow)
+}
+
+Median <- NULL
+
+for (ii in 1:length(datematrix[,1])) {
+        xx <- BigExascalar[BigExascalar$date == datematrix[ii,1],]
+        xrow <- subset(xx, xx$rmax == median(xx$rmax))
+        MedianPerf<-rbind(MedianPerf, xrow)
+}
 
 ##mean efficiency function calculated the mean perforance adn power and then the mean efficiency from that ratio
 ##thus defined it reflects the popultion of the Top500 computers. 
