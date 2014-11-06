@@ -24,6 +24,8 @@ results <- "./results"
 
 ## there are probably ways to simplify this code but this brute force method is easy to read.
 
+##need to modify to use the new BigExascalar format
+
 Jun14 <- read.csv(paste0(results, "/Jun14.csv"), header=TRUE)
 Nov13 <- read.csv(paste0(results, "/Nov13.csv"), header=TRUE)
 Jun13 <- read.csv(paste0(results, "/Jun13.csv"), header=TRUE)
