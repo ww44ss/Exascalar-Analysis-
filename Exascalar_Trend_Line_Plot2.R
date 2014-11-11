@@ -70,6 +70,13 @@ for (ii in 1:length(datematrix[,1])) {
         lowpowertable<-rbind(lowpowertable, xrow)
 }
 
+highpowertable=NULL
+for (ii in 1:length(datematrix[,1])) {
+        xx <- BigExascalar[BigExascalar$date == datematrix[ii,1],]
+        xrow <- subset(xx, xx$power == max(xx$power))
+        highpowertable<-rbind(highpowertable, xrow)
+}
+
 ## create low Exascalar table 
 ## table with lowest Exascalar for each year
 
