@@ -58,6 +58,39 @@ print("data read")
 ###
 
 
+## create low power table 
+## table with lowest power system for each year
+
+datematrix<-as.data.frame(table(BigExascalar$date))
+
+lowpowertable=NULL
+for (ii in 1:length(datematrix[,1])) {
+        xx <- BigExascalar[BigExascalar$date == datematrix[ii,1],]
+        xrow <- subset(xx, xx$power == min(xx$power))
+        lowpowertable<-rbind(lowpowertable, xrow)
+}
+
+## create low Exascalar table 
+## table with lowest Exascalar for each year
+
+
+lowexatable=NULL
+for (ii in 1:length(datematrix[,1])) {
+        xx <- BigExascalar[BigExascalar$date == datematrix[ii,1],]
+        xrow <- subset(xx, xx$exascalar == min(xx$exascalar))
+        lowexatable<-rbind(lowexatable, xrow)
+}
+
+## create high Exascalar table 
+## table with highest Exascalar for each year
+
+highexatable=NULL
+for (ii in 1:length(datematrix[,1])) {
+        xx <- BigExascalar[BigExascalar$date == datematrix[ii,1],]
+        xrow <- subset(xx, xx$exascalar == max(xx$exascalar))
+        highexatable<-rbind(highexatable, xrow)
+}
+
 ##PLOT MODE, MEDIAN AND TOP EXASCALAR TREND
 
 ##Compute Mode Trend
