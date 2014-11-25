@@ -23,6 +23,7 @@ results <- "./results"
 
 ## there are probably ways to simplify this code but this brute force method is easy to read.
 
+Nov14 <- read.csv(paste0(results, "/Nov14.csv"), header=TRUE)
 Jun14 <- read.csv(paste0(results, "/Jun14.csv"), header=TRUE)
 Nov13 <- read.csv(paste0(results, "/Nov13.csv"), header=TRUE)
 Jun13 <- read.csv(paste0(results, "/Jun13.csv"), header=TRUE)
@@ -90,7 +91,7 @@ print("medianEx")
 
 ##PlotMean over Exascalar Data
 ## EXASCALAR PLOT OVERLAYING TWO LISTS
-dev.off()
+
 ## plots "reference" list first, then "list of current interest" is overlayed
 png(filename= "ExascalarTrend.png", height=500, width=400)
 plot(Nov14$mflopswatt ,
@@ -150,7 +151,7 @@ text(MedianEx$mflopswatt[2],
 
 
 text(1.0E4,
-     1.1E7, "June 2014 ", cex=.8, col="black", pos=3)
+     1.1E7, "November 2014 ", cex=.8, col="black", pos=3)
 text(1.0E4,
      0.7E7, "Green500 and Top500 Lists", cex=.8, col="black", pos=3)
 
@@ -202,3 +203,4 @@ isoexaline <- function(exascalar, efficiencyrangelow=0.5*20, efficiencyrangehigh
 for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
 
 dev.off()
+
