@@ -40,6 +40,7 @@ results <- "./results"
 
 ## there are probably ways to simplify this code but this brute force method is easy to read.
 
+GreenNov14 <- read.csv(paste0(green500data, "/green500_top_201411.csv"), header=TRUE)
 GreenJun14 <- read.csv(paste0(green500data, "/green500_top_201406.csv"), header=TRUE)
 GreenNov13 <- read.csv(paste0(green500data, "/green500_top_201311.csv"), header=TRUE)
 GreenJun13 <- read.csv(paste0(green500data, "/green500_top_201306.csv"), header=TRUE)
@@ -55,7 +56,7 @@ GreenNov08 <- read.csv(paste0(green500data, "/green500_top_200811.csv"), header=
 GreenJun08 <- read.csv(paste0(green500data, "/green500_top_200806.csv"), header=TRUE)
 
 
-
+TopNov14 <- read.csv(paste0(top500data, "/TOP500_201411.csv"), header=TRUE)
 TopJun14 <- read.csv(paste0(top500data, "/TOP500_201406.csv"), header=TRUE)
 TopNov13 <- read.csv(paste0(top500data, "/TOP500_201311.csv"), header=TRUE)
 TopJun13 <- read.csv(paste0(top500data, "/TOP500_201306.csv"), header=TRUE)
@@ -79,20 +80,22 @@ BigExascalar<-NULL
 ## STEP 2 CREATE GENERAL CLEANING FUNCTIONS 
 ##create clean up names function
 
-## this is a general "cleanup"
+## this is a general "cleanup" of the imported data files. 
 ## as it turns out I need to custom clean up almost each list below to combine them and standardize on naming
 
 ## as new lists are created may need to add cleaning functions to this list.
 ## this cleans everything up to Jun14 well enough to enable most functionality for analysis
 
+## the cleanupnames function standardizes column names across the lists. 
+
 cleanupnames <- function(xlist, label = ""){
-        xlist <-tolower(          xlist)
-        xlist <-gsub("_", "",     xlist)
-        xlist <-sub("per", "",    xlist)
-        xlist <-gsub("[.]","",      xlist)
-        xlist <-sub("mfw", "mflopswatt", xlist)
-        xlist <-sub("totalpowerkw", "power", xlist)
-        xlist <-sub("powerkw", "power", xlist)
+        xlist <-tolower(          xlist)                #convert to lower case
+        xlist <-gsub("_", "",     xlist)                #get rid of unscores _
+        xlist <-sub("per", "",    xlist)                #get rid of "per"
+        xlist <-gsub("[.]","",      xlist)              #get rid of periods .
+        xlist <-sub("mfw", "mflopswatt", xlist)         #replace mfw with mflopswatt
+        xlist <-sub("totalpowerkw", "power", xlist)     #replace totalpowerkw in some lists with simply "power"
+        xlist <-sub("powerkw", "power", xlist)          #replace powerkw in some lists with simply "power"
         xlist <-sub("totalpower", "power", xlist)
         ##here some gynmansitcs are required to keep dulicated like "greengreen500rank" out of picture
         xlist <-sub("green500rank", "hold_my_beer", xlist)
@@ -100,7 +103,7 @@ cleanupnames <- function(xlist, label = ""){
         xlist <-sub("rank", "top500rank", xlist)
         xlist <-sub("hold_my_hand", "top500rank", xlist)
         xlist <-sub("hold_my_beer", "green500rank", xlist)
-        ##specific clean up for Jun11
+        ##specific clean up for Jun11 since this appears to be a typo
         xlist <-sub("mflopswattatt", "mflopswatt", xlist)
         
         ## define which list each variable comes from using label. this avoids messy warnings
@@ -110,7 +113,7 @@ cleanupnames <- function(xlist, label = ""){
         
 }
 
-## names_clean_2 gets rid of the labels
+## names_clean_2 gets rid of the .labels
 ## need to use [.] for period to make wildcard work properly
 names_clean_2 <- function(xlist){
         xlist <- sub("*[.]t", "", xlist)
@@ -124,7 +127,7 @@ names_clean_2 <- function(xlist){
 ExaPerf <- 10^12           ##in Megaflops
 ExaEff <- 10^12/(20*10^6)  ##in Megaflops/Watt
 
-## this function coputes Exascalar from a list with columns labeled $rmax and $megaflopswatt
+## this function computes Exascalar from a list with columns labeled $rmax and $megaflopswatt
 ## note the function computes to three digits explicitly
 
 compute_exascalar <- function(xlist){
@@ -136,7 +139,7 @@ compute_exascalar <- function(xlist){
         format(t2, nsmall=3)
 }
 
-## STEEP 3 CLEAN FILES
+## STEP 3 CLEAN FILES
 ## --------------------------
 
 ## each set of data is treated separately since data sets are not consistent year to year.
@@ -144,6 +147,44 @@ compute_exascalar <- function(xlist){
 ##here is current data in the outpur files
 ##exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, computer, 
 
+## NOV 14 CLEANING
+## ---- 
+## labels reduce confusion on merge
+names(GreenNov14)<-cleanupnames(names(GreenNov14), label=".g")
+names(TopNov14)<-cleanupnames(names(TopNov14), label=".t")
+
+## merge megaset
+tt <- merge(GreenNov14, TopNov14, by="top500rank", all.x=TRUE)
+## select relevant columns  (these are hand crafted per list)
+
+Nov14<-tt[, c("green500rank.g", "top500rank", "rmax.g", "power.g", "mflopswatt.g", "computer.g")]
+
+names(Nov14) <- names_clean_2(names(Nov14))
+
+##compute exascalar
+exascalar <- compute_exascalar(Nov14)
+##add exascalar result to data frame
+Nov14 <- cbind(exascalar, Nov14)
+##sort by exascalar
+Nov14 <- Nov14[order(exascalar),]
+##renumber rows
+
+ExaRank <- c(1:nrow(Nov14))
+Nov14<-cbind(ExaRank, Nov14)
+
+##define date vector
+date = rep(as.Date("11/01/2014", "%m/%d/%Y"), nrow(Nov14))
+##bind it to the data
+Nov14 <- cbind(date,Nov14)
+## Put values in BigExascalar
+BigExascalar <- rbind(BigExascalar,Nov14)
+
+## final cleaned data
+## write file to results folder
+write.csv(Nov14, "./results/Nov14.csv")
+
+
+print("Nov14")
 
 
 ## JUN 14 CLEANING
