@@ -24,6 +24,7 @@ results <- "./results"
 
 ## there are probably ways to simplify this code but this brute force method is easy to read.
 
+Nov14 <- read.csv(paste0(results, "/Nov14.csv"), header=TRUE)
 Jun14 <- read.csv(paste0(results, "/Jun14.csv"), header=TRUE)
 Nov13 <- read.csv(paste0(results, "/Nov13.csv"), header=TRUE)
 Jun13 <- read.csv(paste0(results, "/Jun13.csv"), header=TRUE)
@@ -52,14 +53,14 @@ MeanEx <- matrix(c(mean(Jun09$mflopswatt), mean(Nov09$mflopswatt),
                    mean(Jun11$mflopswatt), mean(Nov11$mflopswatt),
                    mean(Jun12$mflopswatt), mean(Nov12$mflopswatt),
                    mean(Jun13$mflopswatt), mean(Nov13$mflopswatt),
-                   mean(Jun14$mflopswatt),
+                   mean(Jun14$mflopswatt), mean(Nov14$mflopswatt),
                    mean(Jun09$rmax), mean(Nov09$rmax),
                    mean(Jun10$rmax), mean(Nov10$rmax),
                    mean(Jun11$rmax), mean(Nov11$rmax),
                    mean(Jun12$rmax), mean(Nov12$rmax),
                    mean(Jun13$rmax), mean(Nov13$rmax), 
-                   mean(Jun14$rmax)),
-                 ncol=2, nrow = 11)
+                   mean(Jun14$rmax), mean(Nov14$rmax)),
+                 ncol=2, nrow = 12)
 MeanEx <- as.data.frame(MeanEx)
 names(MeanEx) <- c("mflopswatt", "rmax")
 
@@ -70,14 +71,14 @@ MedianEx <- matrix(c(median(Jun09$mflopswatt), median(Nov09$mflopswatt),
                      median(Jun11$mflopswatt), median(Nov11$mflopswatt),
                      median(Jun12$mflopswatt), median(Nov12$mflopswatt),
                      median(Jun13$mflopswatt), median(Nov13$mflopswatt),
-                     median(Jun14$mflopswatt),
+                     median(Jun14$mflopswatt), median(Nov14$mflopswatt),
                      median(Jun09$rmax), median(Nov09$rmax),
                      median(Jun10$rmax), median(Nov10$rmax),
                      median(Jun11$rmax), median(Nov11$rmax),
                      median(Jun12$rmax), median(Nov12$rmax),
                      median(Jun13$rmax), median(Nov13$rmax), 
-                     median(Jun14$rmax)),
-                   ncol=2, nrow = 11)
+                     median(Jun14$rmax), median(Nov14$rmax)),
+                   ncol=2, nrow = 12)
 MedianEx <- as.data.frame(MedianEx)
 names(MedianEx) <- c("mflopswatt", "rmax")
 
@@ -86,9 +87,9 @@ names(MedianEx) <- c("mflopswatt", "rmax")
 
 ## plots "reference" list first, then "list of current interest" is overlayed
 
-
-plot(Jun14$mflopswatt ,
-     Jun14$rmax*10^3, 
+png(filename= "ExascalarEvolution.png", height=500, width=400)
+plot(Nov14$mflopswatt ,
+     Nov14$rmax*10^3, 
      log="xy", 
      asp = TRUE, 
      xlab = "",
@@ -100,20 +101,29 @@ plot(Jun14$mflopswatt ,
      xlim=c(10,100000), 
      ylim=c(5*10^7,2*10^12))
 par(new=TRUE)
-plot(Jun13$mflopswatt ,
-     Jun13$rmax*10^3, 
+plot(Jun14$mflopswatt ,
+     Jun14$rmax*10^3, 
      log="xy", 
      asp = 4/3.2, 
      xlab = "Efficiency (mflops/watt)",
      ylab = "Performance (mflops)", 
-     main = "Exascalar", 
+     main = "Exascalar Evolution", 
      col = "blue",
+     cex=0.9,
      pch=1, 
      xlim=c(10,100000), 
      ylim=c(5*10^7,2*10^12))
-par(new=TRUE)
 
 ##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
+
+legend(4E1,1E11, legend = c("Nov 14","Jun 14"), pch=c(21,1), col = c("red", "blue"), 
+       pt.bg=c("steelblue", NULL), cex=0.7)
+
+text(1.0E4,
+     5.E7, "Nov 2014", cex=.8, col="black", pos=3)
+text(0.8E4,
+     3.3E7, "data from Green500 and Top500 Lists", cex=.6, col="black", pos=3)
+
 
 #text(0.35e+05, 2e+12, expression(epsilon == 0), cex=.7, srt=-45)
 text(0.35e+04, 1e+12, expression(epsilon == -1), cex=.7, srt=-45)
@@ -157,3 +167,5 @@ isoexaline <- function(exascalar, efficiencyrangelow=0.5*20, efficiencyrangehigh
 ## the argument passed is - log10 of exascalar
 
 for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
+
+dev.off()

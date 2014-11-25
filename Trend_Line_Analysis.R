@@ -11,6 +11,7 @@
 
 ##check to ensure results director exists
 if(!file.exists("./results")) stop("Data not found in directory Exascalar, first run Exascalar_Cleaner to get tidy data")
+d=getwd()
 
 ## set working directory
 
@@ -42,6 +43,7 @@ compute_exascalar <- function(xlist){
 
 ## there are probably ways to simplify this code but this brute force method is easy to read.
 
+Nov14 <- read.csv(paste0(results, "/Nov14.csv"), header=TRUE)
 Jun14 <- read.csv(paste0(results, "/Jun14.csv"), header=TRUE)
 Nov13 <- read.csv(paste0(results, "/Nov13.csv"), header=TRUE)
 Jun13 <- read.csv(paste0(results, "/Jun13.csv"), header=TRUE)
@@ -61,7 +63,40 @@ print("data read")
 ##PLOT MID, MEDIAN AND TOP EXASCALAR TREND
 
 
-TopEx <- rbind(Jun09[1,1:7], Nov09[1,1:7], Jun10[1,1:7], Nov10[1,1:7], Jun11[1,1:7], Nov11[1,1:7], Jun12[1,1:7], Nov12[1,1:7], Jun13[1,1:7], Nov13[1,1:7], Jun14[1,1:7])
+TopEx <- rbind(Jun09[1,1:10], Nov09[1,1:10], Jun10[1,1:10], Nov10[1,1:10], Jun11[1,1:10], Nov11[1,1:10], Jun12[1,1:10], Nov12[1,1:10], Jun13[1,1:10], 
+               Nov13[1,1:10], Jun14[1,1:10], Nov14[1,1:10])
+
+TopGreen500<-rbind(Jun09[Jun09$green500rank==1,1:10], Nov09[Nov09$green500rank==1,1:10], 
+                   Jun10[Jun10$green500rank==1,1:10], Nov10[Nov10$green500rank==1,1:10], 
+                   Jun11[Jun11$green500rank==1,1:10], Nov11[Nov11$green500rank==1,1:10], 
+                   Jun12[Jun12$green500rank==1,1:10], Nov12[Nov12$green500rank==1,1:10], 
+                   Jun13[Jun13$green500rank==1,1:10], Nov13[Nov13$green500rank==1,1:10], 
+                   Jun14[Jun14$green500rank==1,1:10], Nov14[Nov14$green500rank==1,1:10])
+TopGreen500<-TopGreen500[complete.cases(TopGreen500),]
+TopGreen500<-TopGreen500[!duplicated(TopGreen500$date),]  #get rid of duplicate cases
+
+TopTop500<-rbind(Jun09[Jun09$top500rank==1,1:10], Nov09[Nov09$top500rank==1,1:10], 
+                   Jun10[Jun10$top500rank==1,1:10], Nov10[Nov10$top500rank==1,1:10], 
+                   Jun11[Jun11$top500rank==1,1:10], Nov11[Nov11$top500rank==1,1:10], 
+                   Jun12[Jun12$top500rank==1,1:10], Nov12[Nov12$top500rank==1,1:10], 
+                   Jun13[Jun13$top500rank==1,1:10], Nov13[Nov13$top500rank==1,1:10], 
+                   Jun14[Jun14$top500rank==1,1:10], Nov14[Nov14$top500rank==1,1:10])
+TopTop500<-TopTop500[complete.cases(TopTop500),]
+TopTop500<-TopTop500[!duplicated(TopTop500$date),]  #get rid of duplicate cases
+
+LowestPower<-rbind(Jun09[Jun09$power==min(Jun09$power),1:10], Nov09[Nov09$power==min(Nov09$power),1:10], 
+                   Jun10[Jun10$power==min(Jun10$power),1:10], Nov10[Nov10$power==min(Nov10$power),1:10], 
+                   Jun11[Jun11$power==min(Jun11$power),1:10], Nov11[Nov11$power==min(Nov11$power),1:10], 
+                   Jun12[Jun12$power==min(Jun12$power),1:10], Nov12[Nov12$power==min(Nov12$power),1:10], 
+                   Jun13[Jun13$power==min(Jun13$power),1:10], Nov13[Nov13$power==min(Nov13$power),1:10], 
+                   Jun14[Jun14$power==min(Jun14$power),1:10], Nov14[Nov14$power==min(Nov14$power),1:10])
+
+MaximumPower<-rbind(Jun09[Jun09$power==max(Jun09$power),1:10], Nov09[Nov09$power==max(Nov09$power),1:10], 
+                   Jun10[Jun10$power==max(Jun10$power),1:10], Nov10[Nov10$power==max(Nov10$power),1:10], 
+                   Jun11[Jun11$power==max(Jun11$power),1:10], Nov11[Nov11$power==max(Nov11$power),1:10], 
+                   Jun12[Jun12$power==max(Jun12$power),1:10], Nov12[Nov12$power==max(Nov12$power),1:10], 
+                   Jun13[Jun13$power==max(Jun13$power),1:10], Nov13[Nov13$power==max(Nov13$power),1:10], 
+                   Jun14[Jun14$power==max(Jun14$power),1:10], Nov14[Nov14$power==max(Nov14$power),1:10])
 
 ##mean efficiency function calculated the mean perforance adn power and then the mean efficiency from that ratio
 ##thus defined it reflects the popultion of the Top500 computers. 
@@ -73,14 +108,14 @@ MeanEx <- matrix(c(mean_eff(Jun09), mean_eff(Nov09),
                    mean_eff(Jun11), mean_eff(Nov11),
                    mean_eff(Jun12), mean_eff(Nov12),
                    mean_eff(Jun13), mean_eff(Nov13),
-                   mean_eff(Jun14),
+                   mean_eff(Jun14), mean_eff(Nov14),
                    mean(Jun09$rmax), mean(Nov09$rmax),
                    mean(Jun10$rmax), mean(Nov10$rmax),
                    mean(Jun11$rmax), mean(Nov11$rmax),
                    mean(Jun12$rmax), mean(Nov12$rmax),
                    mean(Jun13$rmax), mean(Nov13$rmax), 
-                   mean(Jun14$rmax)),
-                 ncol=2, nrow = 11)
+                   mean(Jun14$rmax), mean(Nov14$rmax)),
+                 ncol=2, nrow = 12)
 MeanEx <- as.data.frame(MeanEx)
 names(MeanEx) <- c("mflopswatt", "rmax")
 
@@ -91,14 +126,14 @@ MedianEx <- matrix(c(median_eff(Jun09), median_eff(Nov09),
                      median_eff(Jun11), median_eff(Nov11),
                      median_eff(Jun12), median_eff(Nov12),
                      median_eff(Jun13), median_eff(Nov13),
-                     median_eff(Jun14),
+                     median_eff(Jun14), median_eff(Nov14),
                      median(Jun09$rmax), median(Nov09$rmax),
                      median(Jun10$rmax), median(Nov10$rmax),
                      median(Jun11$rmax), median(Nov11$rmax),
                      median(Jun12$rmax), median(Nov12$rmax),
                      median(Jun13$rmax), median(Nov13$rmax), 
-                     median(Jun14$rmax)),
-                   ncol=2, nrow = 11)
+                     median(Jun14$rmax), median(Nov14$rmax)),
+                   ncol=2, nrow = 12)
 MedianEx <- as.data.frame(MedianEx)
 names(MedianEx) <- c("mflopswatt", "rmax")
 
@@ -110,14 +145,14 @@ BottomGreen <- matrix(c(bottom_eff(Jun09), bottom_eff(Nov09),
                      bottom_eff(Jun11), bottom_eff(Nov11),
                      bottom_eff(Jun12), bottom_eff(Nov12),
                      bottom_eff(Jun13), bottom_eff(Nov13),
-                     bottom_eff(Jun14),
+                     bottom_eff(Jun14), bottom_eff(Nov14),
                      bottom_perf(Jun09), bottom_perf(Nov09),
                      bottom_perf(Jun10), bottom_perf(Nov10),
                      bottom_perf(Jun11), bottom_perf(Nov11),
                      bottom_perf(Jun12), bottom_perf(Nov12),
                      bottom_perf(Jun13), bottom_perf(Nov13), 
-                     bottom_perf(Jun14)),
-                   ncol=2, nrow = 11)
+                     bottom_perf(Jun14), bottom_perf(Nov14)),
+                   ncol=2, nrow = 12)
 
 BottomGreen <- as.data.frame(MedianEx)
 names(BottomGreen) <- c("mflopswatt", "rmax")
@@ -130,14 +165,14 @@ TopGreen <- matrix(c(top_eff(Jun09), top_eff(Nov09),
                         top_eff(Jun11), top_eff(Nov11),
                         top_eff(Jun12), top_eff(Nov12),
                         top_eff(Jun13), top_eff(Nov13),
-                        top_eff(Jun14),
+                        top_eff(Jun14), top_eff(Nov14),
                         top_perf(Jun09), top_perf(Nov09),
                         top_perf(Jun10), top_perf(Nov10),
                         top_perf(Jun11), top_perf(Nov11),
                         top_perf(Jun12), top_perf(Nov12),
                         top_perf(Jun13), top_perf(Nov13), 
-                        top_perf(Jun14)),
-                      ncol=2, nrow = 11)
+                        top_perf(Jun14), top_perf(Nov14)),
+                      ncol=2, nrow = 12)
 
 TopGreen <- as.data.frame(TopGreen)
 names(TopGreen) <- c("mflopswatt", "rmax")
@@ -145,7 +180,7 @@ names(TopGreen) <- c("mflopswatt", "rmax")
 DatesString<-c("06/01/2009", "11/01/2009","06/01/2010","11/01/2010","06/01/2011","11/01/2011",
                "06/01/2012",
                "11/01/2012","06/01/2013",
-               "11/01/2013","06/01/2014")
+               "11/01/2013","06/01/2014", "11/01/2014")
 Date <- as.Date(DatesString, "%m/%d/%Y")
 
 #TopExTrend<-as.data.frame(cbind(Date, exascalar))
@@ -165,7 +200,15 @@ topexascalar<-TopEx$exascalar
 TopExData <- as.data.frame(cbind(Date, topexascalar))
 ## fitted model of Top Exascalar data
 TopExFit <- lm(topexascalar ~ Date , data = TopExData)
+
+
+topgreenexascalar<-TopGreen500$exascalar
+##create Top Green data frame for fitting
+TopGreenExData <- as.data.frame(cbind(Date, topgreenexascalar))
+TopGreenExFit <- lm(topgreenexascalar ~ Date , data = TopGreenExData)
 ## plot the data
+
+png(filename= "ExascalarTrendFit.png", height=300, width=400)
 plot(Date, topexascalar,
       ylim=c(-7.0,0),
       xlim = c(14000, 19000),
@@ -185,22 +228,35 @@ medianexascalar <- as.numeric(MedianEx$exascalar)
 MedianExData <- as.data.frame(cbind(Date, medianexascalar))
 ##fitted model of median data 
 MedianExFit <- lm(medianexascalar ~ Date , data = MedianExData)
-
-
+TopGreen500ExFit <- lm(exascalar ~ date , data = TopGreen500)
+par(new=TRUE)
+#png(filename= "Exascalar_Max_Med_Trend.png", height=300, width=485)
 plot(Date, medianexascalar,
      ylim=c(-7.0,0),
      xlim = c(14000, 19000),
      xlab = "",
      ylab = "", 
-     main = "Exascalar Trend",
      col = "dark blue",
      bg = "green",
      pch=19)
+par(new=TRUE)
+plot(as.Date(TopGreen500$date), TopGreen500$exascalar,
+     ylim=c(-7.0,0),
+     xlim = c(14000, 19000),
+     xlab = "",
+     ylab = "", 
+     main = "Nov 2014 Exascalar Trend",
+     col = "darkgreen",
+     bg = "green",
+     pch=20)
 
 ## get parameters for fitted lines
 
 topslope<-TopExFit$coefficient[2]
 topintercept<-TopExFit$coefficient[1]
+
+topgreenslope<-TopGreenExFit$coefficient[2]
+topgreenintercept<-TopGreenExFit$coefficient[1]
 
 ## calculate date zero - when the top trend will intercet zero exascalar
 ## the zero date is an important figure of merit of the population (zero exascalar) 
@@ -213,28 +269,41 @@ lines(c(14000, datezero), c(topintercept+topslope*14000, topintercept+topslope*d
 
 medianslope<-MedianExFit$coefficient[2]
 medianintercept<-MedianExFit$coefficient[1]
+
+greenslope<-TopGreen500ExFit$coefficient[2]
+greenintercept<-TopGreen500ExFit$coefficient[1]
 ## draw fitted line for median
 lines(c(14000, datezero), c(medianintercept+medianslope*14000, medianintercept+medianslope*datezero))
+lines(c(14000, datezero), c(topgreenintercept+topgreenslope*14000, topgreenintercept+topgreenslope*datezero))
 ## add text to graph
-text(datezero, 0, as.Date(datezero, origin="1970-01-01"), cex=.5, srt=0, pos = 2)
-text(datezero, -1.2, "Top", cex=.7, srt=0, pos = 2)
-text(datezero, medianintercept+medianslope*datezero-1.2, "Median", cex=.7, srt=0, pos = 2)
+text(datezero, 0, as.Date(datezero, origin="1970-01-01"), cex=.7, srt=0, pos = 2)
+text(datezero, -.5, "Top Performance", cex=.8, srt=20, pos = 2)
+text(datezero, medianintercept+medianslope*datezero-.5, "Median", cex=.8, srt=13, pos = 2)
 
-text(datezero-100,
-     -7, "data from June14 Green500 and Top500                     ", cex=.4, col="black", pos=3)
+text(datezero, topgreenintercept+topgreenslope*datezero-.5, "Top Efficiency", cex=.8, srt=13, pos = 2)
+
+text(datezero-1500,
+     -7, "data from Green500 and Top500", 
+     cex=.6, col="black", pos=3)
+
+dev.off()
 
 TopEx<-cbind(TopEx, Date)
 
+print("ExascalarTrend done")
+
 ## POWER TREND PLOT
 
-powerplot <- ggplot(TopEx, aes(x = Date, y = power)) + geom_point() + coord_trans(y="log10")
+#png(filename= "ExascalarPowerTrendPlot.png", height=300, width=485)
+powerplot <- ggplot(TopEx, aes(x = date, y = power)) + geom_point() + coord_trans(y="log10")
 ## get rid of grid lines
 powerplot <- powerplot + theme(panel.grid.minor=element_blank(), panel.grid.major=element_blank())
 ## add performance ski
 powerplot<-powerplot+ geom_point(aes(alpha = rmax))
-png(filename=paste0(d, "/ExaPowerTrend.png"))
-##print(aaaaaa)
-dev.off()
+
+powerplot
+
+#dev.off()
 
 
 par(new=FALSE)
@@ -262,11 +331,11 @@ plot(Date, medianpower,
      pch=19)
 
 
-text(Date[5], toppower[5], "Top Power", cex=.7, srt=0, pos = 2)
-text(Date[5], medianpower[5], "Median Power", cex=.7, srt=0, pos = 2)
+text(Date[5], toppower[5], "Top Exascalar", cex=.7, srt=0, pos = 2)
+text(Date[5], medianpower[5], "Median Exascalar", cex=.7, srt=0, pos = 2)
 
-text(16222,
-     300, "data from June14 Green500 and Top500                     ", cex=.4, col="black", pos=3)
+text(14222,
+     300, "data from Nov14 Green500 and Top500                     ", cex=.7, col="black", pos=3)
 
 
 

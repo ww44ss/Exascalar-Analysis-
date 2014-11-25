@@ -1,3 +1,4 @@
+
 # Exascalar Data Trend Plot Line Plots
 
 ## This program imports cleaned data from the Green500 and Top500 lists
@@ -26,6 +27,7 @@ results <- "./results"
 
 ##need to modify to use the new BigExascalar format
 
+Nov14 <- read.csv(paste0(results, "/Nov14.csv"), header=TRUE)
 Jun14 <- read.csv(paste0(results, "/Jun14.csv"), header=TRUE)
 Nov13 <- read.csv(paste0(results, "/Nov13.csv"), header=TRUE)
 Jun13 <- read.csv(paste0(results, "/Jun13.csv"), header=TRUE)
@@ -60,14 +62,14 @@ MeanEx <- matrix(c(mean_eff(Jun09), mean_eff(Nov09),
                    mean_eff(Jun11), mean_eff(Nov11),
                    mean_eff(Jun12), mean_eff(Nov12),
                    mean_eff(Jun13), mean_eff(Nov13),
-                   mean_eff(Jun14),
+                   mean_eff(Jun14), mean_eff(Nov14),
                    mean(Jun09$rmax), mean(Nov09$rmax),
                    mean(Jun10$rmax), mean(Nov10$rmax),
                    mean(Jun11$rmax), mean(Nov11$rmax),
                    mean(Jun12$rmax), mean(Nov12$rmax),
                    mean(Jun13$rmax), mean(Nov13$rmax), 
-                   mean(Jun14$rmax)),
-                 ncol=2, nrow = 11)
+                   mean(Jun14$rmax), mean(Nov14$rmax)),
+                 ncol=2, nrow = 12)
 MeanEx <- as.data.frame(MeanEx)
 names(MeanEx) <- c("mflopswatt", "rmax")
 
@@ -80,25 +82,26 @@ MedianEx <- matrix(c(median_eff(Jun09), median_eff(Nov09),
                      median_eff(Jun11), median_eff(Nov11),
                      median_eff(Jun12), median_eff(Nov12),
                      median_eff(Jun13), median_eff(Nov13),
-                     median_eff(Jun14),
+                     median_eff(Jun14), median_eff(Nov14),
                      median(Jun09$rmax), median(Nov09$rmax),
                      median(Jun10$rmax), median(Nov10$rmax),
                      median(Jun11$rmax), median(Nov11$rmax),
                      median(Jun12$rmax), median(Nov12$rmax),
                      median(Jun13$rmax), median(Nov13$rmax), 
-                     median(Jun14$rmax)),
-                   ncol=2, nrow = 11)
+                     median(Jun14$rmax), median(Nov14$rmax)),
+                   ncol=2, nrow = 12)
 MedianEx <- as.data.frame(MedianEx)
 names(MedianEx) <- c("mflopswatt", "rmax")
 
+print("mean and median computed")
 
 ##PlotMean over Exascalar Data
 ## EXASCALAR PLOT OVERLAYING TWO LISTS
 
 ## plots "reference" list first, then "list of current interest" is overlayed
 png(filename= "ExascalarTrend.png", height=500, width=450)
-plot(Jun14$mflopswatt ,
-     Jun14$rmax*10^3, 
+plot(Nov14$mflopswatt ,
+     Nov14$rmax*10^3, 
      log="xy", 
      asp = 4/3.2, 
      xlab = "",
@@ -154,7 +157,7 @@ text(MedianEx$mflopswatt[2],
 
 
 text(1.0E4,
-     1.1E7, "June 2014 ", cex=.8, col="black", pos=3)
+     1.1E7, "Nov 2014 ", cex=.8, col="black", pos=3)
 text(1.0E4,
      0.7E7, "Green500 and Top500 Lists", cex=.8, col="black", pos=3)
 

@@ -107,7 +107,7 @@ plot(Nov14$mflopswatt ,
      xlim=c(10,100000), 
      ylim=c(1*10^7,2*10^12))
 par(new=TRUE)
-##This plots the "Mean" trend line of efficiency and performance
+##This plots the "Median" trend line of efficiency and performance
 matplot(MedianEx$mflopswatt,
      MedianEx$rmax*10^3,
      type="l",
