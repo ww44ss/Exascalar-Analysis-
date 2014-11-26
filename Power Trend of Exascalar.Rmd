@@ -9,9 +9,11 @@ output: html_document
 
 This analysis looks at the extrapolation of current Exascalar trends based on the most recent analysis of the [Top500](http:\\top500.org) and [Green500](http:\\green500.org) lists. 
 
-The analysis shows that the "Day Zero" for Exascalar, that date when Exascalar of the Top System is expected to zero, has pushed out again on this round primarily because the Top system has not changed for the last two years. 
+Code for this analysis is available in the Exascalar [GitHub Repository](https://github.com/ww44ss/Exascalar-Analysis-)
 
-Interestingly, the population median and TopGreen system show following as similar improvement trend. 
+The analysis shows that "Day Zero" for Exascalar, that date when Exascalar of the Top System is expected to be equal to zero, is now in early 2020. The date has pushed out from 2019 primarily because the Top system has not changed for the last two years. 
+
+Interestingly, the population median and TopGreen system show following as similar improvement trend, suggesting a strong correlation between the median and computing efficiency improvement. 
 
 
 ```{r, echo=FALSE}
@@ -217,7 +219,7 @@ p <- p + annotate("text", x = as.Date("2016-01-01"), y = -0.8, label="Top Exasca
 p <- p + annotate("text", x = as.Date("2017-01-01"), y = -2.3, label="Top Green", color = "darkgreen", size=4)
 p <- p + annotate("text", x = as.Date("2017-01-01"), y = -4, label="Median Exascalar" , color = "red", size=4)
 
-p <- p + annotate("text", x = as.Date("2010-01-01"), y = -6, label="based on data from the Top500 and Green500" , color = "black", size=3)
+p <- p + annotate("text", x = as.Date("2012-01-01"), y = -6, label="based on data from the Top500 and Green500" , color = "black", size=3)
 
 TopFit <- lm(data=TopEx, exascalar ~ as.Date(date))
 MedianFit <- lm(data=MedianEx, exascalar ~ as.Date(date))
@@ -233,11 +235,14 @@ p <- p + theme_bw()#plot.title = element_text(size=10, face="bold")
 
 p
 
+png(filename= "Exascalar_Extrapolation.png", height=500, width=400)
+p
+dev.off()
 
 ```
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE}
 
 zd <- -TopFit$coef[1]/TopFit$coef[2]
 
@@ -295,7 +300,7 @@ print(TopGreen500[, c("date", "ExaRank", "green500rank", "top500rank", "exascala
 
 ```
 
-This variablity is shown in the plot below of the Exscalar Rank and the Top500 (Performance) rank of the Top Green systems. While a correlation is evident, what is surprising is that the popluation appears to be bimodal, with two apparent populations. Note also that while performance rank range across a wide range, the range of exascalar is much narrower. (Another point in favor of Exascalar ranking, IMHO). Since Exascalar combines efficiency and performance, higher efficiency systems are favored over lower efficiency systems with equivalent performance, hence accounting for the lower Exascalar rank. This is revealed in the plot below.
+This variablity is shown in the plot below of the Exascalar Rank and the Top500 (Performance) rank of the Top Green systems. While a correlation is evident, what is surprising is that the popluation appears to be bimodal, with two apparent populations. Note also that while performance rank range across a wide range, the range of exascalar is much narrower. This is expected. Since Exascalar combines efficiency and performance, higher efficiency systems are favored over lower efficiency systems with equivalent performance, hence accounting for better Exascalar rank. 
 
 ```{r, echo=FALSE, fig.align='center'}
 p1<- ggplot(TopGreen500, aes(x=ExaRank, y = top500rank)) 
@@ -305,6 +310,10 @@ p1 <- p1 + ggtitle("Exascalar v. Top 500 Rank for Top Green")
 p1 <- p1 + geom_smooth(method = "lm")
 
 p1
+
+png(filename= "TopGreenExPerfCorrelation.png", height=500, width=400)
+p1
+dev.off()
 
 ```
 
