@@ -219,8 +219,6 @@ MedianExFit <- lm(medianexascalar ~ Date , data = MedianExData)
 ##PLOT THE DATA
         ## plot the data
 
-png(filename= "ExascalarTrendFit.png", height=300, width=400)
-
 plot(Date, topexascalar,
       ylim=c(-7.0,0),
       xlim = c(14000, 19000),
@@ -232,7 +230,7 @@ plot(Date, topexascalar,
 
 
 par(new=TRUE)
-#png(filename= "Exascalar_Max_Med_Trend.png", height=300, width=485)
+
 plot(Date, medianexascalar,
      ylim=c(-7.0,0),
      xlim = c(14000, 19000),
@@ -289,8 +287,84 @@ text(datezero-1500,
      -7, "data from Green500 and Top500", 
      cex=.6, col="black", pos=3)
 
-dev.off()
 
 print("ExascalarTrend done")
 
+## POWER TREND PLOT
+
+png(filename= "ExascalarPowerTrendPlot.png", height=300, width=485)
+
+#dev.off()
+
+
+par(new=FALSE)
+toppower<-TopEx$power
+
+
+plot(Date, toppower,
+     ylim=c(200,20000),
+     xlim = c(14000, 16500),
+     main = "",
+     log="y",
+     ylab = "Power (kW)", 
+     col = "red",
+     bg = "steelblue2",
+     pch=21)
+par(new=TRUE)
+
+
+medianpower<-MedianEx$rmax/MedianEx$mflopswatt
+plot(Date, medianpower,
+     ylim=c(200,20000),
+     xlim = c(14000, 16500),
+     log="y",
+     xlab = "",
+     ylab = "", 
+     main = "Power Trend",
+     col = "dark blue",
+     bg = "green",
+     pch=19)
+
+par(new=TRUE)
+plot(as.Date(TopGreen500$date), TopGreen500$power,
+     ylim=c(-7.0,0),
+     xlim = c(14000, 19000),
+     xlab = "",
+     ylab = "", 
+     main = "Nov 2014 Exascalar Trend",
+     col = "darkgreen",
+     bg = "green",
+     pch=20)
+
+
+text(Date[5], toppower[5], "Top Exascalar", cex=.7, srt=0, pos = 2)
+text(Date[5], medianpower[5], "Median Exascalar", cex=.7, srt=0, pos = 2)
+
+text(14222,
+     300, "data from Nov14 Green500 and Top500                     ", cex=.7, col="black", pos=3)
+
+
+
+topeff<-TopEx$mflopswatt
+plot(Date, topeff,
+     ylim=c(50,3000),
+     xlim = c(14000, 16500),
+     log="y",
+     main = "",
+     ylab = "efficiency (mflops per Watt)", 
+     col = "red",
+     bg = "steelblue2",
+     pch=21)
+par(new=TRUE)
+medianeff<-MedianEx$mflopswatt
+plot(Date, medianeff,
+     ylim=c(50,3000),
+     xlim = c(14000, 16500),
+     log="y",
+     xlab = "",
+     ylab = "", 
+     main = "Efficiency Trend",
+     col = "dark blue",
+     bg = "green",
+     pch=19)
 
