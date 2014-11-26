@@ -1,0 +1,331 @@
+---
+title: "Extrapolating Exascalar"
+author: "Winston Saunders"
+date: "November 25, 2014"
+output: html_document
+---
+
+##Summary
+
+This analysis looks at the extrapolation of current Exascalar trends based on the most recent analysis of the [Top500](http:\\top500.org) and [Green500](http:\\green500.org) lists. 
+
+Code for this analysis is available in the Exascalar [GitHub Repository](https://github.com/ww44ss/Exascalar-Analysis-)
+
+The analysis shows that "Day Zero" for Exascalar, that date when Exascalar of the Top System is expected to be equal to zero, is now in early 2020. The date has pushed out from 2019 primarily because the Top system has not changed for the last two years. 
+
+Interestingly, the population median and TopGreen system show following as similar improvement trend, suggesting a strong correlation between the median and computing efficiency improvement. 
+
+
+```{r, echo=FALSE}
+# Exascalar Data Trend Plot
+
+# This program pulls in all the data and then plots a trend of the top performance, median exascalar and top green systems.
+
+## This program imports cleaned data from the Green500 and Top500 lists
+
+
+## GET THE CLEANED DATA
+
+##check for Exascalar Directory. If none exists stop program with error
+
+##check to ensure results director exists
+if(!file.exists("./results")) stop("Data not found in directory Exascalar, first run Exascalar_Cleaner to get tidy data")
+d=getwd()
+
+## set working directory
+
+
+# define Data Directories to use
+results <- "./results"
+
+## ------------------------
+
+
+ExaPerf <- 10^12           ##in Megaflops
+ExaEff <- 10^12/(20*10^6)  ##in Megaflops/Watt
+
+## this function coputes Exascalar from a list with columns labeled $rmax and $megaflopswatt
+## note the function computes to three digits explicitly
+
+compute_exascalar <- function(xlist){
+        ## compute exascalar
+        t1 <- (log10(xlist$rmax*10^3/ExaPerf) + log10(xlist$mflopswatt/(ExaEff)))/sqrt(2)
+        ## round to three digits
+        t2 <- round(t1, 3) 
+        ## clean up
+        format(t2, nsmall=3)
+}
+
+## Read results files
+
+# import data set
+
+## there are probably ways to simplify this code but this brute force method is easy to read.
+
+```
+
+```{r, echo=FALSE}
+
+
+##Get The data
+        Nov14 <- read.csv(paste0(results, "/Nov14.csv"), header=TRUE)
+        Jun14 <- read.csv(paste0(results, "/Jun14.csv"), header=TRUE)
+        Nov13 <- read.csv(paste0(results, "/Nov13.csv"), header=TRUE)
+        Jun13 <- read.csv(paste0(results, "/Jun13.csv"), header=TRUE)
+        Nov12 <- read.csv(paste0(results, "/Nov12.csv"), header=TRUE)
+        Jun12 <- read.csv(paste0(results, "/Jun12.csv"), header=TRUE)
+        Nov11 <- read.csv(paste0(results, "/Nov11.csv"), header=TRUE)
+        Jun11 <- read.csv(paste0(results, "/Jun11.csv"), header=TRUE)
+        Nov10 <- read.csv(paste0(results, "/Nov10.csv"), header=TRUE)
+        Jun10 <- read.csv(paste0(results, "/Jun10.csv"), header=TRUE)
+        Nov09 <- read.csv(paste0(results, "/Nov09.csv"), header=TRUE)
+        Jun09 <- read.csv(paste0(results, "/Jun09.csv"), header=TRUE)
+        #Nov08 <- read.csv(paste0(results, "/green500_top_200811.csv"), header=TRUE)
+        #Jun08 <- read.csv(paste0(results, "/green500_top_200806.csv"), header=TRUE)
+
+
+```
+
+```{r, echo=FALSE}
+
+##CREATE SUB LISTS
+
+##TopGreen500 (Highest Efficiency)
+##TOpTop500 (Highest Performance)
+##Lowest Power
+##Highest Power
+##WorstEff (Worst Efficiency)
+
+TopEx <- rbind(Jun09[1,1:10], Nov09[1,1:10], Jun10[1,1:10], Nov10[1,1:10], Jun11[1,1:10], Nov11[1,1:10], Jun12[1,1:10], Nov12[1,1:10], Jun13[1,1:10], 
+               Nov13[1,1:10], Jun14[1,1:10], Nov14[1,1:10])
+
+##Get Top Green List
+        TopGreen500<-rbind(Jun09[Jun09$green500rank==1,1:10], 
+                                Nov09[Nov09$green500rank==1,1:10], 
+                        Jun10[Jun10$green500rank==1,1:10], 
+                                Nov10[Nov10$green500rank==1,1:10], 
+                        Jun11[Jun11$green500rank==1,1:10], 
+                                Nov11[Nov11$green500rank==1,1:10], 
+                        Jun12[Jun12$green500rank==1,1:10], 
+                                Nov12[Nov12$green500rank==1,1:10], 
+                        Jun13[Jun13$green500rank==1,1:10], 
+                                Nov13[Nov13$green500rank==1,1:10], 
+                        Jun14[Jun14$green500rank==1,1:10], 
+                                Nov14[Nov14$green500rank==1,1:10])
+        ##Complete Cases & Dedupe
+        TopGreen500<-TopGreen500[complete.cases(TopGreen500),]
+        TopGreen500<-TopGreen500[!duplicated(TopGreen500$date),] 
+
+        TopTop500<-rbind(Jun09[Jun09$top500rank==1,1:10], 
+                                Nov09[Nov09$top500rank==1,1:10], 
+                        Jun10[Jun10$top500rank==1,1:10], 
+                                Nov10[Nov10$top500rank==1,1:10], 
+                        Jun11[Jun11$top500rank==1,1:10], 
+                                Nov11[Nov11$top500rank==1,1:10], 
+                        Jun12[Jun12$top500rank==1,1:10], 
+                                Nov12[Nov12$top500rank==1,1:10], 
+                        Jun13[Jun13$top500rank==1,1:10], 
+                                Nov13[Nov13$top500rank==1,1:10], 
+                        Jun14[Jun14$top500rank==1,1:10], 
+                                Nov14[Nov14$top500rank==1,1:10])
+        TopTop500<-TopTop500[complete.cases(TopTop500),]
+        TopTop500<-TopTop500[!duplicated(TopTop500$date),]  
+
+        ##Lowest Power
+        LowestPower<-rbind(Jun09[Jun09$power==min(Jun09$power),1:10], 
+                        Nov09[Nov09$power==min(Nov09$power),1:10], 
+                   Jun10[Jun10$power==min(Jun10$power),1:10], 
+                        Nov10[Nov10$power==min(Nov10$power),1:10], 
+                   Jun11[Jun11$power==min(Jun11$power),1:10], 
+                        Nov11[Nov11$power==min(Nov11$power),1:10], 
+                   Jun12[Jun12$power==min(Jun12$power),1:10], 
+                        Nov12[Nov12$power==min(Nov12$power),1:10], 
+                   Jun13[Jun13$power==min(Jun13$power),1:10], 
+                        Nov13[Nov13$power==min(Nov13$power),1:10], 
+                   Jun14[Jun14$power==min(Jun14$power),1:10], 
+                        Nov14[Nov14$power==min(Nov14$power),1:10])
+
+        ##Highest Power
+        MaximumPower<-rbind(Jun09[Jun09$power==max(Jun09$power),1:10], 
+                        Nov09[Nov09$power==max(Nov09$power),1:10], 
+                   Jun10[Jun10$power==max(Jun10$power),1:10], 
+                        Nov10[Nov10$power==max(Nov10$power),1:10], 
+                   Jun11[Jun11$power==max(Jun11$power),1:10], 
+                        Nov11[Nov11$power==max(Nov11$power),1:10], 
+                   Jun12[Jun12$power==max(Jun12$power),1:10], 
+                        Nov12[Nov12$power==max(Nov12$power),1:10], 
+                   Jun13[Jun13$power==max(Jun13$power),1:10], 
+                        Nov13[Nov13$power==max(Nov13$power),1:10], 
+                   Jun14[Jun14$power==max(Jun14$power),1:10], 
+                        Nov14[Nov14$power==max(Nov14$power),1:10])
+
+        ##Lowest Eff
+        WorstEff<-rbind(Jun09[Jun09$mflopswatt==min(Jun09$mflopswatt),1:10], 
+                        Nov09[Nov09$mflopswatt==min(Nov09$mflopswatt),1:10], 
+                   Jun10[Jun10$mflopswatt==min(Jun10$mflopswatt),1:10], 
+                        Nov10[Nov10$mflopswatt==min(Nov10$mflopswatt),1:10], 
+                   Jun11[Jun11$mflopswatt==min(Jun11$mflopswatt),1:10], 
+                        Nov11[Nov11$mflopswatt==min(Nov11$mflopswatt),1:10], 
+                   Jun12[Jun12$mflopswatt==min(Jun12$mflopswatt),1:10], 
+                        Nov12[Nov12$mflopswatt==min(Nov12$mflopswatt),1:10], 
+                   Jun13[Jun13$mflopswatt==min(Jun13$mflopswatt),1:10], 
+                        Nov13[Nov13$mflopswatt==min(Nov13$mflopswatt),1:10], 
+                   Jun14[Jun14$mflopswatt==min(Jun14$mflopswatt),1:10], 
+                        Nov14[Nov14$mflopswatt==min(Nov14$mflopswatt),1:10])
+        WorstEff<-WorstEff[complete.cases(WorstEff),]
+        WorstEff<-WorstEff[!duplicated(WorstEff$date),]  #get rid of duplicate cases
+
+
+##Median Exascalar
+        MedianEx<-rbind(Jun09[250,1:10], 
+                        Nov09[250,1:10], 
+                        Jun10[250,1:10], 
+                        Nov10[250,1:10], 
+                   Jun11[250,1:10], 
+                        Nov11[250,1:10], 
+                   Jun12[250,1:10], 
+                        Nov12[250,1:10], 
+                   Jun13[250,1:10], 
+                        Nov13[250,1:10], 
+                   Jun14[250,1:10], 
+                        Nov14[250,1:10])
+        MedianEx<-MedianEx[complete.cases(MedianEx),]
+        MedianEx<-MedianEx[!duplicated(MedianEx$date),]  
+```
+
+##Plot and Extrapolation of Exascalar Trends
+
+
+```{r, echo=FALSE, fig.align='center', message=FALSE}
+
+##PLOT EXASCALAR TREND
+
+require(ggplot2)
+
+p <- ggplot(TopEx, aes(x=as.Date(date), y = exascalar)) + geom_point(pch=21, col="red", bg="blue", size=3)
+p <- p+geom_point(data = MedianEx, aes(x=as.Date(date), y = exascalar), pch=19, col="red", size=3)
+p <- p+geom_point(data = TopGreen500, aes(x=as.Date(date), y = exascalar), pch=1, col = "darkgreen", size=4)
+p <- p+ylim(-6,0)
+p <- p+xlim(as.Date("2009-01-01"), as.Date("2021-01-01"))
+ 
+
+
+p <- p + ggtitle("November 2014 Exascalar Trend") 
+p <- p + xlab("Date")
+p <- p + ylab("Exascalar")
+
+
+p <- p + annotate("text", x = as.Date("2016-01-01"), y = -0.8, label="Top Exascalar", color = "blue", size=4)
+p <- p + annotate("text", x = as.Date("2017-01-01"), y = -2.3, label="Top Green", color = "darkgreen", size=4)
+p <- p + annotate("text", x = as.Date("2017-01-01"), y = -4, label="Median Exascalar" , color = "red", size=4)
+
+p <- p + annotate("text", x = as.Date("2012-01-01"), y = -6, label="based on data from the Top500 and Green500" , color = "black", size=3)
+
+TopFit <- lm(data=TopEx, exascalar ~ as.Date(date))
+MedianFit <- lm(data=MedianEx, exascalar ~ as.Date(date))
+TopGreenFit <- lm(data=TopGreen500, exascalar ~ as.Date(date))
+
+
+p <- p+geom_abline(intercept=MedianFit$coef[1], slope=MedianFit$coef[2], col = "grey80")
+p <- p+geom_abline(intercept=TopFit$coef[1], slope=TopFit$coef[2], col = "grey80")
+p <- p+geom_abline(intercept=TopGreenFit$coef[1], slope=TopGreenFit$coef[2], col = "grey80")
+
+p <- p + theme_bw()#plot.title = element_text(size=10, face="bold")
+
+
+p
+
+png(filename= "Exascalar_Extrapolation.png", height=500, width=400)
+p
+dev.off()
+
+```
+
+
+```{r, echo=FALSE, message=FALSE}
+
+zd <- -TopFit$coef[1]/TopFit$coef[2]
+
+zeroday <- as.Date(zd, origin="1970-01-01")
+
+MEx<-predict.lm(MedianFit, newdata=data.frame(date=zeroday))
+GEx<-predict.lm(TopGreenFit, newdata=data.frame(date=zeroday))
+
+
+s<- summary(MedianFit)
+
+medianslope <- s$coefficients[2,1]*365
+medianslopese <- s$coefficients[2,2]*365
+
+g<- summary(TopGreenFit)
+
+topgreenslope<-g$coefficients[2,1]*365
+topgreenslopese <- g$coefficients[2,2]*365
+
+estse <- sqrt(medianslopese^2+topgreenslopese^2)
+t <- (medianslope-topgreenslope)/estse
+
+
+```
+
+At the current trend the Exascalar "Day zero" is now projected to be `r zeroday`, a somewhat fictitious date when Exscalar will cross the "Zero Line." Note that this data has been pushing out recently as the Exascalar for the top supercomputer has not changed in the last two years. It shoudl be noted that the Top Exascalar and the Top Performance systems are for the most part identical (the only exceptions being several years ago).   
+
+At "Day zero" the Median Exascalar, assuming it follows the current trend, will be `r round(MEx, 2)` and the Exascalar of the Top Green supercomputer will be `r round(GEx, 2)`, again assuming the current trend is followed.  
+
+Interestingly the slope of the TopGreen Exascalar line `r round(topgreenslope,3)` parts per per year, with a standard error of `r round(topgreenslopese,3)` is close to the slope of the median `r round(medianslope,3)` with standard error of `r round(medianslopese,3)`, the difference `r round(topgreenslope-medianslope, 3)` having a t-statistic of `r round(abs(t), 4)`. 
+
+If we were to propose a hypothesis that the slopes of the median and TopGreen lines were different (with a null hypothesis that the slopes are the same) we would not reject the null hypothesis. 
+
+
+## Deeper look at the lists
+
+####Top Exascalar
+
+This is the list of computers comprising the Top Exascalar list. Note that the Top Performance system corresponds to the top Exascalar system is almost all cases. 
+
+
+```{r, echo=FALSE}
+
+print(TopEx[, c("date", "ExaRank", "green500rank", "top500rank", "exascalar", "rmax", "mflopswatt")], row.names=FALSE)
+
+```
+
+####Top Green
+
+The Top Green system list shows some interesting behavior. As you'd expect, since the power of the most efficient system is independent of its efficiency, the performance shows high variablity.
+
+```{r, echo=FALSE, fig.align='center'}
+
+print(TopGreen500[, c("date", "ExaRank", "green500rank", "top500rank", "exascalar", "rmax", "mflopswatt")], row.names=FALSE)
+
+```
+
+This variablity is shown in the plot below of the Exascalar Rank and the Top500 (Performance) rank of the Top Green systems. While a correlation is evident, what is surprising is that the popluation appears to be bimodal, with two apparent populations. Note also that while performance rank range across a wide range, the range of exascalar is much narrower. This is expected. Since Exascalar combines efficiency and performance, higher efficiency systems are favored over lower efficiency systems with equivalent performance, hence accounting for better Exascalar rank. 
+
+```{r, echo=FALSE, fig.align='center'}
+p1<- ggplot(TopGreen500, aes(x=ExaRank, y = top500rank)) 
+p1 <- p1+ geom_point(pch=20, size=5, aes(color=factor(date)))
+p1 <- p1+ theme_bw() 
+p1 <- p1 + ggtitle("Exascalar v. Top 500 Rank for Top Green")
+p1 <- p1 + geom_smooth(method = "lm")
+
+p1
+
+png(filename= "TopGreenExPerfCorrelation.png", height=500, width=400)
+p1
+dev.off()
+
+```
+
+A plot of the Top Green (Highest efficiency) systems for the last several years. While no trend with date is apparent, the correlation of Exascalar ranking and Top500 ranking is as expected. 
+
+####Median Systems
+
+This is the list of "Median" systems (those with Exascalar rank of 250). Note that, as expected, the performance (rmax) and efficiency (mflopswatt) are somewhat erratic. Nevertheless, the median trend of exascalar is consistent. Recall from above the standard error of the fitted line `r round(medianslopese,3)` is small compared to the slope `r round(medianslope,3)`.
+
+
+```{r, echo=FALSE}
+
+print(MedianEx[, c("date", "ExaRank", "green500rank", "top500rank", "exascalar", "rmax", "mflopswatt")], row.names=FALSE)
+
+```
