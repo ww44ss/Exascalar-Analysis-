@@ -87,7 +87,23 @@ names(MedianEx) <- c("mflopswatt", "rmax")
 
 ## plots "reference" list first, then "list of current interest" is overlayed
 
-png(filename= "Exascalar_Last_Compare.png", height=500, width=400, res=120)
+png(filename= "Exascalar_Last_Compare.png", height=1000, width=800, res=200)
+
+plot(Jun14$mflopswatt ,
+     Jun14$rmax*10^3, 
+     log="xy", 
+     asp = 4/3.2, 
+     xlab = "Efficiency (mflops/watt)",
+     ylab = "Performance (mflops)", 
+     main = "Exascalar Evolution", 
+     col = "blue",
+     cex=0.6,
+     pch=1, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+
+par(new=TRUE)
 
 plot(Nov14$mflopswatt ,
      Nov14$rmax*10^3, 
@@ -98,24 +114,12 @@ plot(Nov14$mflopswatt ,
      main = "", 
      col = "red",
      bg = "steelblue2",
+     cex=0.6,
      pch=20, 
      xlim=c(10,100000), 
      ylim=c(5*10^7,2*10^12))
 
-par(new=TRUE)
 
-plot(Jun14$mflopswatt ,
-     Jun14$rmax*10^3, 
-     log="xy", 
-     asp = 4/3.2, 
-     xlab = "Efficiency (mflops/watt)",
-     ylab = "Performance (mflops)", 
-     main = "Exascalar Evolution", 
-     col = "blue",
-     cex=0.9,
-     pch=1, 
-     xlim=c(10,100000), 
-     ylim=c(5*10^7,2*10^12))
 
 
 
