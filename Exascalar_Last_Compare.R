@@ -87,7 +87,22 @@ names(MedianEx) <- c("mflopswatt", "rmax")
 
 ## plots "reference" list first, then "list of current interest" is overlayed
 
-png(filename= "Exascalar_Last_Compare.png", height=500, width=400)
+png(filename= "Exascalar_Last_Compare.png", height=500, width=400, res=120)
+
+plot(Nov14$mflopswatt ,
+     Nov14$rmax*10^3, 
+     log="xy", 
+     asp = TRUE, 
+     xlab = "",
+     ylab = "", 
+     main = "", 
+     col = "red",
+     bg = "steelblue2",
+     pch=20, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+par(new=TRUE)
 
 plot(Jun14$mflopswatt ,
      Jun14$rmax*10^3, 
@@ -102,41 +117,27 @@ plot(Jun14$mflopswatt ,
      xlim=c(10,100000), 
      ylim=c(5*10^7,2*10^12))
 
-par(new=TRUE)
-
-plot(Nov14$mflopswatt ,
-     Nov14$rmax*10^3, 
-     log="xy", 
-     asp = TRUE, 
-     xlab = "",
-     ylab = "", 
-     main = "", 
-     col = "red",
-     bg = "steelblue2",
-     pch=21, 
-     xlim=c(10,100000), 
-     ylim=c(5*10^7,2*10^12))
 
 
 ##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
 
-legend(4E1,1E11, legend = c("Nov 14","Jun 14"), pch=c(21,1), col = c("red", "blue"), 
-       pt.bg=c("steelblue", NULL), cex=0.7)
+legend(4E1,1E11, legend = c("Nov 14","Jun 14"), pch=c(20,1), col = c("red", "blue"), 
+       pt.bg=c("steelblue", NULL), cex=0.5)
 
 text(1.0E4,
-     5.E7, "Nov 2014", cex=.8, col="black", pos=3)
+     5.E7, "Nov 2014", cex=.4, col="black", pos=3)
 text(0.8E4,
-     3.3E7, "data from Green500 and Top500 Lists", cex=.6, col="black", pos=3)
+     3.3E7, "data from Green500 and Top500 Lists", cex=.3, col="black", pos=3)
 
 
 #text(0.35e+05, 2e+12, expression(epsilon == 0), cex=.7, srt=-45)
-text(0.35e+04, 1e+12, expression(epsilon == -1), cex=.7, srt=-45)
-text(1.2e+02, 1e+12, expression(epsilon == -2), cex=.7, srt=-45)
-text(0.2e+02, .25e+12, expression(epsilon == -3), cex=.7, srt=-45)
-text(0.15e+02, 1.3e+10, expression(epsilon == -4), cex=.7, srt=-45)
+text(0.35e+04, 1e+12, expression(epsilon == -1), cex=.5, srt=-45)
+text(1.2e+02, 1e+12, expression(epsilon == -2), cex=.5, srt=-45)
+text(0.2e+02, .25e+12, expression(epsilon == -3), cex=.5, srt=-45)
+text(0.15e+02, 1.3e+10, expression(epsilon == -4), cex=.5, srt=-45)
 
-text(0.15e+05, .5e+12, "20 MWatt", cex=.7, srt=45)
-text(0.15e+05, .5e+10, "0.2 MWatt", cex=.7, srt=45)
+text(0.15e+05, .5e+12, "20 MWatt", cex=.5, srt=45)
+text(0.15e+05, .5e+10, "0.2 MWatt", cex=.5, srt=45)
 #text(0.15e+05, .5e+08, "0.02 MWatt", cex=.7, srt=45)
 
 ## GENERATE CONSTANT POWER AND ISO-EXASCALAR LINES FOR THE GRAPH
