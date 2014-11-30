@@ -1,5 +1,5 @@
 ---
-title: "Correlating Green500 and Top500 data with Exascalar"
+title: "Correlating Green500 and Top500 data with Power and Exascalar"
 author: "Winston Saunders"
 date: "November 29, 2014"
 output: 
@@ -9,9 +9,9 @@ output:
 
 ###Looking for correlations Top500, Green500, and Exascalar
 
-Exascalar is one of the best ways to visualize changes in the [Green500](http:\\green500.org) and [Top500](http:\\top500.org) lists since it compares both the performance and efficiency of systems in one common analysis. 
+Exascalar is one of the best ways to visualize changes in the [Green500](http:\\green500.org) and [Top500](http:\\top500.org) lists since it compares both the performance and efficiency of systems in one common analysis. A principal reason for this is that both Power and Exascalar make up the principal components of an idealized "Triangular" Exascalar distribution as a function of Performance (mflops) and Efficiency (mflops/watt). 
 
-In this study we look for correlations in the populations of the supercomputers as represented by metrics of Top500, Green500, and Exascalar.
+In this study we'll explore these correlations and draw some counterintuitive conclusions. 
 
 
 ```{r, echo=FALSE}
@@ -45,16 +45,18 @@ Although it is intuitively obvious that a higher efficiency ranking should be re
 Data points have been sized to reflect system power, where a stronger correlation to Top500 rank seems to be apparent. 
 
 
-```{r, echo=FALSE, fig.align='center', fig.height=7, fig.width=8, message=FALSE}
+```{r, echo=FALSE, fig.align='center', fig.height=6, fig.width=7, message=FALSE}
 
 require(ggplot2)
 
 
 p1 <- ggplot(Nov14, aes(x=green500rank, y=top500rank)) 
-p1 <- p1+ geom_point(aes(size = power), pch=19, color="royalblue4")
+p1 <- p1+ geom_point(aes(color = power), pch=19, size=3)
 p1 <- p1 + scale_fill_continuous(guide = guide_legend())
 p1 <- p1 + theme_bw()
-p1 <- p1 + geom_smooth(method = "lm", se=FALSE)
+p1 <- p1 + geom_smooth(method = "lm", se=TRUE)
+p1 <- p1 + scale_colour_gradientn(colours=topo.colors(6))
+p1 <- p1 + ggtitle("Top500 Rank versus Green500 Rank")
 p1
 
 ```
@@ -74,52 +76,41 @@ rsqd<-summary(f)$r.squared
 
 A linear fit shows that the green500 predicts `r round(100*rsqd, 1)` % of the variation in the Top500.
 
-###Using Exascalar Rank as a predictor of top500 rank
+###Using Power as a predictor of Top500 rank 
 
-```{r, echo=FALSE, fig.align='center', fig.height=7, fig.width=8, message=FALSE}
+A very different picture emerges, however, if we use Power as a predictor of Top500 rank and factor the data for the Green500 ranking. Note that for a given power, a higher Top500 ranking (lower rank number) correlates with a higher Green500 ranking (lower Green500 rank number). 
+
+```{r, echo=FALSE, fig.align='center', fig.height=6, fig.width=7, message=FALSE}
 
 require(ggplot2)
 
 
-p1 <- ggplot(Nov14, aes(x=ExaRank, y=top500rank)) 
+p1 <- ggplot(Nov14, aes(x=power, y=top500rank)) 
 p1 <- p1+ geom_point(aes(color = green500rank), size=4, pch=19)
 p1 <- p1 + scale_fill_continuous(guide = guide_legend())
 p1 <- p1 + theme_bw()
-#p1 <- p1 + geom_smooth(method = "lm", se=FALSE)
+p1 <- p1 + scale_x_log10()
+p1 <- p1 + scale_colour_gradientn(colours=topo.colors(6))
+p1 <- p1 + ggtitle("Top500 Rank versus Power (kW)")
 p1
 
-f<- lm(top500rank ~ ExaRank, data=Nov14)
-
-rsqd<-summary(f)$r.squared
-
-
-
-```
-
-A stronger correlation exists and the linear model explains `r round(100*rsqd, 1)` % of the variation. 
-
-However, the data are heteroskedastic as showh by the residual plot below.
-
-```{r, fig.align='center', fig.width=7, fig.height=3, echo=FALSE}
-plot(resid(f), type="p", cex=1, col="royalblue4")
-abline(h=0,col=1,lty=1)
-
 ```
 
 
+###Exascalar as a predictor of Green500 Rank
 
-###Using Exascalar rank as a predictor of green500 rankigher 
+The graph below shows the Green500 rank as predicted by the Exascalar rank. Here a clear correlation is observed, as expected, with high exascalar rank (low rank number) predicting a high Green500 rank. In addition, the correlation of the Top500 ranking with Exascalar ranking is apparent thru the color factoring of the data. 
 
-In this analysis a worse Top500 rank correlates to a lower 
+It might be surprising that a low Top500 ranking (again a low ranking corresponds to a high rank number) should translate to a higher Green500 ranking (lower rank number). This counterintuitive result comes about because of the "negative" slope of the Exascalar line. Recall that for Exascalar an increase in performance at constant efficiency(through higher power) is valued the same as an increase in efficiency at constant performance. 
 
-```{r, echo=FALSE, fig.align='center', fig.height=7, fig.width=8, message=FALSE}
+```{r, echo=FALSE, fig.align='center', fig.height=6, fig.width=7, message=FALSE}
 
 require(ggplot2)
 
 
 p1 <- ggplot(Nov14, aes(x=ExaRank, y=green500rank)) 
-p1 <- p1+ geom_point(aes(color = top500rank), size=4, pch=15)
-p1 <- p1 + scale_fill_continuous(guide = guide_legend())
+p1 <- p1+ geom_point(aes(color = top500rank), size=4, pch=19)
+p1 <- p1 + scale_colour_gradientn(colours=topo.colors(8))
 p1 <- p1 + theme_bw()
 p1 <- p1 + geom_smooth(method = "lm", se=FALSE)
 p1
@@ -133,4 +124,24 @@ rsqd<-summary(f)$r.squared
 
 ```
 
+Here is a graph of the Green500 rank as a function of Exascalar. The surprising "families" of curves that are apparent warrant a deeper look. 
+
+```{r, echo=FALSE, fig.align='center', fig.height=6, fig.width=7, message=FALSE}
+
+require(ggplot2)
+
+
+p1 <- ggplot(Nov14, aes(x=exascalar, y=green500rank)) 
+p1 <- p1+ geom_point(aes(color = top500rank), size=4, pch=19)
+p1 <- p1 + scale_colour_gradientn(colours=topo.colors(8))
+p1 <- p1 + theme_bw()
+#p1 <- p1 + geom_smooth(method = "lm", se=FALSE)
+p1
+
+```
+
 A stronger correlation exists and the linear model explains `r round(100*rsqd, 1)` % of the variation. 
+
+###Some conclusions
+
+While the Top500 and Green500 lists measure a common set of computers, their ranking appears to be largely 
