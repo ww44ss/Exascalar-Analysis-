@@ -28,7 +28,7 @@ It is worthwhile to note that the highest Exascalar, lowest Exascalar, and Lowes
  
 
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
-<!-- Sat Nov 29 13:24:33 2014 -->
+<!-- Sat Nov 29 13:27:17 2014 -->
 <table border=1>
 <tr> <th>  </th> <th> ExaRank </th> <th> green500rank </th> <th> top500rank </th> <th> rmax </th> <th> power </th> <th> mflopswatt </th> <th> computer </th>  </tr>
   <tr> <td align="right"> Top Performance </td> <td align="right">   1 </td> <td align="right">  64 </td> <td align="right">   1 </td> <td align="right"> 33862700.00 </td> <td align="right"> 17808.00 </td> <td align="right"> 1901.54 </td> <td> TH-IVB-FEP Cluster, Intel Xeon E5-2692 12C 2.200GHz, TH Express-2, Intel Xeon Phi 31S1P </td> </tr>
@@ -52,7 +52,7 @@ Of the _new_ entrants its interesting to note the same parameters as above as a 
 The median Exascalar of the New Computers is -3.63 compared to the median of all computers on the November 2014 list -3.99 and the April 2014 list -4.13.
 
 <!-- html table generated in R 3.1.2 by xtable 1.7-4 package -->
-<!-- Sat Nov 29 13:24:33 2014 -->
+<!-- Sat Nov 29 13:27:17 2014 -->
 <table border=1>
 <tr> <th>  </th> <th> ExaRank </th> <th> green500rank </th> <th> top500rank </th> <th> rmax </th> <th> power </th> <th> mflopswatt </th> <th> computer </th>  </tr>
   <tr> <td align="right"> Top Performance </td> <td align="right">   9 </td> <td align="right">  22 </td> <td align="right">  10 </td> <td align="right"> 3577000.00 </td> <td align="right"> 1498.90 </td> <td align="right"> 2386.42 </td> <td> Cray CS-Storm, Intel Xeon E5-2660v2 10C 2.2GHz, Infiniband FDR, Nvidia K40 </td> </tr>

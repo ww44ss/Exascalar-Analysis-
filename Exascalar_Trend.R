@@ -8,8 +8,7 @@
 ##check for Exascalar Directory. If none exists stop program with error
 
 ##check to ensure results director exists
-if(!file.exists("./results")) stop("Data not found in directory Exascalar, first run Exascalar_Cleaner to get tidy data")
-
+if(getwd()!="/Users/winstonsaunders/Documents/Exascalar") setwd("/Users/winstonsaunders/Documents/Exascalar")
 ## set working directory
 
 
@@ -91,7 +90,7 @@ print("medianEx")
 ## EXASCALAR PLOT OVERLAYING TWO LISTS
 
 ## plots "reference" list first, then "list of current interest" is overlayed
-png(filename= "Exascalar_Trend.png", height=500, width=400)
+#png(filename= "Exascalar_Trend.png", height=500, width=400)
 plot(Nov14$mflopswatt ,
      Nov14$rmax*10^3, 
      log="xy", 
@@ -200,5 +199,5 @@ isoexaline <- function(exascalar, efficiencyrangelow=0.5*20, efficiencyrangehigh
 
 for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
 
-dev.off()
+#dev.off()
 
