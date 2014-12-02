@@ -60,12 +60,10 @@ In all there are 54 systems out of the Top/Green500 highlighted. (10.8%).
 
 ###Intel Xeon 
 
-We can also look at other architectural influencers. This analysis looks at which computers rely on Intel Xeon for the CPU function
+We can also look at other architectural influencers. This analysis looks at which computers rely on Intel Xeon for the CPU. (copyrights respected)
 
 
 
-
-In this analysis systems with Intel Xeon processors (Copyrights respected). 
 
 In all there are 425 systems out of the Top/Green500 highlighted. (85%).
 

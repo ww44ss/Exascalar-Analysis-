@@ -423,7 +423,7 @@ for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
 
 ###Intel Xeon 
 
-We can also look at other architectural influencers. This analysis looks at which computers rely on Intel Xeon for the CPU function
+We can also look at other architectural influencers. This analysis looks at which computers rely on Intel Xeon for the CPU. (copyrights respected)
 
 
 ```{r "Tech Trend String SearchXeon", echo=FALSE}
@@ -439,8 +439,6 @@ ccc <- which(bbb ==TRUE)
 ## subset Big Exascalar
 Nov14x <- Nov14[ccc,]
 ```
-
-In this analysis systems with Intel Xeon processors (Copyrights respected). 
 
 In all there are `r dim(Nov14x)[1]` systems out of the Top/Green500 highlighted. (`r round(100*dim(Nov14x)[1]/500,1) `%).
 
