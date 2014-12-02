@@ -1,5 +1,5 @@
 ---
-title: "Exascalar lens correlates the Green500 & Top500"
+title: "Using Exascalar as a lens correlating the Green500 & Top500"
 author: "Winston Saunders"
 date: "November 29, 2014"
 output: 
@@ -44,7 +44,7 @@ Nov14<-Big[Big$date=="2014-11-01",]
 
 Although it is intuitively obvious that a higher efficiency ranking should be related to higher performance ranking, a straight plot of the Top500 and Green500 shows little correlation between the two lists. 
 
-Data points have been color coded to reflect the log10 of system power to reveal an underlying confounding trend.
+Data points have been color coded to reflect the Exascalar ranking. Note that the Exascalar ranking creates kind of "bands" linking the two scales.
 
 
 ```{r, echo=FALSE, fig.align='center', fig.height=6, fig.width=7, message=FALSE}
@@ -53,7 +53,7 @@ require(ggplot2)
 
 
 p1 <- ggplot(Nov14, aes(x=green500rank, y=top500rank)) 
-p1 <- p1+ geom_point(aes(color = log10(power)), pch=19, size=3)
+p1 <- p1+ geom_point(aes(color = ExaRank), pch=19, size=3)
 p1 <- p1 + scale_fill_continuous(guide = guide_legend())
 p1 <- p1 + theme_bw()
 p1 <- p1 + geom_smooth(method = "lm", se=TRUE)

@@ -1,4 +1,4 @@
-# Exascalar lens correlates the Green500 & Top500
+# Using Exascalar as a lens correlating the Green500 & Top500
 Winston Saunders  
 November 29, 2014  
 
@@ -18,7 +18,7 @@ In this study we'll explore these correlations and show that while the Top500 li
 
 Although it is intuitively obvious that a higher efficiency ranking should be related to higher performance ranking, a straight plot of the Top500 and Green500 shows little correlation between the two lists. 
 
-Data points have been color coded to reflect the log10 of system power to reveal an underlying confounding trend.
+Data points have been color coded to reflect the Exascalar ranking. Note that the Exascalar ranking creates kind of "bands" linking the two scales.
 
 
 <img src="Linear_Correlation_files/figure-html/unnamed-chunk-2-1.png" title="" alt="" style="display: block; margin: auto;" />
