@@ -1,0 +1,536 @@
+---
+title: "Visualizing Top500/Green500 Influencers with Exascalar"
+author: "Winston Saunders"
+date: "December 2, 2014"
+output: 
+  html_document:
+    keep_md: true
+---
+
+###Visulizing Key Trends
+
+Exascalar is one of the best ways to visualize changes in the [Green500](http:\\green500.org) and [Top500](http:\\top500.org) lists since it compares both system performance and efficiency in one common analysis. 
+
+In this analysis I look at visualizing architectural influencers of Exascalar through several analyses. This analysis was suggested in a tweet from the folks at [HPC Wire](http://www.hpcwire.com/).
+
+This is a first cut at this analysis. In the future I plan to migrate plotting to ggplot2 and add some interactive features. 
+
+
+```{r, echo=FALSE}
+
+## This program imports cleaned data from the Green500 and Top500 lists
+
+## there are several subtleties of the implenetation here which need to be paid attention to when adapting it.
+##each "500" list is called out explicitly
+##in a couple of places the number of lists (currently 10) is assumed.
+
+## GET THE CLEANED DATA
+
+##check for Exascalar Directory. If none exists stop program with error
+
+##check to ensure results director exists
+
+if(getwd()!="/Users/winstonsaunders/Documents/Exascalar") setwd("/Users/winstonsaunders/Documents/Exascalar")
+
+#if(!file.exists("./results")) stop("Data not found in directory Exascalar, first run Exascalar_Cleaner to get tidy data")
+
+
+## set working directory
+
+
+# define Data Directories to use
+results <- "./results"
+
+## ------------------------
+## Read results files
+
+# import data set
+
+## there are probably ways to simplify this code but this brute force method is easy to read.
+
+Nov14 <- read.csv(paste0(results, "/Nov14.csv"), header=TRUE)
+Jun14 <- read.csv(paste0(results, "/Jun14.csv"), header=TRUE)
+Nov13 <- read.csv(paste0(results, "/Nov13.csv"), header=TRUE)
+Jun13 <- read.csv(paste0(results, "/Jun13.csv"), header=TRUE)
+Nov12 <- read.csv(paste0(results, "/Nov12.csv"), header=TRUE)
+Jun12 <- read.csv(paste0(results, "/Jun12.csv"), header=TRUE)
+Nov11 <- read.csv(paste0(results, "/Nov11.csv"), header=TRUE)
+Jun11 <- read.csv(paste0(results, "/Jun11.csv"), header=TRUE)
+Nov10 <- read.csv(paste0(results, "/Nov10.csv"), header=TRUE)
+Jun10 <- read.csv(paste0(results, "/Jun10.csv"), header=TRUE)
+Nov09 <- read.csv(paste0(results, "/Nov09.csv"), header=TRUE)
+Jun09 <- read.csv(paste0(results, "/Jun09.csv"), header=TRUE)
+
+
+```
+
+
+### November 2014 Exascalar Plot 
+
+For reference here is the November 2014 Exascalar Plot.
+  
+```{r, echo=FALSE, fig.align='center', fig.height=7.25, fig.width=6}
+## EXASCALAR PLOT OVERLAYING TWO LISTS
+
+## plots "reference" list first, then "list of current interest" is overlayed
+
+plot(Nov14$mflopswatt ,
+     Nov14$rmax*10^3, 
+     log="xy", 
+     asp = 4/3.2, 
+     xlab = "Efficiency (mflops/watt)",
+     ylab = "Performance (mflops)", 
+     main = "November 2014 Exascalar", 
+     col = "red",
+     cex=1.1,
+     pch=20, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+
+
+##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
+
+legend(4E1,1E11, legend = "Nov 14", pch=20, col = "red", cex=0.8)
+
+text(1.0E4,
+     5.E7, "Nov 2014", cex=.7, col="black", pos=3)
+text(0.8E4,
+     3.3E7, "data from Green500 and Top500 Lists", cex=.7, col="black", pos=3)
+
+
+#text(0.35e+05, 2e+12, expression(epsilon == 0), cex=.7, srt=-45)
+text(0.35e+04, 1e+12, expression(epsilon == -1), cex=.7, srt=-45)
+text(1.2e+02, 1e+12, expression(epsilon == -2), cex=.7, srt=-45)
+text(0.2e+02, .25e+12, expression(epsilon == -3), cex=.7, srt=-45)
+text(0.15e+02, 1.3e+10, expression(epsilon == -4), cex=.7, srt=-45)
+
+text(0.15e+05, .5e+12, "20 MWatt", cex=.7, srt=45)
+text(0.15e+05, .5e+10, "0.2 MWatt", cex=.7, srt=45)
+#text(0.15e+05, .5e+08, "0.02 MWatt", cex=.7, srt=45)
+
+
+## GENERATE CONSTANT POWER AND ISO-EXASCALAR LINES FOR THE GRAPH
+
+## These are tbe hashed lines on the graph representing "constant power" and "constant exascalar"
+## The approach here is to define functions that create two endpoints for the line segments that 
+##    depend on power and exascalar, respectively
+
+isopowerline <- function(megawatts, efficiencyrangelow=10*.9, efficiencyrangehigh=100000*1.1, perfrangehigh = 2*10^12*1.1, perfrangelow = 0.9**5*10^6)
+{matrix(c(efficiencyrangelow, efficiencyrangehigh, efficiencyrangelow*megawatts*10^6, efficiencyrangehigh*megawatts*10^6), ncol=2)
+}
+
+## Compute Graphical Lines for iso power
+## the argument passed in isopowerline is in megawatts
+
+for (i in -2:4) {
+        lines(isopowerline(2*10^-i)[,1],isopowerline(2*10^-i)[,2], lwd=.5, lty=2)}
+
+## add graphical lines for iso "exscalar"
+
+
+ExaPerf <- 10^12           ##in Megaflops
+ExaEff <- 10^12/(20*10^6)  ##in Megaflops/Watt
+
+Exascale = ExaPerf*ExaEff
+
+isoexaline <- function(exascalar, efficiencyrangelow=0.5*20, efficiencyrangehigh=2*50000, perfrangehigh = 2*10^12, perfrangelow = 0.5*5*10^7){
+        matrix(c(Exascale/(10^(-exascalar*sqrt(2)))/perfrangehigh, efficiencyrangehigh, perfrangehigh, Exascale/(10^(-exascalar*sqrt(2)))/efficiencyrangehigh), ncol=2)
+}
+
+## Compute Graphical Lines for iso exascalar
+## the argument passed is - log10 of exascalar
+
+for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
+
+
+
+```
+
+
+###November 2014 Accelerators versus CPU-only
+
+
+```{r "Tech Trend String Search", echo=FALSE}
+
+TechTrendSearchString = "nvidia"
+## use grepl to search for substring
+bbb1 <- grepl(TechTrendSearchString, Nov14$computer, ignore.case=TRUE)
+
+TechTrendSearchString = "phi"
+## use grepl to search for substring
+bbb2 <- grepl(TechTrendSearchString, Nov14$computer, ignore.case=TRUE)
+
+
+
+TechTrendSearchString = "FirePro"
+## use grepl to search for substring
+bbb3 <- grepl(TechTrendSearchString, Nov14$computer, ignore.case=TRUE)
+
+
+
+TechTrendSearchString = "PEZY"
+## use grepl to search for substring
+bbb4 <- grepl(TechTrendSearchString, Nov14$computer, ignore.case=TRUE)
+
+bbb<-bbb1|bbb2|bbb3|bbb4
+
+## get the locations
+ccc <- which(bbb ==TRUE)
+## subset Big Exascalar
+Nov14x <- Nov14[ccc,]
+```
+
+In this analysis systems with GPUs made by NVidia, PEZY, AMD FirePro and Intel Xeon Phi are highlighted. (Respectful of coyrights). 
+
+In all there are `r dim(Nov14x)[1]` systems out of the Top/Green500 highlighted. (`r round(100*dim(Nov14x)[1]/500,1) `%).
+
+
+```{r, echo=FALSE, fig.align='center', fig.height=7.25, fig.width=6}
+## EXASCALAR PLOT OVERLAYING TWO LISTS
+
+## plots "reference" list first, then "list of current interest" is overlayed
+
+plot(Nov14$mflopswatt ,
+     Nov14$rmax*10^3, 
+     log="xy", 
+     asp = 4/3.2, 
+     xlab = "Efficiency (mflops/watt)",
+     ylab = "Performance (mflops)", 
+     main = "November 2014 Exascalar", 
+     col = "red",
+     cex=1.1,
+     pch=20, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+par(new=TRUE)
+
+plot(Nov14x$mflopswatt ,
+     Nov14x$rmax*10^3, 
+     log="xy", 
+     asp = 4/3.2, 
+     xlab = "Efficiency (mflops/watt)",
+     ylab = "Performance (mflops)", 
+     main = "November 2014 Exascalar", 
+     col = "blue",
+     cex=1.1,
+     pch=19, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+
+##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
+
+legend(4E1,1E11, legend = c("CPU","CPU/GPU"), pch=c(20,19), col = c("red", "blue"), cex=1)
+
+text(1.0E4,
+     5.E7, "Nov 2014", cex=.7, col="black", pos=3)
+text(0.8E4,
+     3.3E7, "data from Green500 and Top500 Lists", cex=.7, col="black", pos=3)
+
+
+#text(0.35e+05, 2e+12, expression(epsilon == 0), cex=.7, srt=-45)
+text(0.35e+04, 1e+12, expression(epsilon == -1), cex=.7, srt=-45)
+text(1.2e+02, 1e+12, expression(epsilon == -2), cex=.7, srt=-45)
+text(0.2e+02, .25e+12, expression(epsilon == -3), cex=.7, srt=-45)
+text(0.15e+02, 1.3e+10, expression(epsilon == -4), cex=.7, srt=-45)
+
+text(0.15e+05, .5e+12, "20 MWatt", cex=.7, srt=45)
+text(0.15e+05, .5e+10, "0.2 MWatt", cex=.7, srt=45)
+#text(0.15e+05, .5e+08, "0.02 MWatt", cex=.7, srt=45)
+
+
+## GENERATE CONSTANT POWER AND ISO-EXASCALAR LINES FOR THE GRAPH
+
+## These are tbe hashed lines on the graph representing "constant power" and "constant exascalar"
+## The approach here is to define functions that create two endpoints for the line segments that 
+##    depend on power and exascalar, respectively
+
+isopowerline <- function(megawatts, efficiencyrangelow=10*.9, efficiencyrangehigh=100000*1.1, perfrangehigh = 2*10^12*1.1, perfrangelow = 0.9**5*10^6)
+{matrix(c(efficiencyrangelow, efficiencyrangehigh, efficiencyrangelow*megawatts*10^6, efficiencyrangehigh*megawatts*10^6), ncol=2)
+}
+
+## Compute Graphical Lines for iso power
+## the argument passed in isopowerline is in megawatts
+
+for (i in -2:4) {
+        lines(isopowerline(2*10^-i)[,1],isopowerline(2*10^-i)[,2], lwd=.5, lty=2)}
+
+## add graphical lines for iso "exscalar"
+
+
+ExaPerf <- 10^12           ##in Megaflops
+ExaEff <- 10^12/(20*10^6)  ##in Megaflops/Watt
+
+Exascale = ExaPerf*ExaEff
+
+isoexaline <- function(exascalar, efficiencyrangelow=0.5*20, efficiencyrangehigh=2*50000, perfrangehigh = 2*10^12, perfrangelow = 0.5*5*10^7){
+        matrix(c(Exascale/(10^(-exascalar*sqrt(2)))/perfrangehigh, efficiencyrangehigh, perfrangehigh, Exascale/(10^(-exascalar*sqrt(2)))/efficiencyrangehigh), ncol=2)
+}
+
+## Compute Graphical Lines for iso exascalar
+## the argument passed is - log10 of exascalar
+
+for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
+
+
+
+```
+
+
+
+
+###November 2012 Accelerators versus CPU-only
+
+
+For comparison, this is the same analysis for the 2012 Exascalar version of the Top/Green500.  
+
+```{r "Tech Trend String Search2", echo=FALSE}
+
+TechTrendSearchString = "nvidia"
+## use grepl to search for substring
+bbb1 <- grepl(TechTrendSearchString, Nov12$computer, ignore.case=TRUE)
+
+TechTrendSearchString = "phi"
+## use grepl to search for substring
+bbb2 <- grepl(TechTrendSearchString, Nov12$computer, ignore.case=TRUE)
+
+
+
+TechTrendSearchString = "FirePro"
+## use grepl to search for substring
+bbb3 <- grepl(TechTrendSearchString, Nov12$computer, ignore.case=TRUE)
+
+
+
+TechTrendSearchString = "PEZY"
+## use grepl to search for substring
+bbb4 <- grepl(TechTrendSearchString, Nov12$computer, ignore.case=TRUE)
+
+bbb<-bbb1|bbb2|bbb3|bbb4
+
+## get the locations
+ccc <- which(bbb ==TRUE)
+## subset Big Exascalar
+Nov12x <- Nov12[ccc,]
+```
+
+In this analysis systems with GPUs made by NVidia, PEZY, AMD FirePro and Intel Xeon Phi are highlighted. (Respectful of copyrights). 
+
+In all there are `r dim(Nov12x)[1]` systems out of the Top/Green500 highlighted. (`r round(100*dim(Nov12x)[1]/500,1) `%).
+
+```{r, echo=FALSE, fig.align='center', fig.height=7.25, fig.width=6}
+## EXASCALAR PLOT OVERLAYING TWO LISTS
+
+## plots "reference" list first, then "list of current interest" is overlayed
+
+plot(Nov12$mflopswatt ,
+     Nov12$rmax*10^3, 
+     log="xy", 
+     asp = 4/3.2, 
+     xlab = "Efficiency (mflops/watt)",
+     ylab = "Performance (mflops)", 
+     main = "November 2012 Exascalar", 
+     col = "red",
+     cex=1.1,
+     pch=20, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+par(new=TRUE)
+
+plot(Nov12x$mflopswatt ,
+     Nov12x$rmax*10^3, 
+     log="xy", 
+     asp = 4/3.2, 
+     xlab = "",
+     ylab = "", 
+     main = "", 
+     col = "blue",
+     cex=1.1,
+     pch=19, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+
+##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
+
+legend(4E1,1E11, legend = c("CPU","CPU/GPU"), pch=c(20,19), col = c("red", "blue"), cex=1)
+
+text(1.0E4,
+     5.E7, "Nov 2012", cex=.7, col="black", pos=3)
+text(0.8E4,
+     3.3E7, "data from Green500 and Top500 Lists", cex=.7, col="black", pos=3)
+
+
+#text(0.35e+05, 2e+12, expression(epsilon == 0), cex=.7, srt=-45)
+text(0.35e+04, 1e+12, expression(epsilon == -1), cex=.7, srt=-45)
+text(1.2e+02, 1e+12, expression(epsilon == -2), cex=.7, srt=-45)
+text(0.2e+02, .25e+12, expression(epsilon == -3), cex=.7, srt=-45)
+text(0.15e+02, 1.3e+10, expression(epsilon == -4), cex=.7, srt=-45)
+
+text(0.15e+05, .5e+12, "20 MWatt", cex=.7, srt=45)
+text(0.15e+05, .5e+10, "0.2 MWatt", cex=.7, srt=45)
+#text(0.15e+05, .5e+08, "0.02 MWatt", cex=.7, srt=45)
+
+
+## GENERATE CONSTANT POWER AND ISO-EXASCALAR LINES FOR THE GRAPH
+
+## These are tbe hashed lines on the graph representing "constant power" and "constant exascalar"
+## The approach here is to define functions that create two endpoints for the line segments that 
+##    depend on power and exascalar, respectively
+
+isopowerline <- function(megawatts, efficiencyrangelow=10*.9, efficiencyrangehigh=100000*1.1, perfrangehigh = 2*10^12*1.1, perfrangelow = 0.9**5*10^6)
+{matrix(c(efficiencyrangelow, efficiencyrangehigh, efficiencyrangelow*megawatts*10^6, efficiencyrangehigh*megawatts*10^6), ncol=2)
+}
+
+## Compute Graphical Lines for iso power
+## the argument passed in isopowerline is in megawatts
+
+for (i in -2:4) {
+        lines(isopowerline(2*10^-i)[,1],isopowerline(2*10^-i)[,2], lwd=.5, lty=2)}
+
+## add graphical lines for iso "exscalar"
+
+
+ExaPerf <- 10^12           ##in Megaflops
+ExaEff <- 10^12/(20*10^6)  ##in Megaflops/Watt
+
+Exascale = ExaPerf*ExaEff
+
+isoexaline <- function(exascalar, efficiencyrangelow=0.5*20, efficiencyrangehigh=2*50000, perfrangehigh = 2*10^12, perfrangelow = 0.5*5*10^7){
+        matrix(c(Exascale/(10^(-exascalar*sqrt(2)))/perfrangehigh, efficiencyrangehigh, perfrangehigh, Exascale/(10^(-exascalar*sqrt(2)))/efficiencyrangehigh), ncol=2)
+}
+
+## Compute Graphical Lines for iso exascalar
+## the argument passed is - log10 of exascalar
+
+for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
+
+
+
+```
+
+
+
+
+
+
+
+
+###Intel Xeon 
+
+This analysis looks at which computers rely on Intel Xeon for the CPU function
+
+
+```{r "Tech Trend String SearchXeon", echo=FALSE}
+
+TechTrendSearchString = "xeon"
+## use grepl to search for substring
+bbb1 <- grepl(TechTrendSearchString, Nov14$computer, ignore.case=TRUE)
+
+bbb<-bbb1
+
+## get the locations
+ccc <- which(bbb ==TRUE)
+## subset Big Exascalar
+Nov14x <- Nov14[ccc,]
+```
+
+In this analysis systems with Intel Xeon processors (Copyrights respected). 
+
+In all there are `r dim(Nov14x)[1]` systems out of the Top/Green500 highlighted. (`r round(100*dim(Nov14x)[1]/500,1) `%).
+
+
+```{r, echo=FALSE, fig.align='center', fig.height=7.25, fig.width=6}
+## EXASCALAR PLOT OVERLAYING TWO LISTS
+
+## plots "reference" list first, then "list of current interest" is overlayed
+
+plot(Nov14$mflopswatt ,
+     Nov14$rmax*10^3, 
+     log="xy", 
+     asp = 4/3.2, 
+     xlab = "Efficiency (mflops/watt)",
+     ylab = "Performance (mflops)", 
+     main = "November 2014 Exascalar", 
+     col = "red",
+     cex=1.1,
+     pch=20, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+par(new=TRUE)
+
+plot(Nov14x$mflopswatt ,
+     Nov14x$rmax*10^3, 
+     log="xy", 
+     asp = 4/3.2, 
+     xlab = "Efficiency (mflops/watt)",
+     ylab = "Performance (mflops)", 
+     main = "November 2014 Exascalar", 
+     col = "blue",
+     cex=1.1,
+     pch=19, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+
+##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
+
+legend(4E1,1E11, legend = c("Other","Intel(R) Xeon(R)"), pch=c(20,19), col = c("red", "blue"), cex=1)
+
+text(1.0E4,
+     5.E7, "Nov 2014", cex=.7, col="black", pos=3)
+text(0.8E4,
+     3.3E7, "data from Green500 and Top500 Lists", cex=.7, col="black", pos=3)
+
+
+#text(0.35e+05, 2e+12, expression(epsilon == 0), cex=.7, srt=-45)
+text(0.35e+04, 1e+12, expression(epsilon == -1), cex=.7, srt=-45)
+text(1.2e+02, 1e+12, expression(epsilon == -2), cex=.7, srt=-45)
+text(0.2e+02, .25e+12, expression(epsilon == -3), cex=.7, srt=-45)
+text(0.15e+02, 1.3e+10, expression(epsilon == -4), cex=.7, srt=-45)
+
+text(0.15e+05, .5e+12, "20 MWatt", cex=.7, srt=45)
+text(0.15e+05, .5e+10, "0.2 MWatt", cex=.7, srt=45)
+#text(0.15e+05, .5e+08, "0.02 MWatt", cex=.7, srt=45)
+
+
+## GENERATE CONSTANT POWER AND ISO-EXASCALAR LINES FOR THE GRAPH
+
+## These are tbe hashed lines on the graph representing "constant power" and "constant exascalar"
+## The approach here is to define functions that create two endpoints for the line segments that 
+##    depend on power and exascalar, respectively
+
+isopowerline <- function(megawatts, efficiencyrangelow=10*.9, efficiencyrangehigh=100000*1.1, perfrangehigh = 2*10^12*1.1, perfrangelow = 0.9**5*10^6)
+{matrix(c(efficiencyrangelow, efficiencyrangehigh, efficiencyrangelow*megawatts*10^6, efficiencyrangehigh*megawatts*10^6), ncol=2)
+}
+
+## Compute Graphical Lines for iso power
+## the argument passed in isopowerline is in megawatts
+
+for (i in -2:4) {
+        lines(isopowerline(2*10^-i)[,1],isopowerline(2*10^-i)[,2], lwd=.5, lty=2)}
+
+## add graphical lines for iso "exscalar"
+
+
+ExaPerf <- 10^12           ##in Megaflops
+ExaEff <- 10^12/(20*10^6)  ##in Megaflops/Watt
+
+Exascale = ExaPerf*ExaEff
+
+isoexaline <- function(exascalar, efficiencyrangelow=0.5*20, efficiencyrangehigh=2*50000, perfrangehigh = 2*10^12, perfrangelow = 0.5*5*10^7){
+        matrix(c(Exascale/(10^(-exascalar*sqrt(2)))/perfrangehigh, efficiencyrangehigh, perfrangehigh, Exascale/(10^(-exascalar*sqrt(2)))/efficiencyrangehigh), ncol=2)
+}
+
+## Compute Graphical Lines for iso exascalar
+## the argument passed is - log10 of exascalar
+
+for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
+
+```
+
+
