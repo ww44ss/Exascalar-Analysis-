@@ -9,11 +9,11 @@ output:
 
 ###Visulizing Key Trends
 
-Exascalar is one of the best ways to visualize changes in the [Green500](http:\\green500.org) and [Top500](http:\\top500.org) lists since it compares both system performance and efficiency in one common analysis. 
+Recall Exascalar is one of the best ways to visualize changes in the [Green500](http:\\green500.org) and [Top500](http:\\top500.org) lists since it compares both system performance and efficiency in one common analysis. To the extent that performance and efficiency trends are ultimately related, Exascalar enables an overview of population trends.
 
-In this analysis I look at visualizing architectural influencers of Exascalar through several analyses. This analysis was suggested in a tweet from the folks at [HPC Wire](http://www.hpcwire.com/).
+In this analysis I explore using Exascalar as a visualization tool to look at architectural influencers efficiency and performance. This analysis was suggested in a tweet from the folks at [HPC Wire](http://www.hpcwire.com/).
 
-This is a first cut at this analysis. In the future I plan to migrate plotting to ggplot2 and add some interactive features. 
+Please note: This is a first cut at this analysis. In the future I plan to migrate plotting to ggplot2 and add some interactive features. If you have comments please tweet them to me @WinstonOnEnergy.
 
 
 ```{r, echo=FALSE}
@@ -68,6 +68,8 @@ Jun09 <- read.csv(paste0(results, "/Jun09.csv"), header=TRUE)
 ### November 2014 Exascalar Plot 
 
 For reference here is the November 2014 Exascalar Plot.
+
+
   
 ```{r, echo=FALSE, fig.align='center', fig.height=7.25, fig.width=6}
 ## EXASCALAR PLOT OVERLAYING TWO LISTS
@@ -181,7 +183,7 @@ ccc <- which(bbb ==TRUE)
 Nov14x <- Nov14[ccc,]
 ```
 
-In this analysis systems with GPUs made by NVidia, PEZY, AMD FirePro and Intel Xeon Phi are highlighted. (Respectful of coyrights). 
+In this analysis systems with GPUs made by NVidia, PEZY, AMD FirePro and Intel Xeon Phi are highlighted. (Respectful of copyrights). 
 
 In all there are `r dim(Nov14x)[1]` systems out of the Top/Green500 highlighted. (`r round(100*dim(Nov14x)[1]/500,1) `%).
 
@@ -284,7 +286,7 @@ for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
 ###November 2012 Accelerators versus CPU-only
 
 
-For comparison, this is the same analysis for the 2012 Exascalar version of the Top/Green500.  
+For comparison, this is the same analysis for the 2012 Exascalar version of the Top/Green500. Note that significantly fewer GPU systems were in the population.  
 
 ```{r "Tech Trend String Search2", echo=FALSE}
 
@@ -316,7 +318,7 @@ ccc <- which(bbb ==TRUE)
 Nov12x <- Nov12[ccc,]
 ```
 
-In this analysis systems with GPUs made by NVidia, PEZY, AMD FirePro and Intel Xeon Phi are highlighted. (Respectful of copyrights). 
+Systems with GPUs made by NVidia, PEZY, AMD FirePro and Intel Xeon Phi are highlighted. (Respectful of copyrights). 
 
 In all there are `r dim(Nov12x)[1]` systems out of the Top/Green500 highlighted. (`r round(100*dim(Nov12x)[1]/500,1) `%).
 
@@ -421,7 +423,7 @@ for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
 
 ###Intel Xeon 
 
-This analysis looks at which computers rely on Intel Xeon for the CPU function
+We can also look at other architectural influencers. This analysis looks at which computers rely on Intel Xeon for the CPU function
 
 
 ```{r "Tech Trend String SearchXeon", echo=FALSE}
