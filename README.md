@@ -33,7 +33,7 @@ Current available analyses
 
 #####Exascalar_Cleaner.R  
 
-This reads in the Top500 and Green500 lists, cleans the data, and creates data.frames with these descriptive names of columns. The cleaning function gets updated frequently since the cleaning of individual lists is a bit customized (naming and data entry has not been consistent across the years)
+This reads in the Top500 and Green500 lists stored locally, cleans the data, and creates data.frames with descriptive names of columns. The cleaning function gets updated frequently since the cleaning of individual lists is a bit customized (naming and data entry has not been consistent across the years)
 
 Naming conventions are:  
   
@@ -48,6 +48,7 @@ It also creates a file
 The program saves the files in a folder _results_  
 
 currently the data in the cleaned files are:
+ "ExaRank" Numerical rank of computers based on Exascalar
  "exascalar" The computed Exacalar Value  
  "green500rank" The rank of the system in the Green 500 (Efficiency)  
  "top500rank"   The rank of the system in the Top500 (Performance)  
