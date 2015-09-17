@@ -1,0 +1,454 @@
+---
+title: "June 2015 Top500, Green500, and Exascalar"
+author: "Winston Saunders"
+date: "Sept 16, 2015"
+output: 
+  html_document:
+    keep_md: true
+---
+
+###June 2015 Green500 and Top500
+
+[Exascalar](http://www.datacenterknowledge.com/archives/2012/07/10/june-2012-exascalar-efficiency-dominates-hpc/) analysis is an informative way to visualize the supercomputer landscape of both efficiency and performance (as measured by the [Green500](http:\\green500.org) and [Top500](http:\\top500.org) lists, respectively). 
+
+As with the past few lists, the analysis is especially revealing: while the #1 supercomputer in the Top500 has not changed in the last _five_ publications of the lists, the population of the Top500 and Green500 list has been far from stagnant. Exascalar allows us to visulaize these changes. 
+
+Sit back and Enjoy the Tour.
+
+```{r "get data", echo=FALSE}        
+#         ## define a read_data function which will be used to pull data from my gitbhub acct
+#         ## 
+#         library(RCurl)
+#         readData <- function(path.name, file.name, column.types, missing.types) {
+#                 ## create URL from path and file names
+#                 myData<-getURL(paste0(path.name, file.name) )
+#                 ## read the data
+#                 read.csv(textConnection(myData),
+#                 colClasses=column.types,
+#                 na.strings=missing.types )
+#                 
+#             }
+
+```
+
+
+
+```{r, echo=FALSE, warning=FALSE}
+
+#         file.path <- "https://raw.githubusercontent.com/ww44ss/public_art/master/"
+#         data.file <- "public_art_edited.csv"
+#         data.zip <- "public_art.zip"
+#         missing.types <- c("NA", "")
+# 
+#         column.types <- c('integer',   # record_id
+#                                 'factor',    # artist 
+#                                 'factor',    # title
+#                                 'factor',    # date
+#                                 'character',       # medium
+#                                 'character',       # discipline
+#                                 'character',    # dimensions
+#                                 'factor',     # funding_source
+#                                 'character',    # location
+#                                 'character',    # street
+#                                 'factor',    # city
+#                                 'factor',        #state
+#                                 'factor',    # zipcode
+#                                 "numeric",      # latitude
+#                                 "numeric",      # longitude
+#                                 "character",    # description
+#                                 "character",    # image URL
+#                                 "character",    # detail URL
+#                                 "factor"     # date_modified
+#         )
+
+    
+```
+
+```{r, echo=FALSE}
+
+## This program imports cleaned data from the Green500 and Top500 lists
+
+## there are several subtleties of the implenetation here which need to be paid attention to when adapting it.
+##each "500" list is called out explicitly
+##in a couple of places the number of lists (currently 10) is assumed.
+
+## GET THE CLEANED DATA
+
+##check for Exascalar Directory. If none exists stop program with error
+
+##check to ensure results director exists
+
+if(getwd()!="/Users/winstonsaunders/Documents/Exascalar") setwd("/Users/winstonsaunders/Documents/Exascalar")
+
+#if(!file.exists("./results")) stop("Data not found in directory Exascalar, first run Exascalar_Cleaner to get tidy data")
+
+
+## set working directory
+
+
+# define Data Directories to use
+results <- "./results"
+
+## ------------------------
+## Read results files
+
+# import data set
+
+## there are probably ways to simplify this code but this brute force method is easy to read.
+
+BigEx <- read.csv(paste0(results, "/BigExascalar.csv"), header=TRUE)
+Jun15 <- read.csv(paste0(results, "/Jun15_merged.csv"), header=TRUE)
+Nov14 <- read.csv(paste0(results, "/Nov14_merged.csv"), header=TRUE)
+Jun14 <- read.csv(paste0(results, "/Jun14_merged.csv"), header=TRUE)
+
+## Add some date identifiers to the data
+
+Jun15$Date<-rep("Jun 2015", nrow(Jun15))
+Nov14$Date<-rep("Nov 2015", nrow(Nov14))
+Jun14$Date<-rep("Jun 2014", nrow(Jun14))
+
+
+```
+
+
+### Exascalar Plot 
+
+The easiest way to visualize change in the Top500 and Green500 lists is to overlay the Exascalar plots of November 2014 with that of June 2015.  
+
+In the plot below points from June 2015 are smaller red dots, points with empty blue circles are computers that are no longer on the list, and red points with blue circles around them are computers on both lists. Changes are clearly visible. While the highestperformance computer did not change, changes within the population as well as at the extremes of efficiency are evident.   
+
+```{r, echo=FALSE, fig.align='center', fig.height=7.25, fig.width=8}
+## EXASCALAR PLOT OVERLAYING TWO LISTS
+
+## plots "reference" list first, then "list of current interest" is overlayed
+
+library(ggplot2)
+
+
+
+xxx<-c("2015-06-01","2014-11-01")
+xxx<-paste(xxx, collapse = "|")
+
+
+
+BigExPlot<-BigEx[grepl(xxx, as.character(BigEx$date)),]
+
+BigExPlot <- BigExPlot[rev(rownames(BigExPlot)),]
+
+
+## reverse the levels of date
+#BigExPlot$date<-factor(BigExPlot$date, levels= rev(levels(BigExPlot$date)))
+
+
+
+p <- ggplot(BigExPlot, aes(x=log10(mflopswatt), y=log10(rmax*10^3), color=date, pch=date, size=date))
+p <- p + geom_point(alpha=0.6')
+#print(p)
+
+p <- p + scale_colour_manual(name='Date',values=c("2015-06-01"="darkred","2014-11-01"="blue" ))
+p <- p + scale_shape_manual(name='Date',values=c("2015-06-01"=20,"2014-11-01"=1))
+p <- p + scale_size_manual(name='Date',values=c("2015-06-01"=4,"2014-11-01"=4))
+print(p)
+p <- p + theme(
+        axis.text=element_text(size=14, color="black"),
+        axis.title=element_text(size=14), 
+        plot.title = element_text(size=18, face="bold", vjust=2),
+        panel.background = element_rect(fill = 'grey92'),
+        axis.title.x = element_text(color="black", vjust=-0.45),
+        axis.title.y = element_text(color="black" , vjust=0.45),
+        panel.grid.major = element_line(colour = "grey92"),
+        panel.grid.minor = element_line(colour = "grey92")
+        )
+
+
+    ##Set Plot dimensions
+    p <- p + coord_cartesian(xlim = c(.9, 5.1), ylim=c(7.5, 12.5)) 
+
+    ## add axis labels
+    p <- p + scale_x_discrete(breaks = 1:5, labels=c("1e+01","1e+02","1e+03","1e+04","1e+05")) 
+
+    p <- p + scale_y_discrete(breaks = 8:12, labels=c("1e+08","1e+09","1e+10","1e+11","1e+12")) 
+ 
+    #print(p)
+    
+
+p <- p + ggtitle("June 2015 Exascalar")
+
+
+p <- p + annotate("text", x = 3.9, y= 7.6, label = "sources:~Top500.org~and~Green500.org", parse=TRUE, angle=0, size=3.3)
+
+print(p)
+## add Epsilon values for Exascalar
+p <- p + annotate("text", x=4.64, y= 12.2, label = "epsilon == 0", parse=TRUE, angle= -45, size=3.6)
+p <- p + annotate("text", x=3.44, y= 12.1, label = "epsilon == -1", parse=TRUE, angle= -45, size=3.6)
+p <- p + annotate("text", x=2.08, y= 12, label = "epsilon == -2", parse=TRUE, angle= -45, size=3.6)
+p <- p + annotate("text", x=1.30, y= 11.40, label = "epsilon == -3", parse=TRUE, angle= -45, size=3.6)
+p <- p + annotate("text", x=1.18, y= 10.11, label = "epsilon == -4", parse=TRUE, angle= -45, size=3.6)
+
+## add Power annotation
+p <- p + annotate("text", x=4.18, y= 11.70, label = "20 MWatt", parse=F, angle= 45, size=3.6)
+p <- p + annotate("text", x=4.58, y= 11.10, label = "2.0 MWatt", parse=F, angle= 45, size=3.6)
+p <- p + annotate("text", x=4.58, y= 10.10, label = "0.2 MWatt", parse=F, angle= 45, size=3.6)
+p <- p + annotate("text", x=4.58, y= 9.10, label = "20 kWatt", parse=F, angle= 45, size=3.6)
+
+## add Power Lines
+#print(p)
+
+  isopowerline_ab <- function(megawatts)
+      {
+      a<-log10(megawatts*10^6)  #*sqrt(2)
+      return(a)
+  }
+  
+    LogExaPerf <- log10(10^12)          ##in Megaflops
+    LogExaEff  <- log10(10^12/(20*10^6))  ##in Megaflops/Watt
+    
+    LogExascale = LogExaPerf+LogExaEff
+    
+    
+ 
+    
+     isoexaline_ab <- function(exascalar)
+        {
+        a <- LogExascale+exascalar*((sqrt(2)))
+        return(a)
+    }
+    
+    #ps<-p
+    #p<-ps
+    
+    for (i in -1:2){
+    p <- p + geom_abline(intercept=isopowerline_ab(2*10^-i), colour = "darkblue", size = 0.5, alpha=0.5, linetype=2)
+    }
+    #print(p)
+    
+    
+    for (i in 0:7) {
+        p <- p + geom_abline(intercept = isoexaline_ab(-i), slope=-1, colour = "darkblue", size = 0.5, alpha=0.5, linetype=2)
+    }
+    
+    print(p)
+    
+    
+    isoexaline_ab(-2)
+    
+
+#p <- p + coord_trans(x = "log10", y = "log10", limx=c(10,100000), limy = c(5*10^7,2*10^12))
+
+  #p<-p+theme_bw(base_size = 12)
+   
+  p<-p+labs(x="Efficiency (MFlops/Watt)", y="Performance (Mflops)")
+
+print(p)
+
+```
+
+```{r, echo=FALSE, fig.height=7.25, fig.width=6, fig.align='center'}
+
+plot(Nov14$mflopswatt ,
+     Nov14$rmax*10^3, 
+     log="xy", 
+     asp = 4/3.2, 
+     xlab = "Efficiency (mflops/watt)",
+     ylab = "Performance (mflops)", 
+     main = "Jun 2015 Exascalar", 
+     col = "blue",
+     cex=1,
+     pch=1, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+
+par(new=TRUE)
+
+plot(Jun15$mflopswatt ,
+     Jun15$rmax*10^3, 
+     log="xy", 
+     asp = TRUE, 
+     xlab = "",
+     ylab = "", 
+     main = "", 
+     col = "red",
+     bg = "steelblue2",
+     cex=1,
+     pch=20, 
+     xlim=c(10,100000), 
+     ylim=c(5*10^7,2*10^12))
+
+##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
+
+    legend(4E1,1E11, legend = c("Jun 15","Nov 14"), pch=c(20,1), col = c("red", "blue"), 
+       pt.bg=c("steelblue", NULL), cex=0.8)
+
+    text(1.0E4, 5.E7, "June 2015", cex=.7, col="black", pos=3)
+    text(0.8E4, 4.E7, "data from Green500 and Top500 Lists", cex=.7, col="black", pos=3)
+
+
+    text(2*0.35e+05, 1e+12, expression(epsilon == 0), cex=.8, srt=-45)
+    text(0.35e+04, 1e+12, expression(epsilon == -1), cex=.8, srt=-45)
+    text(1.2e+02, 1e+12, expression(epsilon == -2), cex=.8, srt=-45)
+    text(0.2e+02, .25e+12, expression(epsilon == -3), cex=.8, srt=-45)
+    text(0.15e+02, 1.3e+10, expression(epsilon == -4), cex=.8, srt=-45)
+
+    text(0.15e+05, .5e+12, "20 MWatt", cex=.7, srt=45)
+    text(0.15e+05, .5e+10, "0.2 MWatt", cex=.7, srt=45)
+    #text(0.15e+05, .5e+08, "0.02 MWatt", cex=.7, srt=45)
+
+
+    ## GENERATE CONSTANT POWER AND ISO-EXASCALAR LINES FOR THE GRAPH
+
+    ## These are the hashed lines on the graph representing "constant power" and "constant exascalar"
+    ## The approach here is to define functions that create two endpoints for the line segments that 
+    ##    depend on power and exascalar, respectively
+
+    isopowerline <- function(megawatts, 
+                             efficiencyrangelow=10*.9, 
+                             efficiencyrangehigh=100000*1.1, 
+                             perfrangehigh = 2*10^12*1.1, 
+                             perfrangelow = 0.9**5*10^6)
+    {matrix(c(efficiencyrangelow, efficiencyrangehigh, efficiencyrangelow*megawatts*10^6, efficiencyrangehigh*megawatts*10^6), ncol=2)
+    }
+
+    ## Compute Graphical Lines for iso power
+    ## the argument passed in isopowerline is in megawatts
+    
+    for (i in -2:4) {
+            lines(isopowerline(2*10^-i)[,1],isopowerline(2*10^-i)[,2], lwd=.5, lty=2)}
+    
+    ## add graphical lines for iso "exscalar"
+    
+    
+    ExaPerf <- 10^12           ##in Megaflops
+    ExaEff <- 10^12/(20*10^6)  ##in Megaflops/Watt
+    
+    Exascale = ExaPerf*ExaEff
+    
+    isoexaline <- function(exascalar, 
+                           efficiencyrangelow=0.5*20, 
+                           efficiencyrangehigh=2*50000, 
+                           perfrangehigh = 2*10^12, 
+                           perfrangelow = 0.5*5*10^7) {
+            matrix(c(Exascale/(10^(-exascalar*sqrt(2)))/perfrangehigh, 
+                  efficiencyrangehigh, perfrangehigh, 
+                  Exascale/(10^(-exascalar*sqrt(2)))/efficiencyrangehigh), ncol=2)
+            }
+    
+   
+    
+    ## Compute Graphical Lines for iso exascalar
+    ## the argument passed is - log10 of exascalar
+    
+    for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
+    
+
+    
+
+```
+
+####KPI's: Bounding the November 2014 Supercomputer Population
+
+Since Exascalar, as visulaized by above, is mostly descriptive of the _population_ of supercomputers, it's interesting to understand the parameters of the population as these comprise some of the more interesting computers from the list. These Key Performance Indicators of the population are listed below.  
+
+It is worthwhile to note that the highest Exascalar, lowest Exascalar, and Lowest Power system describe, roughly, the "vertices"" of the triangular shape of the population, while the highest power, lowest performance and highest efficiency roughly bound the "sides"" of the triangle.  
+ 
+
+```{r, echo=FALSE, results="asis", fig.align='center', message=FALSE}
+
+require(xtable)
+
+Temp_New<-as.data.frame(Jun15)
+Temp_Old<-as.data.frame(Nov14)
+
+TopPerformance <- Temp_New[Temp_New$rmax==max(Temp_New$rmax), c(3,4,5,6,7,8,9)]
+
+TopEfficiency <- Temp_New[Temp_New$mflopswatt==max(Temp_New$mflopswatt), c(3,4,5,6,7,8,9)]
+HighestPower <- Temp_New[Temp_New$power==max(Temp_New$power), c(3,4,5,6,7,8,9)]
+LowestPerformance <- Temp_New[Temp_New$rmax==min(Temp_New$rmax), c(3,4,5,6,7,8,9)]
+LowestEfficiency <- Temp_New[Temp_New$mflopswatt==min(Temp_New$mflopswatt), c(3,4,5,6,7,8,9)]
+LowestPower <- Temp_New[Temp_New$power==min(Temp_New$power), c(3,4,5,6,7,8,9)]
+HighestExascalar<- Temp_New[Temp_New$ExaRank==min(Temp_New$ExaRank), c(3,4,5,6,7,8,9)]
+LowestExascalar<- Temp_New[Temp_New$ExaRank==max(Temp_New$ExaRank), c(3,4,5,6,7,8,9)]
+
+BoundsTable<-rbind("Top Performance" = TopPerformance, "Top Efficiency" = TopEfficiency, "Highest Power"=HighestPower, "Lowest Performance" =LowestPerformance, "Lowest Efficiency"=LowestEfficiency,  "Lowest Power" =LowestPower, "Highest Exascalar"= HighestExascalar, "Lowest Exascalar" = LowestExascalar)
+
+```
+
+```{r, echo=FALSE, results="asis", fig.align='center', message=FALSE}
+
+#row.names(BoundsTable)<-c("Top Performance", "Top Efficiency", "Highest Power", "Lowest Performance", "Lowest Efficiency", "Lowest Power", "Highest Exascalar", "Lowest Exascalar")
+
+temptable<-xtable(BoundsTable)
+print(temptable, type="html", size="small")
+
+
+
+```
+
+
+
+####KPI's for the Population of New Entrants
+
+Of the _new_ entrants its interesting to note the same parameters as above as a kind of bound on the population of the newest systems. It's interesting to note in this particular year new systems occupy both the highest and lowest efficiency. 
+
+```{r, echo=FALSE} 
+
+
+NewList<-Temp_New[!(Temp_New$exascalar %in% Temp_Old$exascalar),]
+
+#print(head(NewList))
+
+```
+
+
+The median Exascalar of the New Computers is `r round(median(NewList$exascalar),2)` compared to the median of all computers on the June 2015 list `r round(median(Temp_New$exascalar),2)` and the November 2014 list `r round(median(Temp_Old$exascalar),2)`.
+
+
+<style>
+
+table { 
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 10px;
+    border-color: gray;
+    background-color: #a1b2c3;
+    text-align: center
+    font: 12px arial, sans-serif;
+}
+th, td {
+    
+    padding: 5px;
+}
+</style>
+
+
+```{r, echo=FALSE, results="asis", fig.align='center', message=FALSE}
+
+require(xtable)
+
+TopPerformance <- NewList[NewList$rmax==max(NewList$rmax), c(3,4,5,6,7,8,9)]
+TopEfficiency <- NewList[NewList$mflopswatt==max(NewList$mflopswatt), c(3,4,5,6,7,8,9)]
+HighestPower <- NewList[NewList$power==max(NewList$power), c(3,4,5,6,7,8,9)]
+LowestPerformance <- NewList[NewList$rmax==min(NewList$rmax), c(3,4,5,6,7,8,9)]
+LowestEfficiency <- NewList[NewList$mflopswatt==min(NewList$mflopswatt), c(3,4,5,6,7,8,9)]
+LowestPower <- NewList[NewList$power==min(NewList$power), c(3,4,5,6,7,8,9)]
+HighestExascalar<- NewList[NewList$ExaRank==min(NewList$ExaRank), c(3,4,5,6,7,8,9)]
+LowestExascalar<- NewList[NewList$ExaRank==max(NewList$ExaRank), c(3,4,5,6,7,8,9)]
+
+BoundsTable<-rbind("Top Performance" = TopPerformance, "Top Efficiency" = TopEfficiency, "Highest Power"=HighestPower, "Lowest Performance" =LowestPerformance, "Lowest Efficiency"=LowestEfficiency,  "Lowest Power" =LowestPower, "Highest Exascalar"= HighestExascalar, "Lowest Exascalar" = LowestExascalar)
+
+
+#row.names(BoundsTable)<-c("Top Performance", "Top Efficiency", "Highest Power", "Lowest Performance", "Lowest Efficiency", "Lowest Power", "Highest Exascalar", "Lowest Exascalar")
+
+temptable<-xtable(BoundsTable)
+print(temptable, type="html", size="small")
+
+
+
+```
+
+
+
+
+
+
+

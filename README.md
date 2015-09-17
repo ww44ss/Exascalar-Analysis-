@@ -5,22 +5,27 @@ Visualize the Top500 and Green500 Supercomputer Lists
 
 ![alt text](https://github.com/ww44ss/Exascalar-Analysis-/raw/master/Exascalar.png "Exascalar Graph")
 
-This describes some Exploratory Data Analysis I did on the evolution of supercomputing trends from 2009 hence. 
-Since the Green500 and Top500 describe different aspects of essentially the same population of supercomputers, the assumption here is there's inherent value in combining the two lists. 
+This describes the Visual Data Analysis of the evolution of supercomputing trends from 2009 to present. 
+Since the Green500 and Top500 describe different aspects of essentially the same population of supercomputers, the assumption here is there's inherent value in looking at the two lists combined.
+
+The main effort here is combining the historical lists into a common formatted data set. While both lists have fundamentally measured the same quantities over time, data names, etc have shifted. Since older lists require a significant amount of "hand tuning" of variable names, etc., I've included  
+
+The data set is extremely rich and there are literally hundreds of questions that can be asked of it. To keep this archive sane, I've only included a few analyses. However, I hope that by providing a cleaned archive of data others will find this useful for their own exploration. 
+
+If you use this data, please include a reference to the archive in any publication or public mention of the data. 
+
+###About Exascalar
 
 Exascalar reveals answers to the question "how does the population of "top" super computers evolve?"
 
-####About Exascalar
-
-Exascalar looks at both the [Top500](http://www.top500.org) super computer list (based on performance) and the [Green500](http://www.green500.org) super computer list (based on efficiency) in a single visually digestable graph. It overlays a transverse rectilinear coordinate system of power and "Exascalar" onto Power and Efficiency. 
+Exascalar looks at both the [Top500](http://www.top500.org) super computer list (based on performance) and the [Green500](http://www.green500.org) super computer list (based on efficiency) in a single visually digestable graph. It overlays a transverse rectilinear coordinate system of power and "Exascalar" onto the Performance and Efficiency axes. 
 
 You can more read about the history of Exascalar [here](https://communities.intel.com/community/itpeernetwork/datastack/blog/2011/10/20/rethinking-supercomputer-performance-and-efficiency-for-exascale), 
 [here](http://www.datacenterknowledge.com/archives/2013/01/28/the-taxonomy-of-exascalar/), 
 and [here](http://www.datacenterknowledge.com/archives/2012/07/10/june-2012-exascalar-efficiency-dominates-hpc/).
 
-
-####Data Sources
-Data come from the Green500.org and the Top500.org websites.  
+###Data Sources
+Data are downloaded from the Green500.org and the Top500.org websites.  
 
 The data cleaning program assumes the top500 lists are locally stored in a directory called "Exascalar" as .csv files in the sub-directories Top500 and Green500. These directories are cloned in this repository.
   Green500.org lists are downloadable directly as .csv files from the Green500 website.
