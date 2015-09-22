@@ -329,6 +329,8 @@ print(dim(BigExascalar))
 
         ## merge megaset
         tt <- merge(GreenNov13, TopNov13, by="top500rank", all.x=TRUE)
+        
+        Nov13_merged<-tt
 
         ## select relevant columns
 
@@ -364,6 +366,8 @@ print(dim(BigExascalar))
         ##write file to results folder
 
         write.csv(Nov13, "./results/Nov13.csv")
+        write.csv(Nov13_merged, "./results/Nov13_merged.csv")
+        
 
 print("Nov13")
 
@@ -378,6 +382,8 @@ print("Nov13")
 
         ## merge megaset
         tt <- merge(GreenJun13, TopJun13, by="top500rank", all.x=TRUE)
+        
+        Jun13_merged<-tt
 
         ## select relevant columns  (these are hand crafted per list)
         Jun13 <- cbind(tt[,c(2, 1, 3, 4, 6, 11)])
@@ -408,6 +414,7 @@ print("Nov13")
         ##final cleaned data
         ##write file to results folder
         write.csv(Jun13, "./results/Jun13.csv")
+        write.csv(Jun13_merged, "./results/Jun13_merged.csv")
 print("Jun13")
 
 ## NOV12 CLEANING
@@ -426,6 +433,8 @@ print("Jun13")
         
         ## merge megaset
         tt <- merge(GreenNov12, TopNov12, by="top500rank", all.x=TRUE)
+        
+        Nov12_merged<-tt
 
         ## select relevant columns  (these are hand crafted per list)
         Nov12 <- cbind(tt[,c(2, 1, 11, 9, 8, 17)])
@@ -458,6 +467,7 @@ print("Jun13")
         ##final cleaned data
         ##write file to results folder
         write.csv(Nov12, "./results/Nov12.csv")
+        write.csv(Nov12_merged, "./results/Nov12_merged.csv")
 
 print("Nov12")
 
@@ -472,6 +482,7 @@ print("Nov12")
 
         ## merge megaset
         tt <- merge(GreenJun12, TopJun12, by="top500rank", all.x=TRUE)
+        Jun12_merged<-tt
 
         ## select relevant columns  (these are hand crafted per list)
         Jun12 <- cbind(tt[,c(2, 1, 22, 8, 7, 5)])
@@ -504,6 +515,7 @@ print("Nov12")
         ##final cleaned data
         ##write file to results folder
         write.csv(Jun12, "./results/Jun12.csv")
+        write.csv(Jun12_merged, "./results/Jun12_merged.csv")
 
 print("Jun12")
 
@@ -518,6 +530,7 @@ print("Jun12")
 
         ## merge megaset
         tt <- merge(GreenNov11, TopNov11, by="top500rank", all.x=TRUE)
+        Nov11_merged<-tt
 
         ## select relevant columns  (these are hand crafted per list)
         Nov11 <- cbind(tt[,c(2, 1, 19, 8, 7, 5)])
@@ -550,6 +563,7 @@ print("Jun12")
         ##final cleaned data
         ##write file to results folder
         write.csv(Nov11, "./results/Nov11.csv")
+        write.csv(Nov11_merged, "./results/Nov11_merged.csv")
 
 print("Nov11")
 

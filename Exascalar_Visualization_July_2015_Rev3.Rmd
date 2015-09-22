@@ -5,17 +5,35 @@ date: "Sept 16, 2015"
 output: 
   html_document:
     keep_md: true
+    toc: true
+    number_sections: false
+---
 ---
 
-###June 2015 Green500 and Top500
 
-[Exascalar](http://www.datacenterknowledge.com/archives/2012/07/10/june-2012-exascalar-efficiency-dominates-hpc/) analysis is an informative way to visualize the supercomputer landscape of both efficiency and performance (as measured by the [Green500](http:\\green500.org) and [Top500](http:\\top500.org) lists, respectively). 
+#Executive Summary
 
-As with the past few lists, the analysis is especially revealing: while the #1 supercomputer in the Top500 has not changed in the last _five_ publications of the lists, the population of the Top500 and Green500 list has been far from stagnant. Exascalar allows us to visulaize these changes. 
+While the #1 performing supercomputer in the Top500 has not changed in the last _five_ publications of the Top500 list, the population of the Top500 and Green500 list has been far from stagnant, especially as efficience has increased. 
+
+This analysis 
+
+In this addition several new analyses, suggested by others, have been added. Notably, graphs looking at both core counts GPU architecture reveal insights into differentiation among different super computers. 
+
+(My apologies for the delay in publication. My work at Intel, now in the domain of Information Security, is not directly related to this subject matter. As always, any opinions expressed here are my own and not those of my employer.)
+
+##Exascalar Background
+
+[Exascalar](http://www.datacenterknowledge.com/archives/2012/07/10/june-2012-exascalar-efficiency-dominates-hpc/) analysis is an informative way to visualize supercomputer lefficiency and performance (as measured by the [Green500](http:\\green500.org) and [Top500](http:\\top500.org) lists, respectively) in one coherent picture.
+
+
 
 Sit back and Enjoy the Tour.
 
-```{r "get data", echo=FALSE}        
+#Exascalar 
+
+##June 2015 Top500 and Green500
+
+```{r "readData function", echo=FALSE}        
 #         ## define a read_data function which will be used to pull data from my gitbhub acct
 #         ## 
 #         library(RCurl)
@@ -39,28 +57,6 @@ Sit back and Enjoy the Tour.
 #         data.file <- "public_art_edited.csv"
 #         data.zip <- "public_art.zip"
 #         missing.types <- c("NA", "")
-# 
-#         column.types <- c('integer',   # record_id
-#                                 'factor',    # artist 
-#                                 'factor',    # title
-#                                 'factor',    # date
-#                                 'character',       # medium
-#                                 'character',       # discipline
-#                                 'character',    # dimensions
-#                                 'factor',     # funding_source
-#                                 'character',    # location
-#                                 'character',    # street
-#                                 'factor',    # city
-#                                 'factor',        #state
-#                                 'factor',    # zipcode
-#                                 "numeric",      # latitude
-#                                 "numeric",      # longitude
-#                                 "character",    # description
-#                                 "character",    # image URL
-#                                 "character",    # detail URL
-#                                 "factor"     # date_modified
-#         )
-
     
 ```
 
@@ -68,22 +64,18 @@ Sit back and Enjoy the Tour.
 
 ## This program imports cleaned data from the Green500 and Top500 lists
 
-## there are several subtleties of the implenetation here which need to be paid attention to when adapting it.
-##each "500" list is called out explicitly
-##in a couple of places the number of lists (currently 10) is assumed.
 
 ## GET THE CLEANED DATA
 
-##check for Exascalar Directory. If none exists stop program with error
+    ##check for Exascalar Directory. If none exists stop program with error
+    ##check to ensure results director exists
 
-##check to ensure results director exists
+    if(getwd()!="/Users/winstonsaunders/Documents/Exascalar") setwd("/Users/winstonsaunders/Documents/Exascalar")
 
-if(getwd()!="/Users/winstonsaunders/Documents/Exascalar") setwd("/Users/winstonsaunders/Documents/Exascalar")
-
-#if(!file.exists("./results")) stop("Data not found in directory Exascalar, first run Exascalar_Cleaner to get tidy data")
+    #if(!file.exists("./results")) stop("Data not found in directory Exascalar, first run Exascalar_Cleaner to get tidy data")
 
 
-## set working directory
+    ## set working directory
 
 
 # define Data Directories to use
@@ -100,18 +92,23 @@ BigEx <- read.csv(paste0(results, "/BigExascalar.csv"), header=TRUE)
 Jun15 <- read.csv(paste0(results, "/Jun15_merged.csv"), header=TRUE)
 Nov14 <- read.csv(paste0(results, "/Nov14_merged.csv"), header=TRUE)
 Jun14 <- read.csv(paste0(results, "/Jun14_merged.csv"), header=TRUE)
+Nov12 <- read.csv(paste0(results, "/Nov12_merged.csv"), header=TRUE)
+
+
+
 
 ## Add some date identifiers to the data
 
 Jun15$Date<-rep("Jun 2015", nrow(Jun15))
 Nov14$Date<-rep("Nov 2015", nrow(Nov14))
 Jun14$Date<-rep("Jun 2014", nrow(Jun14))
+Nov12$Date<-rep("Nov 2012", nrow(Nov12))
 
 
 ```
 
 
-### Exascalar Plot 
+##June 2015 Exascalar 
 
 The easiest way to visualize change in the Top500 and Green500 lists is to overlay the Exascalar plots of November 2014 with that of June 2015.  
 
@@ -124,32 +121,44 @@ In the plot below points from June 2015 are smaller red dots, points with empty 
 
 library(ggplot2)
 
+```
 
 
-xxx<-c("2015-06-01","2014-11-01")
-xxx<-paste(xxx, collapse = "|")
+```{r, echo=FALSE, fig.align='center', fig.height=7.25, fig.width=8}
+
+## EXASCALAR PLOT
 
 
+    ## select plot dates
+    date1 = "2015-06-01"
+    date2 = "2014-11-01"
 
-BigExPlot<-BigEx[grepl(xxx, as.character(BigEx$date)),]
-
-BigExPlot <- BigExPlot[rev(rownames(BigExPlot)),]
-
-
-## reverse the levels of date
-#BigExPlot$date<-factor(BigExPlot$date, levels= rev(levels(BigExPlot$date)))
-
+    ## combine dates into single string
+    plot_dates<-c(date1,date2)
+    plot_dates<-paste(plot_dates, collapse = "|")
 
 
-p <- ggplot(BigExPlot, aes(x=log10(mflopswatt), y=log10(rmax*10^3), color=date, pch=date, size=date))
-p <- p + geom_point(alpha=0.6')
-#print(p)
+    ## grepl the plot dates
+    BigExPlot<-BigEx[grepl(plot_dates, as.character(BigEx$date)),]
 
-p <- p + scale_colour_manual(name='Date',values=c("2015-06-01"="darkred","2014-11-01"="blue" ))
-p <- p + scale_shape_manual(name='Date',values=c("2015-06-01"=20,"2014-11-01"=1))
-p <- p + scale_size_manual(name='Date',values=c("2015-06-01"=4,"2014-11-01"=4))
-print(p)
-p <- p + theme(
+    ## sort into reverse order (to print in order oldest->newest)
+    BigExPlot <- BigExPlot[rev(rownames(BigExPlot)),]
+
+
+    ## CREATE EXASCALAR PLOT
+    ## take the log of the data points explicitly rather than use a log-scale command
+    p <- ggplot(BigExPlot, aes(x=log10(mflopswatt), y=log10(rmax*10^3), color=date, pch=date, size=date))
+    
+    ## Define plot points and symbols
+    ## alpha = 0.8 helps visually recognize where points overlap
+    p <- p + geom_point(alpha=0.8)
+
+    p <- p + scale_colour_manual(name='List',values=c("2015-06-01"="darkred","2014-11-01"="blue"))
+    p <- p + scale_shape_manual(name='List',values=c("2015-06-01"=20,"2014-11-01"=1))
+    p <- p + scale_size_manual(name='List',values=c("2015-06-01"=4,"2014-11-01"=4))
+
+    ## set plot theme
+    p <- p + theme(
         axis.text=element_text(size=14, color="black"),
         axis.title=element_text(size=14), 
         plot.title = element_text(size=18, face="bold", vjust=2),
@@ -161,200 +170,189 @@ p <- p + theme(
         )
 
 
-    ##Set Plot dimensions
+    ##Set plot dimensions and label axes
     p <- p + coord_cartesian(xlim = c(.9, 5.1), ylim=c(7.5, 12.5)) 
+    p<-p+labs(x="Efficiency (MFlops/Watt)", y="Performance (Mflops)")
 
-    ## add axis labels
+    ## add axis scale labels and title
     p <- p + scale_x_discrete(breaks = 1:5, labels=c("1e+01","1e+02","1e+03","1e+04","1e+05")) 
-
     p <- p + scale_y_discrete(breaks = 8:12, labels=c("1e+08","1e+09","1e+10","1e+11","1e+12")) 
- 
-    #print(p)
-    
+    p <- p + ggtitle("June 2015 Exascalar")
 
-p <- p + ggtitle("June 2015 Exascalar")
+    ## annotate source
 
+    p <- p + annotate("text", x = 3.9, y= 7.6, label = "sources:~Top500.org~and~Green500.org", parse=TRUE, angle=0, size=3.3)
 
-p <- p + annotate("text", x = 3.9, y= 7.6, label = "sources:~Top500.org~and~Green500.org", parse=TRUE, angle=0, size=3.3)
+    ## add Epsilon values for Exascalar
+    p <- p + annotate("text", x=4.64, y= 12.2, label = "epsilon == 0", parse=TRUE, angle= -45, size=3.6)
+    p <- p + annotate("text", x=3.44, y= 12.1, label = "epsilon == -1", parse=TRUE, angle= -45, size=3.6)
+    p <- p + annotate("text", x=2.08, y= 12, label = "epsilon == -2", parse=TRUE, angle= -45, size=3.6)
+    p <- p + annotate("text", x=1.30, y= 11.40, label = "epsilon == -3", parse=TRUE, angle= -45, size=3.6)
+    p <- p + annotate("text", x=1.18, y= 10.11, label = "epsilon == -4", parse=TRUE, angle= -45, size=3.6)
 
-print(p)
-## add Epsilon values for Exascalar
-p <- p + annotate("text", x=4.64, y= 12.2, label = "epsilon == 0", parse=TRUE, angle= -45, size=3.6)
-p <- p + annotate("text", x=3.44, y= 12.1, label = "epsilon == -1", parse=TRUE, angle= -45, size=3.6)
-p <- p + annotate("text", x=2.08, y= 12, label = "epsilon == -2", parse=TRUE, angle= -45, size=3.6)
-p <- p + annotate("text", x=1.30, y= 11.40, label = "epsilon == -3", parse=TRUE, angle= -45, size=3.6)
-p <- p + annotate("text", x=1.18, y= 10.11, label = "epsilon == -4", parse=TRUE, angle= -45, size=3.6)
+    ## add Power annotation
+    p <- p + annotate("text", x=4.18, y= 11.70, label = "20 MWatt", parse=F, angle= 45, size=3.6)
+    p <- p + annotate("text", x=4.58, y= 11.10, label = "2.0 MWatt", parse=F, angle= 45, size=3.6)
+    p <- p + annotate("text", x=4.58, y= 10.10, label = "0.2 MWatt", parse=F, angle= 45, size=3.6)
+    p <- p + annotate("text", x=4.58, y= 9.10, label = "20 kWatt", parse=F, angle= 45, size=3.6)
 
-## add Power annotation
-p <- p + annotate("text", x=4.18, y= 11.70, label = "20 MWatt", parse=F, angle= 45, size=3.6)
-p <- p + annotate("text", x=4.58, y= 11.10, label = "2.0 MWatt", parse=F, angle= 45, size=3.6)
-p <- p + annotate("text", x=4.58, y= 10.10, label = "0.2 MWatt", parse=F, angle= 45, size=3.6)
-p <- p + annotate("text", x=4.58, y= 9.10, label = "20 kWatt", parse=F, angle= 45, size=3.6)
+    ## Add POWER AND EXASCALAR Lines
 
-## add Power Lines
-#print(p)
-
-  isopowerline_ab <- function(megawatts)
-      {
-      a<-log10(megawatts*10^6)  #*sqrt(2)
-      return(a)
-  }
+    ## define powerline function as a function of megawatts
+    isopowerline_ab <- function(megawatts)
+        {a<-log10(megawatts*10^6)  #*sqrt(2)
+        return(a)
+        }
   
-    LogExaPerf <- log10(10^12)          ##in Megaflops
-    LogExaEff  <- log10(10^12/(20*10^6))  ##in Megaflops/Watt
+    ## compute Exascale
+    LogExaPerf <- log10(10^12)              ##in Megaflops
+    LogExaEff  <- log10(10^12/(20*10^6))    ##in Megaflops/Watt
     
     LogExascale = LogExaPerf+LogExaEff
     
+    ## define exascalar line function as a function of Exascalar value
     
- 
-    
-     isoexaline_ab <- function(exascalar)
+    isoexaline_ab <- function(exascalar)
         {
         a <- LogExascale+exascalar*((sqrt(2)))
         return(a)
-    }
+        }
     
-    #ps<-p
-    #p<-ps
-    
+    ## draw the power lines
     for (i in -1:2){
     p <- p + geom_abline(intercept=isopowerline_ab(2*10^-i), colour = "darkblue", size = 0.5, alpha=0.5, linetype=2)
     }
     #print(p)
     
-    
+    ## draw the exascalar lines
     for (i in 0:7) {
         p <- p + geom_abline(intercept = isoexaline_ab(-i), slope=-1, colour = "darkblue", size = 0.5, alpha=0.5, linetype=2)
     }
-    
+  
+    ## print the graph
     print(p)
-    
-    
-    isoexaline_ab(-2)
-    
-
-#p <- p + coord_trans(x = "log10", y = "log10", limx=c(10,100000), limy = c(5*10^7,2*10^12))
-
-  #p<-p+theme_bw(base_size = 12)
-   
-  p<-p+labs(x="Efficiency (MFlops/Watt)", y="Performance (Mflops)")
-
-print(p)
 
 ```
 
-```{r, echo=FALSE, fig.height=7.25, fig.width=6, fig.align='center'}
+###Since November 2012
 
-plot(Nov14$mflopswatt ,
-     Nov14$rmax*10^3, 
-     log="xy", 
-     asp = 4/3.2, 
-     xlab = "Efficiency (mflops/watt)",
-     ylab = "Performance (mflops)", 
-     main = "Jun 2015 Exascalar", 
-     col = "blue",
-     cex=1,
-     pch=1, 
-     xlim=c(10,100000), 
-     ylim=c(5*10^7,2*10^12))
+To emphasize the massive changes in the population of the top supercomputers, it's instructive to compare not only to the last iteration, but also the last iteration where the #1 Supercomputer changed, in November 2012. 
+
+```{r, echo=FALSE, fig.align='center', fig.height=7.25, fig.width=8}
+
+## EXASCALAR PLOT
 
 
-par(new=TRUE)
+    ## select plot dates
+    date1 = "2015-06-01"
+    date2 = "2013-06-01"
 
-plot(Jun15$mflopswatt ,
-     Jun15$rmax*10^3, 
-     log="xy", 
-     asp = TRUE, 
-     xlab = "",
-     ylab = "", 
-     main = "", 
-     col = "red",
-     bg = "steelblue2",
-     cex=1,
-     pch=20, 
-     xlim=c(10,100000), 
-     ylim=c(5*10^7,2*10^12))
-
-##add text to plots  (Some are commented out to clean up appearance, but left in for possible later convenience)
-
-    legend(4E1,1E11, legend = c("Jun 15","Nov 14"), pch=c(20,1), col = c("red", "blue"), 
-       pt.bg=c("steelblue", NULL), cex=0.8)
-
-    text(1.0E4, 5.E7, "June 2015", cex=.7, col="black", pos=3)
-    text(0.8E4, 4.E7, "data from Green500 and Top500 Lists", cex=.7, col="black", pos=3)
+    ## combine dates into single string
+    plot_dates<-c(date1,date2)
+    plot_dates<-paste(plot_dates, collapse = "|")
 
 
-    text(2*0.35e+05, 1e+12, expression(epsilon == 0), cex=.8, srt=-45)
-    text(0.35e+04, 1e+12, expression(epsilon == -1), cex=.8, srt=-45)
-    text(1.2e+02, 1e+12, expression(epsilon == -2), cex=.8, srt=-45)
-    text(0.2e+02, .25e+12, expression(epsilon == -3), cex=.8, srt=-45)
-    text(0.15e+02, 1.3e+10, expression(epsilon == -4), cex=.8, srt=-45)
+    ## grepl the plot dates
+    BigExPlot<-BigEx[grepl(plot_dates, as.character(BigEx$date)),]
 
-    text(0.15e+05, .5e+12, "20 MWatt", cex=.7, srt=45)
-    text(0.15e+05, .5e+10, "0.2 MWatt", cex=.7, srt=45)
-    #text(0.15e+05, .5e+08, "0.02 MWatt", cex=.7, srt=45)
+    ## sort into reverse order (to print in order oldest->newest)
+    BigExPlot <- BigExPlot[rev(rownames(BigExPlot)),]
 
 
-    ## GENERATE CONSTANT POWER AND ISO-EXASCALAR LINES FOR THE GRAPH
+    ## CREATE EXASCALAR PLOT
+    ## take the log of the data points explicitly rather than use a log-scale command
+    p <- ggplot(BigExPlot, aes(x=log10(mflopswatt), y=log10(rmax*10^3), color=date, pch=date, size=date))
+    
+    ## Define plot points and symbols
+    ## alpha = 0.8 helps visually recognize where points overlap
+    p <- p + geom_point(alpha=0.8)
 
-    ## These are the hashed lines on the graph representing "constant power" and "constant exascalar"
-    ## The approach here is to define functions that create two endpoints for the line segments that 
-    ##    depend on power and exascalar, respectively
+    p <- p + scale_colour_manual(name='List',values=c("2015-06-01"="darkred","2013-06-01"="blue"))
+    p <- p + scale_shape_manual(name='List',values=c("2015-06-01"=20,"2013-06-01"=1))
+    p <- p + scale_size_manual(name='List',values=c("2015-06-01"=4,"2013-06-01"=4))
 
-    isopowerline <- function(megawatts, 
-                             efficiencyrangelow=10*.9, 
-                             efficiencyrangehigh=100000*1.1, 
-                             perfrangehigh = 2*10^12*1.1, 
-                             perfrangelow = 0.9**5*10^6)
-    {matrix(c(efficiencyrangelow, efficiencyrangehigh, efficiencyrangelow*megawatts*10^6, efficiencyrangehigh*megawatts*10^6), ncol=2)
+    ## set plot theme
+    p <- p + theme(
+        axis.text=element_text(size=14, color="black"),
+        axis.title=element_text(size=14), 
+        plot.title = element_text(size=18, face="bold", vjust=2),
+        panel.background = element_rect(fill = 'grey92'),
+        axis.title.x = element_text(color="black", vjust=-0.45),
+        axis.title.y = element_text(color="black" , vjust=0.45),
+        panel.grid.major = element_line(colour = "grey92"),
+        panel.grid.minor = element_line(colour = "grey92")
+        )
+
+
+    ##Set plot dimensions and label axes
+    p <- p + coord_cartesian(xlim = c(.9, 5.1), ylim=c(7.5, 12.5)) 
+    p<-p+labs(x="Efficiency (MFlops/Watt)", y="Performance (Mflops)")
+
+    ## add axis scale labels and title
+    p <- p + scale_x_discrete(breaks = 1:5, labels=c("1e+01","1e+02","1e+03","1e+04","1e+05")) 
+    p <- p + scale_y_discrete(breaks = 8:12, labels=c("1e+08","1e+09","1e+10","1e+11","1e+12")) 
+    p <- p + ggtitle("June 2015 Exascalar")
+
+    ## annotate source
+
+    p <- p + annotate("text", x = 3.9, y= 7.6, label = "sources:~Top500.org~and~Green500.org", parse=TRUE, angle=0, size=3.3)
+
+    ## add Epsilon values for Exascalar
+    p <- p + annotate("text", x=4.64, y= 12.2, label = "epsilon == 0", parse=TRUE, angle= -45, size=3.6)
+    p <- p + annotate("text", x=3.44, y= 12.1, label = "epsilon == -1", parse=TRUE, angle= -45, size=3.6)
+    p <- p + annotate("text", x=2.08, y= 12, label = "epsilon == -2", parse=TRUE, angle= -45, size=3.6)
+    p <- p + annotate("text", x=1.30, y= 11.40, label = "epsilon == -3", parse=TRUE, angle= -45, size=3.6)
+    p <- p + annotate("text", x=1.18, y= 10.11, label = "epsilon == -4", parse=TRUE, angle= -45, size=3.6)
+
+    ## add Power annotation
+    p <- p + annotate("text", x=4.18, y= 11.70, label = "20 MWatt", parse=F, angle= 45, size=3.6)
+    p <- p + annotate("text", x=4.58, y= 11.10, label = "2.0 MWatt", parse=F, angle= 45, size=3.6)
+    p <- p + annotate("text", x=4.58, y= 10.10, label = "0.2 MWatt", parse=F, angle= 45, size=3.6)
+    p <- p + annotate("text", x=4.58, y= 9.10, label = "20 kWatt", parse=F, angle= 45, size=3.6)
+
+    ## Add POWER AND EXASCALAR Lines
+
+    ## define powerline function as a function of megawatts
+    isopowerline_ab <- function(megawatts)
+        {a<-log10(megawatts*10^6)  #*sqrt(2)
+        return(a)
+        }
+  
+    ## compute Exascale
+    LogExaPerf <- log10(10^12)              ##in Megaflops
+    LogExaEff  <- log10(10^12/(20*10^6))    ##in Megaflops/Watt
+    
+    LogExascale = LogExaPerf+LogExaEff
+    
+    ## define exascalar line function as a function of Exascalar value
+    
+    isoexaline_ab <- function(exascalar)
+        {
+        a <- LogExascale+exascalar*((sqrt(2)))
+        return(a)
+        }
+    
+    ## draw the power lines
+    for (i in -1:2){
+    p <- p + geom_abline(intercept=isopowerline_ab(2*10^-i), colour = "darkblue", size = 0.5, alpha=0.5, linetype=2)
     }
-
-    ## Compute Graphical Lines for iso power
-    ## the argument passed in isopowerline is in megawatts
+    #print(p)
     
-    for (i in -2:4) {
-            lines(isopowerline(2*10^-i)[,1],isopowerline(2*10^-i)[,2], lwd=.5, lty=2)}
-    
-    ## add graphical lines for iso "exscalar"
-    
-    
-    ExaPerf <- 10^12           ##in Megaflops
-    ExaEff <- 10^12/(20*10^6)  ##in Megaflops/Watt
-    
-    Exascale = ExaPerf*ExaEff
-    
-    isoexaline <- function(exascalar, 
-                           efficiencyrangelow=0.5*20, 
-                           efficiencyrangehigh=2*50000, 
-                           perfrangehigh = 2*10^12, 
-                           perfrangelow = 0.5*5*10^7) {
-            matrix(c(Exascale/(10^(-exascalar*sqrt(2)))/perfrangehigh, 
-                  efficiencyrangehigh, perfrangehigh, 
-                  Exascale/(10^(-exascalar*sqrt(2)))/efficiencyrangehigh), ncol=2)
-            }
-    
-   
-    
-    ## Compute Graphical Lines for iso exascalar
-    ## the argument passed is - log10 of exascalar
-    
-    for (i in 0:7) {lines(isoexaline(-i)[,1], isoexaline(-i)[,2], lwd=.5, lty=2)}
-    
-
-    
+    ## draw the exascalar lines
+    for (i in 0:7) {
+        p <- p + geom_abline(intercept = isoexaline_ab(-i), slope=-1, colour = "darkblue", size = 0.5, alpha=0.5, linetype=2)
+    }
+  
+    ## print the graph
+    print(p)
 
 ```
 
-####KPI's: Bounding the November 2014 Supercomputer Population
+##Key Indicators June 2015 Lists
 
-Since Exascalar, as visulaized by above, is mostly descriptive of the _population_ of supercomputers, it's interesting to understand the parameters of the population as these comprise some of the more interesting computers from the list. These Key Performance Indicators of the population are listed below.  
+Exascalar, as visulaized by above, is descriptive of the _population_ of supercomputers. Here are some of the key Parameters.
 
-It is worthwhile to note that the highest Exascalar, lowest Exascalar, and Lowest Power system describe, roughly, the "vertices"" of the triangular shape of the population, while the highest power, lowest performance and highest efficiency roughly bound the "sides"" of the triangle.  
- 
-
-```{r, echo=FALSE, results="asis", fig.align='center', message=FALSE}
-
-require(xtable)
+```{r, echo=FALSE}
 
 Temp_New<-as.data.frame(Jun15)
 Temp_Old<-as.data.frame(Nov14)
@@ -362,21 +360,22 @@ Temp_Old<-as.data.frame(Nov14)
 TopPerformance <- Temp_New[Temp_New$rmax==max(Temp_New$rmax), c(3,4,5,6,7,8,9)]
 
 TopEfficiency <- Temp_New[Temp_New$mflopswatt==max(Temp_New$mflopswatt), c(3,4,5,6,7,8,9)]
-HighestPower <- Temp_New[Temp_New$power==max(Temp_New$power), c(3,4,5,6,7,8,9)]
+HighestPower <- Temp_New[Temp_New$power.g==max(Temp_New$power.g), c(3,4,5,6,7,8,9)]
 LowestPerformance <- Temp_New[Temp_New$rmax==min(Temp_New$rmax), c(3,4,5,6,7,8,9)]
 LowestEfficiency <- Temp_New[Temp_New$mflopswatt==min(Temp_New$mflopswatt), c(3,4,5,6,7,8,9)]
-LowestPower <- Temp_New[Temp_New$power==min(Temp_New$power), c(3,4,5,6,7,8,9)]
+LowestPower <- Temp_New[Temp_New$power.g==min(Temp_New$power.g), c(3,4,5,6,7,8,9)]
 HighestExascalar<- Temp_New[Temp_New$ExaRank==min(Temp_New$ExaRank), c(3,4,5,6,7,8,9)]
 LowestExascalar<- Temp_New[Temp_New$ExaRank==max(Temp_New$ExaRank), c(3,4,5,6,7,8,9)]
 
-BoundsTable<-rbind("Top Performance" = TopPerformance, "Top Efficiency" = TopEfficiency, "Highest Power"=HighestPower, "Lowest Performance" =LowestPerformance, "Lowest Efficiency"=LowestEfficiency,  "Lowest Power" =LowestPower, "Highest Exascalar"= HighestExascalar, "Lowest Exascalar" = LowestExascalar)
+BoundsTable<-rbind("Top Performance" = TopPerformance, "Top Efficiency" = TopEfficiency, "Low Efficiency"=LowestEfficiency, "Top Exascalar"= HighestExascalar, "Bottom Exascalar" = LowestExascalar)
+
+colnames(BoundsTable)<- c("Exa Rank", "Exascalar", "Performance Rank", "Efficiency Rank", "rmax (mflops)", "power (kW)", "efficiency (mflops/Watt)")
 
 ```
 
 ```{r, echo=FALSE, results="asis", fig.align='center', message=FALSE}
 
-#row.names(BoundsTable)<-c("Top Performance", "Top Efficiency", "Highest Power", "Lowest Performance", "Lowest Efficiency", "Lowest Power", "Highest Exascalar", "Lowest Exascalar")
-
+library(xtable)
 temptable<-xtable(BoundsTable)
 print(temptable, type="html", size="small")
 
@@ -386,7 +385,7 @@ print(temptable, type="html", size="small")
 
 
 
-####KPI's for the Population of New Entrants
+##Key Indicators for New Entrants June 2015 
 
 Of the _new_ entrants its interesting to note the same parameters as above as a kind of bound on the population of the newest systems. It's interesting to note in this particular year new systems occupy both the highest and lowest efficiency. 
 
@@ -427,28 +426,754 @@ require(xtable)
 
 TopPerformance <- NewList[NewList$rmax==max(NewList$rmax), c(3,4,5,6,7,8,9)]
 TopEfficiency <- NewList[NewList$mflopswatt==max(NewList$mflopswatt), c(3,4,5,6,7,8,9)]
-HighestPower <- NewList[NewList$power==max(NewList$power), c(3,4,5,6,7,8,9)]
+HighestPower <- NewList[NewList$power==max(NewList$power.g), c(3,4,5,6,7,8,9)]
 LowestPerformance <- NewList[NewList$rmax==min(NewList$rmax), c(3,4,5,6,7,8,9)]
 LowestEfficiency <- NewList[NewList$mflopswatt==min(NewList$mflopswatt), c(3,4,5,6,7,8,9)]
-LowestPower <- NewList[NewList$power==min(NewList$power), c(3,4,5,6,7,8,9)]
+LowestPower <- NewList[NewList$power==min(NewList$power.g), c(3,4,5,6,7,8,9)]
 HighestExascalar<- NewList[NewList$ExaRank==min(NewList$ExaRank), c(3,4,5,6,7,8,9)]
 LowestExascalar<- NewList[NewList$ExaRank==max(NewList$ExaRank), c(3,4,5,6,7,8,9)]
 
-BoundsTable<-rbind("Top Performance" = TopPerformance, "Top Efficiency" = TopEfficiency, "Highest Power"=HighestPower, "Lowest Performance" =LowestPerformance, "Lowest Efficiency"=LowestEfficiency,  "Lowest Power" =LowestPower, "Highest Exascalar"= HighestExascalar, "Lowest Exascalar" = LowestExascalar)
 
 
-#row.names(BoundsTable)<-c("Top Performance", "Top Efficiency", "Highest Power", "Lowest Performance", "Lowest Efficiency", "Lowest Power", "Highest Exascalar", "Lowest Exascalar")
+BoundsTable<-rbind("Top Performance" = TopPerformance, "Top Efficiency" = TopEfficiency, "Top Exascalar"= HighestExascalar)
+
+colnames(BoundsTable)<- c("Exa Rank", "Exascalar", "Performance Rank", "Efficiency Rank", "rmax (mflops)", "power (kW)", "efficiency (mflops/Watt)")
+
 
 temptable<-xtable(BoundsTable)
 print(temptable, type="html", size="small")
+```
 
 
+#Trends
+
+
+##Efficiency of Top-Efficiency and Top-Performance Systems
+
+```{r, 'date trend eff', echo=FALSE, fig.align="center"}
+
+    ##
+    ## Generate graph of delta between efficiency of top performance and top efficiency system.
+
+    all_dates<-unique(BigEx$date)
+    
+    Eff_df<-NULL
+
+    for (i in all_dates) {
+        
+        Ex<-BigEx[BigEx$date==i,]
+        max_eff<-max(Ex$mflopswatt)
+        eff_max_perf<-Ex$mflopswatt[Ex$rmax==max(Ex$rmax)]
+#         
+        xx<-c(i, max_eff, "Green500")
+        yy<-c(i, eff_max_perf, "Top500")
+
+        Eff_df<-rbind(Eff_df, xx,yy)
+        
+    }
+    
+    rownames(Eff_df)<-1:nrow(Eff_df)
+    colnames(Eff_df)<-c("date", "mflopswatt", "List")
+    
+    
+    Eff_df<-as.data.frame(Eff_df)
+    
+    ## make elements numberic
+    Eff_df$mflopswatt<-as.numeric(as.character(Eff_df$mflopswatt))
+    ## clean up dates
+    
+    Eff_df$date<-substring(Eff_df$date, 1, 7)
+    
+    
+    #print(Eff_df)
+    
+    q <- ggplot(Eff_df, aes(x=date, y = log10(mflopswatt), color=factor(List), shape=factor(List)))
+    q <- q + geom_point(size=4)
+    
+    q <- q + theme(
+        axis.text=element_text(size=12, color="black"),
+        axis.title=element_text(size=14), 
+        plot.title = element_text(size=14, face="bold", vjust=2),
+        panel.background = element_rect(fill = 'grey90'),
+        axis.title.x = element_text(color="black", vjust=-0.45),
+        axis.title.y = element_text(color="black" , vjust=0.45),
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = "white"),
+        legend.title=element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1)
+        )
+    
+    q <- q + coord_cartesian(ylim=c(2.2, 4.2)) 
+    q <- q + scale_y_discrete(breaks = c(2.7,3,3.7,4),label=c("5e+02", "1e+03", "5e+03", "1e+04"))
+    
+    q <- q + scale_color_manual(values = c("darkgreen", "darkred"))
+    q <- q + scale_shape_manual(values = c (19, 15))
+    
+    q<- q + ggtitle("Top Efficiency (Green500) and \n Efficiency of Top Performance (Top500)")
+    
+    print(q)
+
+
+```
+
+##Exascalar of Top Efficiency and Top Performance Systems
+
+```{r, 'date trend exa', echo=FALSE, fig.align="center"}
+
+    ## PLOT EXASCALAR TREND
+    ## Generate graph of delta between efficiency of top performance and top efficiency system.
+
+    all_dates<-unique(BigEx$date)
+    
+    Eff_df<-NULL
+
+    for (i in all_dates) {
+        
+        Ex<-BigEx[BigEx$date==i,]
+        
+        
+        ## select columns
+        ## add [1] to ensure multiple items not selected
+        max_eff<-Ex$exascalar[Ex$mflopswatt==max(Ex$mflopswatt)][1]
+        max_perf<-Ex$exascalar[Ex$rmax==max(Ex$rmax)][1]
+#         
+        xx<-c(i, max_eff, "Green500")
+        yy<-c(i, max_perf, "Top500")
+        
+        Eff_df<-rbind(Eff_df, xx,yy)
+        
+    }
+    
+    rownames(Eff_df)<-1:nrow(Eff_df)
+    colnames(Eff_df)<-c("date", "exascalar", "List")
+    
+    
+    Eff_df<-as.data.frame(Eff_df)
+    
+    ## make elements numberic
+    Eff_df$exascalar<-as.numeric(as.character(Eff_df$exascalar))
+    ## clean up dates
+    
+    Eff_df$date<-substring(Eff_df$date, 1, 7)
+    
+    
+    #print(Eff_df)
+    
+    q <- ggplot(Eff_df, aes(x=date, y = exascalar, color=factor(List), shape=factor(List)))
+    q <- q + geom_point(size=4)
+    
+    q <- q + theme(
+        axis.text=element_text(size=12, color="black"),
+        axis.title=element_text(size=14), 
+        plot.title = element_text(size=14, face="bold", vjust=2),
+        panel.background = element_rect(fill = 'grey90'),
+        axis.title.x = element_text(color="black", vjust=-0.45),
+        axis.title.y = element_text(color="black" , vjust=0.45),
+        panel.grid.major = element_line(colour = "white"),
+        panel.grid.minor = element_line(colour = "white"),
+        legend.title=element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1)
+        )
+    
+    #q <- q + coord_cartesian(ylim=c(-5, 0)) 
+    #q <- q + scale_y_discrete(breaks = -5:0,label=c("-5", "-4", "-3", "-2", "-1", "0"))
+    
+    q <- q + scale_color_manual(values = c("darkgreen", "darkred"))
+    q <- q + scale_shape_manual(values = c (19, 15))
+    
+    q<- q + ggtitle("Exascalar Trend \n Top Efficiency (Green500) and Top Performance (Top500)")
+    
+    print(q)
+
+
+```
+
+## Supercomputing Technologies and Trends
+
+
+
+```{r, echo=FALSE, fig.align='center', fig.height=4.25, fig.width=8, warning=FALSE}
+
+## EXASCALAR PLOT
+
+
+    ## Make sure both dataframes have the same columns
+    common_columns <- intersect(names(Jun15), names(Nov14))
+
+    Jun15<-Jun15[, common_columns]
+    Nov14<-Nov14[, common_columns]
+    
+    BigData<-rbind(Nov14,Jun15)
+    ## clean up date
+    BigData$date<-substring(BigData$date, 1, 7)
+
+    
+    ## CREATE EXASCALAR PLOT
+    ## take the log of the data points explicitly rather than use a log-scale command
+    p <- ggplot(BigData, aes(x=log10(mflopswatt), y=log10(rmax*10^3), color=coressocket.t))
+    
+    p <- p + facet_grid(.~date)
+                
+    
+    ## Define plot points and symbols
+    ## alpha = 0.8 helps visually recognize where points overlap
+    p <- p + geom_point(alpha=0.8, size=3, pch=20)
+    p <- p + scale_color_gradient(low="blue", high="red", na.value="grey50")
+    #p <- p + scale_color_brewer(palette="Dark2")
+    
+    #p <- p + scale_color_gradientn(colours=rainbow(length(table(BigData$coressocket.t))))
+
+    #p <- p + scale_colour_manual(name='List',values=c("2015-06-01"="darkred","2014-11-01"="blue"))
+    #p <- p + scale_shape_manual(name='List',values=c("2015-06-01"=20,"2014-11-01"=1))
+    #p <- p + scale_size_manual(name='List',values=c("2015-06-01"=4,"2014-11-01"=4))
+
+    ## set plot theme
+    p <- p + theme(
+        axis.text=element_text(size=10, color="black"),
+        axis.title=element_text(size=10), 
+        plot.title = element_text(size=14, face="bold", vjust=2),
+        panel.background = element_rect(fill = 'grey92'),
+        axis.title.x = element_text(color="black", vjust=-0.45),
+        axis.title.y = element_text(color="black" , vjust=0.45),
+        panel.grid.major = element_line(colour = "grey92"),
+        panel.grid.minor = element_line(colour = "grey92"),
+        axis.text.x = element_text(angle = 45, hjust = 1)
+        )
+
+
+    ##Set plot dimensions and label axes
+    p <- p + coord_cartesian(xlim = c(.9, 5.1), ylim=c(7.5, 12.5)) 
+    p<-p+labs(x="Efficiency (MFlops/Watt)", y="Performance (Mflops)")
+
+    ## add axis scale labels and title
+    p <- p + scale_x_discrete(breaks = 1:5, labels=c("1e+01","1e+02","1e+03","1e+04","1e+05")) 
+    p <- p + scale_y_discrete(breaks = 8:12, labels=c("1e+08","1e+09","1e+10","1e+11","1e+12")) 
+    p <- p + ggtitle("June 2015 Exascalar")
+
+    ## annotate source
+
+    p <- p + annotate("text", x = 3.9, y= 7.6, label = "sources:~Top500.org~and~Green500.org", parse=TRUE, angle=0, size=2)
+
+    ## add Epsilon values for Exascalar
+    p <- p + annotate("text", x=4.64, y= 12.2, label = "epsilon == 0", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=3.44, y= 12.1, label = "epsilon == -1", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=2.08, y= 12, label = "epsilon == -2", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=1.30, y= 11.40, label = "epsilon == -3", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=1.18, y= 10.11, label = "epsilon == -4", parse=TRUE, angle= -45, size=3)
+
+    ## add Power annotation
+    p <- p + annotate("text", x=4.18, y= 11.70, label = "20 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 11.10, label = "2.0 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 10.10, label = "0.2 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 9.10, label = "20 kWatt", parse=F, angle= 45, size=3)
+
+    ## Add POWER AND EXASCALAR Lines
+
+    ## define powerline function as a function of megawatts
+    isopowerline_ab <- function(megawatts)
+        {a<-log10(megawatts*10^6)  #*sqrt(2)
+        return(a)
+        }
+  
+    ## compute Exascale
+    LogExaPerf <- log10(10^12)              ##in Megaflops
+    LogExaEff  <- log10(10^12/(20*10^6))    ##in Megaflops/Watt
+    
+    LogExascale = LogExaPerf+LogExaEff
+    
+    ## define exascalar line function as a function of Exascalar value
+    
+    isoexaline_ab <- function(exascalar)
+        {
+        a <- LogExascale+exascalar*((sqrt(2)))
+        return(a)
+        }
+    
+    ## draw the power lines
+    for (i in -1:2){
+    p <- p + geom_abline(intercept=isopowerline_ab(2*10^-i), colour = "darkblue", size = 0.5, alpha=0.5, linetype=2)
+    }
+    #print(p)
+    
+    ##draw the exascalar lines
+    for (i in 0:7) {
+        p <- p + geom_abline(intercept = isoexaline_ab(-i), slope=-1, colour = "darkblue", size = 0.5, alpha=0.5, linetype=2)
+    }
+  
+    ## print the graph
+    print(p)
 
 ```
 
 
 
+####Number of Cores
 
 
+```{r, echo=FALSE, fig.align='center', fig.height=4.25, fig.width=8, warning=FALSE}
+
+## EXASCALAR PLOT
 
 
+    ## Make sure both dataframes have the same columns
+    common_columns <- intersect(names(Jun15), names(Nov14))
+
+    Jun15<-Jun15[, common_columns]
+    Nov14<-Nov14[, common_columns]
+    
+    BigData<-rbind(Nov14,Jun15)
+    ## clean up date
+    BigData$date<-substring(BigData$date, 1, 7)
+
+    
+    ## CREATE EXASCALAR PLOT
+    ## take the log of the data points explicitly rather than use a log-scale command
+    p <- ggplot(BigData, aes(x=log10(mflopswatt), y=log10(rmax*10^3), color=totalcores.t))
+    
+    p <- p + facet_grid(.~date)
+                
+    
+    ## Define plot points and symbols
+    ## alpha = 0.8 helps visually recognize where points overlap
+    p <- p + geom_point(alpha=0.6, size=3, pch=20)
+    p <- p + scale_color_gradient(low="blue", high="darkorange", na.value="grey50")
+    #p <- p + scale_color_brewer(palette="Dark2")
+    
+    #p <- p + scale_color_gradientn(colours=rainbow(length(table(BigData$coressocket.t))))
+
+    #p <- p + scale_colour_manual(name='List',values=c("2015-06-01"="darkred","2014-11-01"="blue"))
+    #p <- p + scale_shape_manual(name='List',values=c("2015-06-01"=20,"2014-11-01"=1))
+    #p <- p + scale_size_manual(name='List',values=c("2015-06-01"=4,"2014-11-01"=4))
+
+    ## set plot theme
+    p <- p + theme(
+        axis.text=element_text(size=10, color="black"),
+        axis.title=element_text(size=10), 
+        plot.title = element_text(size=14, face="bold", vjust=2),
+        panel.background = element_rect(fill = 'grey92'),
+        axis.title.x = element_text(color="black", vjust=-0.45),
+        axis.title.y = element_text(color="black" , vjust=0.45),
+        panel.grid.major = element_line(colour = "grey92"),
+        panel.grid.minor = element_line(colour = "grey92"),
+        axis.text.x = element_text(angle = 45, hjust = 1)
+        )
+
+
+    ##Set plot dimensions and label axes
+    p <- p + coord_cartesian(xlim = c(.9, 5.1), ylim=c(7.5, 12.5)) 
+    p<-p+labs(x="Efficiency (MFlops/Watt)", y="Performance (Mflops)")
+
+    ## add axis scale labels and title
+    p <- p + scale_x_discrete(breaks = 1:5, labels=c("1e+01","1e+02","1e+03","1e+04","1e+05")) 
+    p <- p + scale_y_discrete(breaks = 8:12, labels=c("1e+08","1e+09","1e+10","1e+11","1e+12")) 
+    p <- p + ggtitle("June 2015 Exascalar")
+
+    ## annotate source
+
+    p <- p + annotate("text", x = 3.9, y= 7.6, label = "sources:~Top500.org~and~Green500.org", parse=TRUE, angle=0, size=2)
+
+    ## add Epsilon values for Exascalar
+    p <- p + annotate("text", x=4.64, y= 12.2, label = "epsilon == 0", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=3.44, y= 12.1, label = "epsilon == -1", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=2.08, y= 12, label = "epsilon == -2", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=1.30, y= 11.40, label = "epsilon == -3", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=1.18, y= 10.11, label = "epsilon == -4", parse=TRUE, angle= -45, size=3)
+
+    ## add Power annotation
+    p <- p + annotate("text", x=4.18, y= 11.70, label = "20 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 11.10, label = "2.0 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 10.10, label = "0.2 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 9.10, label = "20 kWatt", parse=F, angle= 45, size=3)
+
+    ## Add POWER AND EXASCALAR Lines
+
+    ## define powerline function as a function of megawatts
+    isopowerline_ab <- function(megawatts)
+        {a<-log10(megawatts*10^6)  #*sqrt(2)
+        return(a)
+        }
+  
+    ## compute Exascale
+    LogExaPerf <- log10(10^12)              ##in Megaflops
+    LogExaEff  <- log10(10^12/(20*10^6))    ##in Megaflops/Watt
+    
+    LogExascale = LogExaPerf+LogExaEff
+    
+    ## define exascalar line function as a function of Exascalar value
+    
+    isoexaline_ab <- function(exascalar)
+        {
+        a <- LogExascale+exascalar*((sqrt(2)))
+        return(a)
+        }
+    
+    ## draw the power lines
+    for (i in -1:2){
+    p <- p + geom_abline(intercept=isopowerline_ab(2*10^-i), colour = "darkblue", size = 0.5, alpha=0.5, linetype=2)
+    }
+    #print(p)
+    
+    ##draw the exascalar lines
+    for (i in 0:7) {
+        p <- p + geom_abline(intercept = isoexaline_ab(-i), slope=-1, colour = "darkblue", size = 0.5, alpha=0.5, linetype=2)
+    }
+  
+    ## print the graph
+    print(p)
+
+```
+
+####Total Cores
+
+
+```{r, echo=FALSE, fig.align='center', fig.height=6.0, fig.width=8, warning=FALSE}
+
+## EXASCALAR PLOT
+
+
+    ## Make sure both dataframes have the same columns
+    common_columns <- intersect(names(Jun15), names(Nov14))
+
+    ## edit to include just Jun15
+    Jun15<-Jun15[, common_columns]
+    #Nov14<-Nov14[, common_columns]
+    
+    BigData<-Jun15 #rbind(Nov14,Jun15)
+    ## clean up date
+    
+    
+    
+    ## CREATE EXASCALAR PLOT
+    ## take the log of the data points explicitly rather than use a log-scale command
+    p <- ggplot(BigData, aes(x=log10(mflopswatt), y=log10(rmax*10^3), color=log10(totalcores.t)))
+    
+    ## Define plot points and symbols
+    ## alpha = 0.8 helps visually recognize where points overlap
+    p <- p + geom_point(alpha=0.8, size=3, pch=20)
+    
+    p <- p + scale_color_gradient(low="blue", high="red", na.value="grey50")
+    #p <- p + scale_colour_manual(values=rainbow(length(unique(BigData$acceleratorcoprocessor.g))))
+
+    #p <- p + scale_colour_manual(name='List',values=c("2015-06-01"="darkred","2014-11-01"="blue"))
+    #p <- p + scale_shape_manual(name='List',values=c("2015-06-01"=20,"2014-11-01"=1))
+    #p <- p + scale_size_manual(name='List',values=c("2015-06-01"=4,"2014-11-01"=4))
+
+    ## set plot theme
+    p <- p + theme(
+        axis.text=element_text(size=10, color="black"),
+        axis.title=element_text(size=10), 
+        plot.title = element_text(size=14, face="bold", vjust=2),
+        panel.background = element_rect(fill = 'grey65'),
+        axis.title.x = element_text(color="black", vjust=-0.45),
+        axis.title.y = element_text(color="black" , vjust=0.45),
+        panel.grid.major = element_line(colour = "grey65"),
+        panel.grid.minor = element_line(colour = "grey65"),
+        axis.text.x = element_text(angle = 45, hjust = 1)
+        )
+
+
+    ##Set plot dimensions and label axes
+    p <- p + coord_cartesian(xlim = c(.9, 5.1), ylim=c(7.5, 12.5)) 
+    p<-p+labs(x="Efficiency (MFlops/Watt)", y="Performance (Mflops)")
+
+    ## add axis scale labels and title
+    p <- p + scale_x_discrete(breaks = 1:5, labels=c("1e+01","1e+02","1e+03","1e+04","1e+05")) 
+    p <- p + scale_y_discrete(breaks = 8:12, labels=c("1e+08","1e+09","1e+10","1e+11","1e+12")) 
+    p <- p + ggtitle("June 2015 Exascalar")
+
+    ## annotate source
+
+    p <- p + annotate("text", x = 3.9, y= 7.6, label = "sources:~Top500.org~and~Green500.org", parse=TRUE, angle=0, size=2)
+
+    ## add Epsilon values for Exascalar
+    p <- p + annotate("text", x=4.64, y= 12.2, label = "epsilon == 0", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=3.44, y= 12.1, label = "epsilon == -1", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=2.08, y= 12, label = "epsilon == -2", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=1.30, y= 11.40, label = "epsilon == -3", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=1.18, y= 10.11, label = "epsilon == -4", parse=TRUE, angle= -45, size=3)
+
+    ## add Power annotation
+    p <- p + annotate("text", x=4.18, y= 11.70, label = "20 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 11.10, label = "2.0 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 10.10, label = "0.2 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 9.10, label = "20 kWatt", parse=F, angle= 45, size=3)
+
+    ## Add POWER AND EXASCALAR Lines
+
+    ## define powerline function as a function of megawatts
+    isopowerline_ab <- function(megawatts)
+        {a<-log10(megawatts*10^6)  #*sqrt(2)
+        return(a)
+        }
+  
+    ## compute Exascale
+    LogExaPerf <- log10(10^12)              ##in Megaflops
+    LogExaEff  <- log10(10^12/(20*10^6))    ##in Megaflops/Watt
+    
+    LogExascale = LogExaPerf+LogExaEff
+    
+    ## define exascalar line function as a function of Exascalar value
+    
+    isoexaline_ab <- function(exascalar)
+        {
+        a <- LogExascale+exascalar*((sqrt(2)))
+        return(a)
+        }
+    
+    ## draw the power lines
+    for (i in -1:2){
+    p <- p + geom_abline(intercept=isopowerline_ab(2*10^-i), colour = "grey95", size = 0.5, alpha=0.5, linetype=2)
+    }
+    #print(p)
+    
+    ##draw the exascalar lines
+    for (i in 0:7) {
+        p <- p + geom_abline(intercept = isoexaline_ab(-i), slope=-1, colour = "grey95", size = 0.5, alpha=0.5, linetype=2)
+    }
+  
+    ## print the graph
+    print(p)
+
+```
+
+
+####Processor Generation
+
+
+```{r, echo=FALSE, fig.align='center', fig.height=6.0, fig.width=8, warning=FALSE}
+
+## EXASCALAR PLOT
+
+
+    ## Make sure both dataframes have the same columns
+    common_columns <- intersect(names(Jun15), names(Nov14))
+
+    ## edit to include just Jun15
+    Jun15<-Jun15[, common_columns]
+    #Nov14<-Nov14[, common_columns]
+    
+    BigData<-Jun15 #rbind(Nov14,Jun15)
+    ## clean up date
+    BigData$date<-substring(BigData$date, 1, 7)
+    ## clean up processorgeneration
+    BigData$processorgeneration.t<-gsub(".*Xeon.*", "Intel Xeon", BigData$processorgeneration.t)
+    BigData$processorgeneration.t<-gsub("SPARC.*", "SPARC", BigData$processorgeneration.t)
+    BigData$processorgeneration.t<-gsub("Opteron.*", "Opteron", BigData$processorgeneration.t)
+    BigData$processorgeneration.t<-gsub("Power.*", "Power", BigData$processorgeneration.t, ignore.case = TRUE)
+    BigData$processorgeneration.t<-gsub("Power7.*", "Power", BigData$processorgeneration.t, ignore.case = TRUE)
+    
+    ## CREATE EXASCALAR PLOT
+    ## take the log of the data points explicitly rather than use a log-scale command
+    p <- ggplot(BigData, aes(x=log10(mflopswatt), y=log10(rmax*10^3), color=factor(processorgeneration.t)))
+    
+    ## Define plot points and symbols
+    ## alpha = 0.8 helps visually recognize where points overlap
+    p <- p + geom_point(alpha=0.8, size=3, pch=20)
+    
+    
+    p <- p + scale_colour_manual(values=rainbow(length(unique(BigData$processorgeneration.t))))
+
+    #p <- p + scale_colour_manual(name='List',values=c("2015-06-01"="darkred","2014-11-01"="blue"))
+    #p <- p + scale_shape_manual(name='List',values=c("2015-06-01"=20,"2014-11-01"=1))
+    #p <- p + scale_size_manual(name='List',values=c("2015-06-01"=4,"2014-11-01"=4))
+
+    ## set plot theme
+    p <- p + theme(
+        axis.text=element_text(size=10, color="black"),
+        axis.title=element_text(size=10), 
+        plot.title = element_text(size=14, face="bold", vjust=2),
+        panel.background = element_rect(fill = 'grey65'),
+        axis.title.x = element_text(color="black", vjust=-0.45),
+        axis.title.y = element_text(color="black" , vjust=0.45),
+        panel.grid.major = element_line(colour = "grey65"),
+        panel.grid.minor = element_line(colour = "grey65"),
+        axis.text.x = element_text(angle = 45, hjust = 1)
+        )
+
+
+    ##Set plot dimensions and label axes
+    p <- p + coord_cartesian(xlim = c(.9, 5.1), ylim=c(7.5, 12.5)) 
+    p<-p+labs(x="Efficiency (MFlops/Watt)", y="Performance (Mflops)")
+
+    ## add axis scale labels and title
+    p <- p + scale_x_discrete(breaks = 1:5, labels=c("1e+01","1e+02","1e+03","1e+04","1e+05")) 
+    p <- p + scale_y_discrete(breaks = 8:12, labels=c("1e+08","1e+09","1e+10","1e+11","1e+12")) 
+    p <- p + ggtitle("June 2015 Exascalar")
+
+    ## annotate source
+
+    p <- p + annotate("text", x = 3.9, y= 7.6, label = "sources:~Top500.org~and~Green500.org", parse=TRUE, angle=0, size=2)
+
+    ## add Epsilon values for Exascalar
+    p <- p + annotate("text", x=4.64, y= 12.2, label = "epsilon == 0", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=3.44, y= 12.1, label = "epsilon == -1", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=2.08, y= 12, label = "epsilon == -2", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=1.30, y= 11.40, label = "epsilon == -3", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=1.18, y= 10.11, label = "epsilon == -4", parse=TRUE, angle= -45, size=3)
+
+    ## add Power annotation
+    p <- p + annotate("text", x=4.18, y= 11.70, label = "20 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 11.10, label = "2.0 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 10.10, label = "0.2 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 9.10, label = "20 kWatt", parse=F, angle= 45, size=3)
+
+    ## Add POWER AND EXASCALAR Lines
+
+    ## define powerline function as a function of megawatts
+    isopowerline_ab <- function(megawatts)
+        {a<-log10(megawatts*10^6)  #*sqrt(2)
+        return(a)
+        }
+  
+    ## compute Exascale
+    LogExaPerf <- log10(10^12)              ##in Megaflops
+    LogExaEff  <- log10(10^12/(20*10^6))    ##in Megaflops/Watt
+    
+    LogExascale = LogExaPerf+LogExaEff
+    
+    ## define exascalar line function as a function of Exascalar value
+    
+    isoexaline_ab <- function(exascalar)
+        {
+        a <- LogExascale+exascalar*((sqrt(2)))
+        return(a)
+        }
+    
+    ## draw the power lines
+    for (i in -1:2){
+    p <- p + geom_abline(intercept=isopowerline_ab(2*10^-i), colour = "grey95", size = 0.5, alpha=0.5, linetype=2)
+    }
+    #print(p)
+    
+    ##draw the exascalar lines
+    for (i in 0:7) {
+        p <- p + geom_abline(intercept = isoexaline_ab(-i), slope=-1, colour = "grey95", size = 0.5, alpha=0.5, linetype=2)
+    }
+  
+    ## print the graph
+    print(p)
+
+```
+
+####Accelerator
+
+
+```{r, echo=FALSE, fig.align='center', fig.height=6.0, fig.width=8, warning=FALSE}
+
+## EXASCALAR PLOT
+
+
+    ## Make sure both dataframes have the same columns
+    common_columns <- intersect(names(Jun15), names(Nov14))
+
+    ## edit to include just Jun15
+    Jun15<-Jun15[, common_columns]
+    #Nov14<-Nov14[, common_columns]
+    
+    BigData<-Jun15 #rbind(Nov14,Jun15)
+    ## clean up date
+    BigData$date<-substring(BigData$date, 1, 7)
+    ## clean up processorgeneration
+    #BigData$processorgeneration.t<-gsub("Intel Xeon", "Xeon", BigData$processorgeneration.t)
+    #BigData$processorgeneration.t<-gsub("Xeon", "Intel Xeon", BigData$processorgeneration.t)
+    
+    BigData$acceleratorcoprocessor.g<-gsub(".*Phi.*", "Xeon Phi", BigData$acceleratorcoprocessor.g, ignore.case=TRUE)
+    
+    BigData$acceleratorcoprocessor.g<-gsub(".*Firepro.*", "AMD Firepro", BigData$acceleratorcoprocessor.g, ignore.case=TRUE)
+    
+    BigData$acceleratorcoprocessor.g<-gsub("Nvidia.*", "nVidia", BigData$acceleratorcoprocessor.g, ignore.case=TRUE)
+    
+    
+    
+    ## CREATE EXASCALAR PLOT
+    ## take the log of the data points explicitly rather than use a log-scale command
+    p <- ggplot(BigData, aes(x=log10(mflopswatt), y=log10(rmax*10^3), color=factor(acceleratorcoprocessor.g)))
+    
+    ## Define plot points and symbols
+    ## alpha = 0.8 helps visually recognize where points overlap
+    p <- p + geom_point(alpha=0.8, size=3, pch=20)
+    
+    
+    p <- p + scale_colour_manual(values=rainbow(length(unique(BigData$acceleratorcoprocessor.g))))
+
+    #p <- p + scale_colour_manual(name='List',values=c("2015-06-01"="darkred","2014-11-01"="blue"))
+    #p <- p + scale_shape_manual(name='List',values=c("2015-06-01"=20,"2014-11-01"=1))
+    #p <- p + scale_size_manual(name='List',values=c("2015-06-01"=4,"2014-11-01"=4))
+
+    ## set plot theme
+    p <- p + theme(
+        axis.text=element_text(size=10, color="black"),
+        axis.title=element_text(size=10), 
+        plot.title = element_text(size=14, face="bold", vjust=2),
+        panel.background = element_rect(fill = 'grey65'),
+        axis.title.x = element_text(color="black", vjust=-0.45),
+        axis.title.y = element_text(color="black" , vjust=0.45),
+        panel.grid.major = element_line(colour = "grey65"),
+        panel.grid.minor = element_line(colour = "grey65"),
+        axis.text.x = element_text(angle = 45, hjust = 1)
+        )
+
+
+    ##Set plot dimensions and label axes
+    p <- p + coord_cartesian(xlim = c(.9, 5.1), ylim=c(7.5, 12.5)) 
+    p<-p+labs(x="Efficiency (MFlops/Watt)", y="Performance (Mflops)")
+
+    ## add axis scale labels and title
+    p <- p + scale_x_discrete(breaks = 1:5, labels=c("1e+01","1e+02","1e+03","1e+04","1e+05")) 
+    p <- p + scale_y_discrete(breaks = 8:12, labels=c("1e+08","1e+09","1e+10","1e+11","1e+12")) 
+    p <- p + ggtitle("June 2015 Exascalar")
+
+    ## annotate source
+
+    p <- p + annotate("text", x = 3.9, y= 7.6, label = "sources:~Top500.org~and~Green500.org", parse=TRUE, angle=0, size=2)
+
+    ## add Epsilon values for Exascalar
+    p <- p + annotate("text", x=4.64, y= 12.2, label = "epsilon == 0", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=3.44, y= 12.1, label = "epsilon == -1", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=2.08, y= 12, label = "epsilon == -2", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=1.30, y= 11.40, label = "epsilon == -3", parse=TRUE, angle= -45, size=3)
+    p <- p + annotate("text", x=1.18, y= 10.11, label = "epsilon == -4", parse=TRUE, angle= -45, size=3)
+
+    ## add Power annotation
+    p <- p + annotate("text", x=4.18, y= 11.70, label = "20 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 11.10, label = "2.0 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 10.10, label = "0.2 MWatt", parse=F, angle= 45, size=3)
+    p <- p + annotate("text", x=4.58, y= 9.10, label = "20 kWatt", parse=F, angle= 45, size=3)
+
+    ## Add POWER AND EXASCALAR Lines
+
+    ## define powerline function as a function of megawatts
+    isopowerline_ab <- function(megawatts)
+        {a<-log10(megawatts*10^6)  #*sqrt(2)
+        return(a)
+        }
+  
+    ## compute Exascale
+    LogExaPerf <- log10(10^12)              ##in Megaflops
+    LogExaEff  <- log10(10^12/(20*10^6))    ##in Megaflops/Watt
+    
+    LogExascale = LogExaPerf+LogExaEff
+    
+    ## define exascalar line function as a function of Exascalar value
+    
+    isoexaline_ab <- function(exascalar)
+        {
+        a <- LogExascale+exascalar*((sqrt(2)))
+        return(a)
+        }
+    
+    ## draw the power lines
+    for (i in -1:2){
+    p <- p + geom_abline(intercept=isopowerline_ab(2*10^-i), colour = "grey95", size = 0.5, alpha=0.5, linetype=2)
+    }
+    #print(p)
+    
+    ##draw the exascalar lines
+    for (i in 0:7) {
+        p <- p + geom_abline(intercept = isoexaline_ab(-i), slope=-1, colour = "grey95", size = 0.5, alpha=0.5, linetype=2)
+    }
+  
+    ## print the graph
+    print(p)
+
+```
