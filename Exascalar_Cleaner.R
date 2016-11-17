@@ -3,7 +3,7 @@
 ##  This program reads files in the Top500 and Green500 raw-data folders,  
 ## "cleans" the column names, combine them, and stores the output data in two forms:
 ##      MmmYy.csv is the cleaned data from that month/year
-##      MmmYy_merged.csv is a maerger of Top and Green 500 data. 
+##      MmmYy_merged.csv is a merger of Top and Green 500 data.
 ##          Found this necessary after finding some inconsistencies between lists.
 ##          Starts in Nov14
 ##      BigExascalar is a combined list of all cleaned data
@@ -41,6 +41,8 @@ results <- "./results"
 
 ## there are probably ways to simplify this code but this brute force method is easy to read.
 
+GreenJun15 <- read.csv(paste0(green500data, "/green500_top_201506.csv"), header=TRUE)
+GreenNov15 <- read.csv(paste0(green500data, "/green500_top_201506.csv"), header=TRUE)
 GreenJun15 <- read.csv(paste0(green500data, "/green500_top_201506.csv"), header=TRUE)
 GreenNov14 <- read.csv(paste0(green500data, "/green500_top_201411.csv"), header=TRUE)
 GreenJun14 <- read.csv(paste0(green500data, "/green500_top_201406.csv"), header=TRUE)
@@ -153,8 +155,113 @@ compute_exascalar <- function(xlist){
 ##exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, computer, 
 
 
+## JUN 16 CLEANING
+## ------------
+## modify labels reduce confusion on merge
+names(GreenJun16)<-cleanupnames(names(GreenJun16), label=".g")
+names(TopJun16)<-cleanupnames(names(TopJun16), label=".t")
+
+## merge megaset
+tt <- merge(GreenJun16, TopJun16, by="top500rank", all.x=TRUE)
+
+
+
+## Add Exascalar to data set
+
+
+## fix names
+tt$rmax<-tt$rmax.t
+tt$mflopswatt<-tt$mflopswatt.g
+
+##add exascalar result to data frame
+exascalar <- compute_exascalar(tt)
+tt <- cbind(exascalar, tt)
+##sort by exascalar
+tt <- tt[order(exascalar, decreasing=TRUE),]
+##renumber rows and assign rank
+ExaRank <- c(1:nrow(tt))
+tt<-cbind(ExaRank, tt)
+
+##define date vector
+date = rep(as.Date("07/01/2016", "%m/%d/%Y"), nrow(tt))
+##bind it to the data
+tt <- cbind(date,tt)
+
+Jun16_merged<-tt
+
+
+Jun16<-tt[, c("date", "ExaRank", "exascalar", "green500rank.g", "top500rank", "rmax", "power.g", "mflopswatt", "computer.g")]
+names(Jun16) <- names_clean_2(names(Jun16))
+
+
+## Put values in BigExascalar
+BigExascalar <- rbind(BigExascalar,Jun16)
+
+## final cleaned data
+## write file to results folder
+write.csv(Jun16, "./results/Jun15.csv")
+write.csv(Jun16_merged, "./results/Jun15_merged.csv")
+
+
+print("Jun16")
+print(dim(BigExascalar))
+
+
+## NOV 15 CLEANING
+## ------------
+## modify labels reduce confusion on merge
+names(GreenNov15)<-cleanupnames(names(GreenNov15), label=".g")
+names(TopNNov15)<-cleanupnames(names(TopNov15), label=".t")
+
+## merge megaset
+tt <- merge(GreenNov15, TopNov15, by="top500rank", all.x=TRUE)
+
+
+
+## Add Exascalar to data set
+
+
+## fix names
+tt$rmax<-tt$rmax.t
+tt$mflopswatt<-tt$mflopswatt.g
+
+##add exascalar result to data frame
+exascalar <- compute_exascalar(tt)
+tt <- cbind(exascalar, tt)
+##sort by exascalar
+tt <- tt[order(exascalar, decreasing=TRUE),]
+##renumber rows and assign rank
+ExaRank <- c(1:nrow(tt))
+tt<-cbind(ExaRank, tt)
+
+##define date vector
+date = rep(as.Date("11/01/2015", "%m/%d/%Y"), nrow(tt))
+##bind it to the data
+tt <- cbind(date,tt)
+
+Nov15_merged<-tt
+
+
+Nov15<-tt[, c("date", "ExaRank", "exascalar", "green500rank.g", "top500rank", "rmax", "power.g", "mflopswatt", "computer.g")]
+names(Nov15) <- names_clean_2(names(Nov15))
+
+
+## Put values in BigExascalar
+BigExascalar <- rbind(BigExascalar,Nov15)
+
+## final cleaned data
+## write file to results folder
+write.csv(Nov15, "./results/Jun15.csv")
+write.csv(Nov15_merged, "./results/Jun15_merged.csv")
+
+
+print("Nov15")
+print(dim(BigExascalar))
+
+
+
 ## JUN 15 CLEANING
-## ------------ 
+## ------------
     ## modify labels reduce confusion on merge
     names(GreenJun15)<-cleanupnames(names(GreenJun15), label=".g")
     names(TopJun15)<-cleanupnames(names(TopJun15), label=".t")
