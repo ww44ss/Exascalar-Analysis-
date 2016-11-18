@@ -23,6 +23,10 @@
 ## Assumes the wd is the Documents directory
 ## check for Exascalar Directory. If none exists stop program with error
 
+library(dplyr)
+library(tidyverse)
+
+
 ## set working directory
 
 ##check for Exascalar Directory. If none exists create it
@@ -56,10 +60,11 @@ GreenNov10 <- read.csv(paste0(green500data, "/green500_top_201011.csv"), header=
 GreenJun10 <- read.csv(paste0(green500data, "/green500_top_201006.csv"), header=TRUE)
 GreenNov09 <- read.csv(paste0(green500data, "/green500_top_200911.csv"), header=TRUE)
 GreenJun09 <- read.csv(paste0(green500data, "/green500_top_200906.csv"), header=TRUE)
-GreenNov08 <- read.csv(paste0(green500data, "/green500_top_200811.csv"), header=TRUE)
-GreenJun08 <- read.csv(paste0(green500data, "/green500_top_200806.csv"), header=TRUE)
+#GreenNov08 <- read.csv(paste0(green500data, "/green500_top_200811.csv"), header=TRUE)
+#GreenJun08 <- read.csv(paste0(green500data, "/green500_top_200806.csv"), header=TRUE)
 
 
+TopNov16 <- read.csv(paste0(top500data, "/TOP500_201611.csv"), header=TRUE)
 TopJun16 <- read.csv(paste0(top500data, "/TOP500_201606.csv"), header=TRUE)
 TopNov15 <- read.csv(paste0(top500data, "/TOP500_201511.csv"), header=TRUE)
 TopJun15 <- read.csv(paste0(top500data, "/TOP500_201506.csv"), header=TRUE)
@@ -155,6 +160,62 @@ compute_exascalar <- function(xlist){
 ## each set requires a certain amount of hand crafting (especially earlier years)
 ##here is current data in the outpur files
 ##exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, computer,
+
+## NOV 16 CLEANING
+## ------------
+## modify labels reduce confusion on merge
+##
+## Starting in Nov16 the Top500 list has the data for the Green500
+##
+names(TopNov16)<-cleanupnames(names(TopNov16), label=".t")
+
+## merge megaset
+tt <- TopNov16
+
+
+
+## Add Exascalar to data set
+
+
+## fix names
+tt$rmax<-tt$rmax.t
+tt$mflopswatt<-tt$mflopswatt.t
+
+##add exascalar result to data frame
+exascalar <- compute_exascalar(tt)
+tt <- cbind(exascalar, tt)
+##sort by exascalar
+tt <- tt[order(exascalar, decreasing=TRUE),]
+##renumber rows and assign rank
+ExaRank <- c(1:nrow(tt))
+tt<-cbind(ExaRank, tt)
+
+##define date vector
+date = rep(as.Date("07/01/2016", "%m/%d/%Y"), nrow(tt))
+##bind it to the data
+tt <- cbind(date,tt)
+
+Jun16_merged<-tt
+
+
+Jun16<-tt[, c("date", "ExaRank", "exascalar", "green500rank.g", "top500rank", "rmax", "power.g", "mflopswatt", "computer.g")]
+names(Jun16) <- names_clean_2(names(Jun16))
+
+
+## Put values in BigExascalar
+BigExascalar <- rbind(BigExascalar,Jun16)
+
+## final cleaned data
+## write file to results folder
+write.csv(Jun16, "./results/Jun15.csv")
+write.csv(Jun16_merged, "./results/Jun15_merged.csv")
+
+
+print("Jun16")
+print(dim(BigExascalar))
+
+
+
 
 
 ## JUN 16 CLEANING
@@ -889,13 +950,38 @@ print("Nov09")
         names(GreenJun09)<-cleanupnames(names(GreenJun09), label=".g")
         names(TopJun09)<-cleanupnames(names(TopJun09), label=".t")
 
+        Green <- GreenJun09
+        Top <- TopJun09
+
+        Green <- Green %>% rename(top500rank = TOP500_Rank,
+                                  green500rank = Green500_Rank,
+                                  power = Power_.kw.,
+                                  mflopswatt = Mflops_per_Watt )
+        Top <- Top %>% rename(top500rank = Rank,
+                              rmax = RMax,
+                              procfrequency = Proc..Frequency,
+                              cores = Cores,
+                              computer = Computer,
+                              )
+
+
         ##exascalarrank, exascalar, green500rank, top500rank, rmax, power, megaflopswatt, computer,
 
         ## merge megaset
         tt <- merge(GreenJun09, TopJun09, by="top500rank", all.x=TRUE)
 
+        Top <- TopJun09
+        Green <- GreenJun09
+        top <- Green %>% left_join(Top, by="top500rank")
+
         ## select relevant columns  (these are hand crafted per list)
         Jun09 <- cbind(tt[,c(2, 1, 16, 8, 7, 5)])
+
+        Jun09 <- top %>% mutate(date = rep(as.Date("06/01/2009", "%m/%d/%Y"), nrow(top)),
+                                green500rank = green500rank.g
+
+
+                                )
 
         ##names cleanup
         names(Jun09) <- names_clean_2(names(Jun09))
@@ -915,6 +1001,8 @@ print("Nov09")
         Jun09<-cbind(ExaRank, Jun09)
 
         ##define date vector
+        date = rep(as.Date("06/01/2009", "%m/%d/%Y"), nrow(Jun09))
+        cores = rep(NA, nrow(tt))
         date = rep(as.Date("06/01/2009", "%m/%d/%Y"), nrow(Jun09))
         ##bind it to the data
         Jun09 <- cbind(date,Jun09)
