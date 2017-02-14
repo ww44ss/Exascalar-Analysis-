@@ -107,7 +107,7 @@
         date.x <- str_c(y, m, "01", sep = "-")
 
         ## assign date column
-        temp.x$date <- date.x
+        temp.x$list.date <- date.x
 
         ## build tibble
         if(first.pass.flag != TRUE) {
@@ -177,7 +177,7 @@
     ## cache the value
     BigExascalar.hold <- BigExascalar
 
-## GREEN500
+## STEP 4: CLEAN AND COMBINE GREEN500 DATA
 
 
     list.names <- list.files(green500data) %>% subset(grepl("(.*).csv$",.)) #%>% tibble("files" = .)
@@ -190,7 +190,7 @@
 
     for (list.x in list.names) {
 
-        cat(c("\n", list.x, "<<======\n"))
+        #cat(c("\n", list.x, "<<======\n"))
 
         temp.x <- suppressMessages(read_csv(str_c(green500data,"/", list.x)))
 
@@ -224,11 +224,11 @@
         date <- str_c(y, m, "01", sep = "-")
 
         ## create date column
-        temp.x$date <- date
+        temp.x$list.date <- date
 
         ## restrict data form green500
         temp.x <- temp.x %>%
-            select(green500rank, power, top500rank, date) %>%
+            select(green500rank, power, top500rank, list.date) %>%
             rename(green500power = power, rank = top500rank) %>%
             ruhroh
 
@@ -267,13 +267,13 @@
     }
 
 
-## COMBINE Top500 and Green500
+## STEP 5: COMBINE Top500 and Green500
 
     BigExascalar <-
-        BigExascalar.hold %>% left_join(BigExascalar, by = c("date", "rank"))
+        BigExascalar.hold %>% left_join(BigExascalar, by = c("list.date", "rank"))
 
 
-## COMPUTE EXASCALAR
+## STEP 6: COMPUTE EXASCALAR
 
     ## Define Exascalar in terms of 10^18 flops and 20 MegaWatts
     ExaPerf <- 10^12           ##in Megaflops
@@ -285,9 +285,9 @@
         as_data_frame %>%
         yo
 
+## STEP 7: SAVE DATA
 
-
-        write(BigExascalar, "./results/BigExascalar.csv")
+        write_csv(BigExascalar, "./results/BigExascalar.csv")
 
 
 
